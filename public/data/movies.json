@@ -1,0 +1,511 @@
+{
+  "nowShowing": [
+    {
+      "id": 1,
+      "title": "The Last Horizon",
+      "releaseDate": "2025-10-01",
+      "genre": "Action",
+      "posterUrl": "/images/now1.jpg",
+      "rating": 8.2,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer1"
+    },
+    {
+      "id": 2,
+      "title": "Silent Whisper",
+      "releaseDate": "2025-10-03",
+      "genre": "Drama",
+      "posterUrl": "/images/now2.jpg",
+      "rating": 7.6,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer2"
+    },
+    {
+      "id": 3,
+      "title": "Laughing Shadows",
+      "releaseDate": "2025-10-05",
+      "genre": "Comedy",
+      "posterUrl": "/images/now3.jpg",
+      "rating": 7.9,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer3"
+    },
+    {
+      "id": 4,
+      "title": "Galactic Wars",
+      "releaseDate": "2025-10-07",
+      "genre": "Sci-Fi",
+      "posterUrl": "/images/now4.jpg",
+      "rating": 8.5,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer4"
+    },
+    {
+      "id": 5,
+      "title": "Haunted Manor",
+      "releaseDate": "2025-10-09",
+      "genre": "Horror",
+      "posterUrl": "/images/now5.jpg",
+      "rating": 6.9,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer5"
+    },
+    {
+      "id": 6,
+      "title": "Crimson Tide",
+      "releaseDate": "2025-10-11",
+      "genre": "Action",
+      "posterUrl": "/images/now6.jpg",
+      "rating": 7.8,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer6"
+    },
+    {
+      "id": 7,
+      "title": "Forgotten Memories",
+      "releaseDate": "2025-10-13",
+      "genre": "Drama",
+      "posterUrl": "/images/now7.jpg",
+      "rating": 8.0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer7"
+    },
+    {
+      "id": 8,
+      "title": "Funny Business",
+      "releaseDate": "2025-10-15",
+      "genre": "Comedy",
+      "posterUrl": "/images/now8.jpg",
+      "rating": 7.3,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer8"
+    },
+    {
+      "id": 9,
+      "title": "Starlight Journey",
+      "releaseDate": "2025-10-17",
+      "genre": "Sci-Fi",
+      "posterUrl": "/images/now9.jpg",
+      "rating": 8.1,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer9"
+    },
+    {
+      "id": 10,
+      "title": "Dark Woods",
+      "releaseDate": "2025-10-19",
+      "genre": "Horror",
+      "posterUrl": "/images/now10.jpg",
+      "rating": 7.0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer10"
+    },
+    {
+      "id": 11,
+      "title": "Thunder Strike",
+      "releaseDate": "2025-10-21",
+      "genre": "Action",
+      "posterUrl": "/images/now11.jpg",
+      "rating": 7.9,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer11"
+    },
+    {
+      "id": 12,
+      "title": "Hidden Truths",
+      "releaseDate": "2025-10-23",
+      "genre": "Drama",
+      "posterUrl": "/images/now12.jpg",
+      "rating": 8.3,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer12"
+    },
+    {
+      "id": 13,
+      "title": "Crazy Nights",
+      "releaseDate": "2025-10-25",
+      "genre": "Comedy",
+      "posterUrl": "/images/now13.jpg",
+      "rating": 7.7,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer13"
+    },
+    {
+      "id": 14,
+      "title": "Planet X",
+      "releaseDate": "2025-10-27",
+      "genre": "Sci-Fi",
+      "posterUrl": "/images/now14.jpg",
+      "rating": 8.4,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer14"
+    },
+    {
+      "id": 15,
+      "title": "Nightmare Alley",
+      "releaseDate": "2025-10-29",
+      "genre": "Horror",
+      "posterUrl": "/images/now15.jpg",
+      "rating": 7.2,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer15"
+    },
+    {
+      "id": 16,
+      "title": "Rapid Fire",
+      "releaseDate": "2025-11-01",
+      "genre": "Action",
+      "posterUrl": "/images/now16.jpg",
+      "rating": 7.6,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer16"
+    },
+    {
+      "id": 17,
+      "title": "Broken Vows",
+      "releaseDate": "2025-11-03",
+      "genre": "Drama",
+      "posterUrl": "/images/now17.jpg",
+      "rating": 8.1,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer17"
+    },
+    {
+      "id": 18,
+      "title": "Laugh Till Dawn",
+      "releaseDate": "2025-11-05",
+      "genre": "Comedy",
+      "posterUrl": "/images/now18.jpg",
+      "rating": 7.5,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer18"
+    },
+    {
+      "id": 19,
+      "title": "Cosmic Battle",
+      "releaseDate": "2025-11-07",
+      "genre": "Sci-Fi",
+      "posterUrl": "/images/now19.jpg",
+      "rating": 8.6,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer19"
+    },
+    {
+      "id": 20,
+      "title": "The Witching Hour",
+      "releaseDate": "2025-11-09",
+      "genre": "Horror",
+      "posterUrl": "/images/now20.jpg",
+      "rating": 7.1,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer20"
+    },
+    {
+      "id": 21,
+      "title": "Fury Road",
+      "releaseDate": "2025-11-11",
+      "genre": "Action",
+      "posterUrl": "/images/now21.jpg",
+      "rating": 8.0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer21"
+    },
+    {
+      "id": 22,
+      "title": "Shattered Dreams",
+      "releaseDate": "2025-11-13",
+      "genre": "Drama",
+      "posterUrl": "/images/now22.jpg",
+      "rating": 8.2,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer22"
+    },
+    {
+      "id": 23,
+      "title": "Comic Relief",
+      "releaseDate": "2025-11-15",
+      "genre": "Comedy",
+      "posterUrl": "/images/now23.jpg",
+      "rating": 7.8,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer23"
+    },
+    {
+      "id": 24,
+      "title": "Star Voyager",
+      "releaseDate": "2025-11-17",
+      "genre": "Sci-Fi",
+      "posterUrl": "/images/now24.jpg",
+      "rating": 8.3,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer24"
+    },
+    {
+      "id": 25,
+      "title": "Blood Moon",
+      "releaseDate": "2025-11-19",
+      "genre": "Horror",
+      "posterUrl": "/images/now25.jpg",
+      "rating": 7.0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer25"
+    },
+    {
+      "id": 26,
+      "title": "Velocity",
+      "releaseDate": "2025-11-21",
+      "genre": "Action",
+      "posterUrl": "/images/now26.jpg",
+      "rating": 7.7,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer26"
+    },
+    {
+      "id": 27,
+      "title": "Torn Apart",
+      "releaseDate": "2025-11-23",
+      "genre": "Drama",
+      "posterUrl": "/images/now27.jpg",
+      "rating": 8.4,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer27"
+    },
+    {
+      "id": 28,
+      "title": "The Pranksters",
+      "releaseDate": "2025-11-25",
+      "genre": "Comedy",
+      "posterUrl": "/images/now28.jpg",
+      "rating": 7.6,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer28"
+    },
+    {
+      "id": 29,
+      "title": "Quantum Realm",
+      "releaseDate": "2025-11-27",
+      "genre": "Sci-Fi",
+      "posterUrl": "/images/now29.jpg",
+      "rating": 8.7,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer29"
+    },
+    {
+      "id": 30,
+      "title": "Shadow Peak",
+      "releaseDate": "2025-11-29",
+      "genre": "Horror",
+      "posterUrl": "/images/now30.jpg",
+      "rating": 7.2,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer30"
+    }
+  ],
+
+  "comingSoon": [
+    {
+      "id": 101,
+      "title": "Future Quest",
+      "releaseDate": "2025-12-01",
+      "genre": "Action",
+      "posterUrl": "/images/soon1.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer101"
+    },
+    {
+      "id": 102,
+      "title": "Love in Winter",
+      "releaseDate": "2025-12-03",
+      "genre": "Romance",
+      "posterUrl": "/images/soon2.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer102"
+    },
+    {
+      "id": 103,
+      "title": "Cyber Shadows",
+      "releaseDate": "2025-12-05",
+      "genre": "Sci-Fi",
+      "posterUrl": "/images/soon3.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer103"
+    },
+    {
+      "id": 104,
+      "title": "Mystic River",
+      "releaseDate": "2025-12-07",
+      "genre": "Drama",
+      "posterUrl": "/images/soon4.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer104"
+    },
+    {
+      "id": 105,
+      "title": "Laugh Riot",
+      "releaseDate": "2025-12-09",
+      "genre": "Comedy",
+      "posterUrl": "/images/soon5.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer105"
+    },
+    {
+      "id": 106,
+      "title": "Shadow Hunters",
+      "releaseDate": "2025-12-11",
+      "genre": "Action",
+      "posterUrl": "/images/soon6.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer106"
+    },
+    {
+      "id": 107,
+      "title": "Winter Solace",
+      "releaseDate": "2025-12-13",
+      "genre": "Romance",
+      "posterUrl": "/images/soon7.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer107"
+    },
+    {
+      "id": 108,
+      "title": "Neon City",
+      "releaseDate": "2025-12-15",
+      "genre": "Sci-Fi",
+      "posterUrl": "/images/soon8.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer108"
+    },
+    {
+      "id": 109,
+      "title": "Hidden Lies",
+      "releaseDate": "2025-12-17",
+      "genre": "Drama",
+      "posterUrl": "/images/soon9.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer109"
+    },
+    {
+      "id": 110,
+      "title": "Comedy Nights",
+      "releaseDate": "2025-12-19",
+      "genre": "Comedy",
+      "posterUrl": "/images/soon10.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer110"
+    },
+    {
+      "id": 111,
+      "title": "Alien Frontier",
+      "releaseDate": "2025-12-21",
+      "genre": "Sci-Fi",
+      "posterUrl": "/images/soon11.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer111"
+    },
+    {
+      "id": 112,
+      "title": "Haunted Souls",
+      "releaseDate": "2025-12-23",
+      "genre": "Horror",
+      "posterUrl": "/images/soon12.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer112"
+    },
+    {
+      "id": 113,
+      "title": "Rising Sun",
+      "releaseDate": "2025-12-25",
+      "genre": "Action",
+      "posterUrl": "/images/soon13.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer113"
+    },
+    {
+      "id": 114,
+      "title": "Silent Tears",
+      "releaseDate": "2025-12-27",
+      "genre": "Drama",
+      "posterUrl": "/images/soon14.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer114"
+    },
+    {
+      "id": 115,
+      "title": "Joke Factory",
+      "releaseDate": "2025-12-29",
+      "genre": "Comedy",
+      "posterUrl": "/images/soon15.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer115"
+    },
+    {
+      "id": 116,
+      "title": "Star Crusaders",
+      "releaseDate": "2026-01-01",
+      "genre": "Sci-Fi",
+      "posterUrl": "/images/soon16.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer116"
+    },
+    {
+      "id": 117,
+      "title": "Phantom Night",
+      "releaseDate": "2026-01-03",
+      "genre": "Horror",
+      "posterUrl": "/images/soon17.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer117"
+    },
+    {
+      "id": 118,
+      "title": "Blaze of Glory",
+      "releaseDate": "2026-01-05",
+      "genre": "Action",
+      "posterUrl": "/images/soon18.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer118"
+    },
+    {
+      "id": 119,
+      "title": "Heartstrings",
+      "releaseDate": "2026-01-07",
+      "genre": "Romance",
+      "posterUrl": "/images/soon19.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer119"
+    },
+    {
+      "id": 120,
+      "title": "Virtual Wars",
+      "releaseDate": "2026-01-09",
+      "genre": "Sci-Fi",
+      "posterUrl": "/images/soon20.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer120"
+    },
+    {
+      "id": 121,
+      "title": "Cursed Village",
+      "releaseDate": "2026-01-11",
+      "genre": "Horror",
+      "posterUrl": "/images/soon21.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer121"
+    },
+    {
+      "id": 122,
+      "title": "Rapid Justice",
+      "releaseDate": "2026-01-13",
+      "genre": "Action",
+      "posterUrl": "/images/soon22.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer122"
+    },
+    {
+      "id": 123,
+      "title": "Tears of Time",
+      "releaseDate": "2026-01-15",
+      "genre": "Drama",
+      "posterUrl": "/images/soon23.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer123"
+    },
+    {
+      "id": 124,
+      "title": "Laugh Out Loud",
+      "releaseDate": "2026-01-17",
+      "genre": "Comedy",
+      "posterUrl": "/images/soon24.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer124"
+    },
+    {
+      "id": 125,
+      "title": "Galaxy Rangers",
+      "releaseDate": "2026-01-19",
+      "genre": "Sci-Fi",
+      "posterUrl": "/images/soon25.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer125"
+    },
+    {
+      "id": 126,
+      "title": "Night Stalker",
+      "releaseDate": "2026-01-21",
+      "genre": "Horror",
+      "posterUrl": "/images/soon26.jpg",
+      "rating": 0,
+      "trailerUrl": "https://www.youtube.com/watch?v=trailer126"
+    }
+  ]
+}
