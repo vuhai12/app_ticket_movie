@@ -1,5 +1,5 @@
-import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import MovieDetail from "@pages/MovieDetail";
 import ShowTimeListMovies from "@pages/ShowTimeListMovies";
@@ -17,24 +17,10 @@ import { Toaster } from "react-hot-toast";
 
 import AdminUser from "@pages/AdminUser";
 import AdminDashboard from "@pages/AdminDashboard";
+import PublicRoute from "@routes/PublicRoute";
+import PrivateRoutes from "@routes/PrivateRoutes";
 
 function App() {
-  // useEffect(() => {
-  //   const { data: listener } = supabase.auth.onAuthStateChange(
-  //     (_event, session) => {
-  //       if (!session) {
-  //         // Refresh token hết hạn → logout
-  //         localStorage.clear();
-  //         navigate("/login");
-  //       }
-  //     }
-  //   );
-
-  //   // cleanup khi component unmount
-  //   return () => {
-  //     listener.subscription.unsubscribe();
-  //   };
-  // }, [navigate]);
   return (
     <>
       <Toaster position="top-right" />
@@ -45,17 +31,17 @@ function App() {
         <Route
           path="/booking-movie"
           element={
-            // <PrivateRoutes>
-            <BookingMovie />
-            // </PrivateRoutes>
+            <PrivateRoutes>
+              <BookingMovie />
+            </PrivateRoutes>
           }
         />
         <Route
           path="/payment"
           element={
-            // <PrivateRoutes>
-            <Payment />
-            // </PrivateRoutes>
+            <PrivateRoutes>
+              <Payment />
+            </PrivateRoutes>
           }
         />
         <Route path="/movie-list" element={<MovieList />} />
@@ -66,17 +52,17 @@ function App() {
         <Route
           path="/login"
           element={
-            // <PublicRoute>
-            <Login />
-            // </PublicRoute>
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
           }
         />
         <Route
           path="/register"
           element={
-            // <PublicRoute>
-            <Register />
-            // </PublicRoute>
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
           }
         />
         <Route

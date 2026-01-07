@@ -93,8 +93,7 @@ const Section1 = () => {
               <div className="md:h-[300px] h-[500px] relative gap-[10px] rounded-[10px] flex flex-col group">
                 <div
                   onClick={() => handleShowTrailerMovie(item.id)}
-                  className="bg-green-800
-                         cursor-pointer relative h-full w-full rounded-[10px] group-hover:flex-1 overflow-hidden "
+                  className="cursor-pointer relative h-full w-full rounded-[10px] group-hover:flex-1 overflow-hidden "
                 >
                   <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out" />
                   <img
