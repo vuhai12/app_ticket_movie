@@ -23,6 +23,19 @@ const Login = () => {
 
   type LoginFormData = z.infer<typeof loginSchema>;
 
+  const ham = (number: number) => {
+    if (number % 2 != 0) return;
+    let str = "";
+    let flag = 1;
+    for (let i = 2; i <= number; i + 2) {
+      str += i * flag;
+      flag = flag * -1;
+    }
+    console.log("str", str);
+  };
+
+  ham(8);
+
   const {
     register,
     handleSubmit,
