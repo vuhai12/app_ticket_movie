@@ -51,6 +51,7 @@ const TicketSummary = ({
   const { data } = useAppSelector((state) => state.tickets);
 
   const user_id = localStorage.getItem("idUser");
+  const user = localStorage.getItem("user");
   const navigate = useNavigate();
   const onSubmit = async (formPurchaseSchema: FormPurchaseSchema) => {
     try {
@@ -60,7 +61,7 @@ const TicketSummary = ({
         quantity &&
         seat &&
         totalAmount &&
-        user_id &&
+        (user_id || user) &&
         selectMovie
       ) {
         dispatch(

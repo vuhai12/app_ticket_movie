@@ -45,7 +45,7 @@ const Login = () => {
     try {
       const data = await loginServices(formData);
       dispatch(fetchUsers({ type: "admin", auth_id: data.id }));
-      navigate("/");
+      navigate("/booking-movie");
     } catch (error) {}
   };
 
