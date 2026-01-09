@@ -23,18 +23,16 @@ const Login = () => {
 
   type LoginFormData = z.infer<typeof loginSchema>;
 
-  const ham = (number: number) => {
-    if (number % 2 != 0) return;
-    let str = "";
-    let flag = 1;
-    for (let i = 2; i <= number; i + 2) {
-      str += i * flag;
-      flag = flag * -1;
-    }
-    console.log("str", str);
-  };
+  const { data } = useAppSelector((state) => state.users);
 
-  ham(8);
+  useEffect(() => {
+    if (data && data.length > 0) {
+      localStorage.setItem("idUser", data[0].id);
+      localStorage.setItem("access_token", `123`);
+
+      navigate("/booking-movie");
+    }
+  }, [data]);
 
   const {
     register,
@@ -51,20 +49,9 @@ const Login = () => {
     } catch (error) {}
   };
 
-  const { data } = useAppSelector((state) => state.users);
-
   const handleGuestLogin = () => {
     dispatch(fetchUsers({ type: "guest", auth_id: null }));
   };
-
-  useEffect(() => {
-    if (data && data.length > 0) {
-      localStorage.setItem("idUser", data[0].id);
-      localStorage.setItem("access_token", `123`);
-
-      navigate("/booking-movie");
-    }
-  }, [data]);
 
   return (
     <MainLayout>
