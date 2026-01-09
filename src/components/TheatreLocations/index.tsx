@@ -42,14 +42,14 @@ const TheatreLocations = ({
     }
   };
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-[999]">
+    <div className="fixed inset-0 flex items-center justify-center z-[999] mx-[10px]">
       <div
         className="absolute inset-0 bg-black bg-opacity-50"
         onClick={handlePopupTheatreLocations}
       ></div>
 
-      <div className="flex flex-col gap-[30px] absolute z-[99] bg-white rounded-[10px] p-[50px] w-[600px] h-[500px]">
-        <div className="absolute top-[30px] right-[50px]">
+      <div className="flex flex-col gap-[30px] absolute z-[99] bg-white rounded-[10px] p-[20px] sm:p-[50px]  w-full sm:w-[600px] h-[500px]">
+        <div className="absolute sm:top-[30px] sm:right-[50px] top-[10px] right-[10px]">
           <X onClick={handlePopupTheatreLocations} className="cursor-pointer" />
         </div>
         <h3 className="text-[23px] text-black font-semibold text-center">
