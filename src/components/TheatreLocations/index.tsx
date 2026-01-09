@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { FaMapMarkerAlt } from "react-icons/fa"; // Font Awesome
+import { FaMapMarkerAlt } from "react-icons/fa";
 import { X } from "lucide-react";
 import classNames from "classnames";
 import { fetchCinemas } from "store/slices/cinemaSlice";
