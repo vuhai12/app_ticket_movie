@@ -47,7 +47,7 @@ const NewItem = () => {
                     <input
                       type="text"
                       placeholder="Name"
-                      className="px-[20px] py-[10px] rounded-[5px] text-black bg-[#230c34] border-[1px] border-[#1f2932]"
+                      className="px-[20px] py-[10px] rounded-[5px] text-white bg-[#230c34] border-[1px] border-[#1f2932]"
                     />
                   </div>
                   <div className="flex flex-col flex-1 gap-[10px]">
@@ -55,13 +55,13 @@ const NewItem = () => {
                     <input
                       type="text"
                       placeholder="email"
-                      className="px-[20px] py-[10px] rounded-[5px] text-black bg-[#230c34] border-[1px] border-[#1f2932]"
+                      className="px-[20px] py-[10px] rounded-[5px] text-white bg-[#230c34] border-[1px] border-[#1f2932]"
                     />
                   </div>
                 </div>
                 <div className="flex flex-col  gap-[10px]">
                   <label>Write a Message :</label>
-                  <textarea className="text-black bg-[#230c34] rounded-[5px] px-[20px] py-[10px] h-[200px] border-[1px] border-[#1f2932]"></textarea>
+                  <textarea className="text-white bg-[#230c34] rounded-[5px] px-[20px] py-[10px] h-[200px] border-[1px] border-[#1f2932]"></textarea>
                 </div>
                 <button className="px-[20px] py-[10px] bg-[#5f1a89] w-fit rounded-[10px] text-white">
                   Submit

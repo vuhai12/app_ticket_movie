@@ -88,6 +88,7 @@ const ShowTimeListMovies = () => {
           {dateInfo.map((item) => {
             return (
               <div
+                key={item.id}
                 className="flex cursor-pointer gap-[10px] items-center py-[10px] flex-col relative"
                 onClick={() => handleChangeDay(item.weekday)}
               >

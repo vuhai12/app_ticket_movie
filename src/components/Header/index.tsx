@@ -56,7 +56,7 @@ const Header = () => {
             <ul className="flex gap-[50px] cursor-pointer md:gap-[30px] justify-start text-[#E3E3E3] text-[16px] leading-6 tracking-[-1px]">
               {menuItems.map((item) => {
                 return (
-                  <li className="relative">
+                  <li className="relative" key={item.id}>
                     <NavLink to={item.path} key={item.id}>
                       {({ isActive }) => {
                         return (

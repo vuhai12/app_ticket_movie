@@ -90,7 +90,10 @@ const Section1 = () => {
         <div className="md:grid-cols-4 lg:grid-cols-5 grid-cols-1 sm:grid-cols-2 grid md:grid-rows-2 text-white gap-[30px] py-[40px]">
           {data.dataMovies.map((item, _) => {
             return (
-              <div className="md:h-[300px] h-[500px] relative gap-[10px] rounded-[10px] flex flex-col group">
+              <div
+                key={item.id}
+                className="md:h-[300px] h-[500px] relative gap-[10px] rounded-[10px] flex flex-col group"
+              >
                 <div
                   onClick={() => handleShowTrailerMovie(item.id)}
                   className="cursor-pointer relative h-full w-full rounded-[10px] group-hover:flex-1 overflow-hidden "

@@ -151,6 +151,7 @@ const Section3 = () => {
                 data.map((item, index: number) => {
                   return (
                     <div
+                      key={index}
                       style={{ backgroundImage: `url(${item.poster_url})` }}
                       className={classNames(
                         `bg-no-repeat rounded-[10px] group relative h-[300px] sm:h-[auto] bg-center bg-cover flex flex-col justify-end  p-[20px]`,
@@ -222,6 +223,7 @@ const Section3 = () => {
                 {ratingData.map((item, _) => {
                   return (
                     <label
+                      key={item.id}
                       className={`${
                         active == item.id && "bg-[#451662]"
                       } grid grid-cols-[auto_1fr_2fr_1fr] gap-[10px] p-[10px] items-center cursor-pointer rounded-[10px]`}
@@ -317,30 +319,28 @@ const Section3 = () => {
               <div className="flex flex-col gap-[10px]">
                 {voteMovieData.map((item, _) => {
                   return (
-                    <>
-                      <label className="cursor-pointer">
-                        <div className="grid grid-cols-[1fr_5fr]">
-                          <input
-                            type="checkbox"
-                            className="hidden"
-                            checked={checked.includes(item.movie_id)}
-                            onChange={() => handleCheckedVote(item.movie_id)}
-                          />
-                          <div
-                            className={` ${
-                              checked.includes(item.movie_id) && "bg-[#451662]"
-                            }  rounded-[5px] flex-1 relative w-[20px] flex flex-wrap justify-center items-center h-[20px] border-white border-[2px]`}
-                          >
-                            {checked.includes(item.movie_id) && (
-                              <CheckIcon className="w-full h-full text-white" />
-                            )}
-                          </div>
-                          <p className="text-white flex-8 text-[12px] break-all ">
-                            {item.lable}
-                          </p>
+                    <label key={item.movie_id} className="cursor-pointer">
+                      <div className="grid grid-cols-[1fr_5fr]">
+                        <input
+                          type="checkbox"
+                          className="hidden"
+                          checked={checked.includes(item.movie_id)}
+                          onChange={() => handleCheckedVote(item.movie_id)}
+                        />
+                        <div
+                          className={` ${
+                            checked.includes(item.movie_id) && "bg-[#451662]"
+                          }  rounded-[5px] flex-1 relative w-[20px] flex flex-wrap justify-center items-center h-[20px] border-white border-[2px]`}
+                        >
+                          {checked.includes(item.movie_id) && (
+                            <CheckIcon className="w-full h-full text-white" />
+                          )}
                         </div>
-                      </label>
-                    </>
+                        <p className="text-white flex-8 text-[12px] break-all ">
+                          {item.lable}
+                        </p>
+                      </div>
+                    </label>
                   );
                 })}
               </div>

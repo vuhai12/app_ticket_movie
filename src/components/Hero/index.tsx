@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import bgSlide1 from "../../assets/Hero/bg-image1.svg";
 import bgSlide2 from "../../assets/Hero/bg-image2.jpg";
 import bgSlide3 from "../../assets/Hero/bg-image3.jpg";
@@ -74,7 +74,6 @@ const Hero = () => {
 
   return (
     <div
-      // className="min-h-[200px] py-[100px] md:min-h-[450px] xl:min-h-[500px] relative overflow-x-hidden text-white"
       className="min-h-[200px] xl:min-h-[500px] md:min-h-[450px] relative overflow-x-hidden text-white"
       style={{
         width: `${contentWidth}px`,
@@ -83,9 +82,8 @@ const Hero = () => {
     >
       {dataSlide.map((item, index) => {
         return (
-          <>
+          <Fragment key={item.id}>
             <div
-              key={index}
               style={{
                 left: `${(index - current) * 100}%`,
               }}
@@ -124,6 +122,7 @@ const Hero = () => {
                   {dataSlide.map((_, index) => {
                     return (
                       <p
+                        key={index}
                         onClick={() => handleChangeSlide(index)}
                         className={`${
                           current == index
@@ -142,7 +141,7 @@ const Hero = () => {
                 url_trailer={item.url_trailer}
               />
             )}
-          </>
+          </Fragment>
         );
       })}
     </div>
