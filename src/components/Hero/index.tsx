@@ -52,7 +52,7 @@ const Hero = () => {
       window.innerWidth - document.documentElement.clientWidth;
     document.documentElement.style.setProperty(
       "--scrollbar-width",
-      `${scrollbarWidth}px`
+      `${scrollbarWidth}px`,
     );
   }, []);
 
@@ -89,7 +89,7 @@ const Hero = () => {
               }}
               className="absolute left-0 top-0 h-full w-full "
             >
-              <div className="text-white  relative xl:max-w-[1200px] mx-auto lg:px-[100px] md:px-[50px] px-[10px] xl:px-0 top-[20%] z-[99] flex gap-[10px] md:gap-[25px] flex-col">
+              <div className="text-white  relative max-w-[900px] mx-auto   px-4 top-[20%] z-[99] flex gap-[10px] md:gap-[25px] flex-col">
                 <h3 className="lg:text-[40px] text-[14px] font-bold line-clamp-1">
                   {item.title}
                 </h3>

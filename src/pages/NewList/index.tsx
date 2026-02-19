@@ -62,7 +62,7 @@ const NewList = () => {
   const navigate = useNavigate();
   return (
     <MainLayout>
-      <div className="flex gap-[30px] text-white mt-[50px] lg:flex-row flex-col">
+      <div className="flex gap-[30px] text-white mt-[50px] lg:flex-row flex-col max-w-[900px] px-4 mx-auto">
         <div className="flex-[3] flex flex-col gap-[30px]">
           <div className=" flex gap-[10px] flex-col">
             <div className="flex flex-col gap-[20px]">

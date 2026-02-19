@@ -15,7 +15,7 @@ const TicketPrice = () => {
   return (
     <MainLayout>
       <div
-        className=" text-white bg-no-repeat  bg-center"
+        className=" text-white bg-no-repeat  bg-center max-w-[900px] px-4 mx-auto"
         style={{
           backgroundImage: `url(${bgImage})`,
           width: `${clientWidth}px`,

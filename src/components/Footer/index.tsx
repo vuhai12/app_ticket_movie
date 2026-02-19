@@ -6,72 +6,99 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <>
-      <div className="md:grid-cols-[2]  grid-cols-1 grid lg:grid-cols-[1fr_1fr_1fr_1fr_1fr] gap-[30px] py-[40px]">
-        <div className="flex flex-col gap-[10px]">
-          <div className="h-[30px]  flex justify-start">
-            <img className="" src={logo} />
-          </div>
-          <div className="flex flex-col gap-[10px] text-white">
-            <h5 className="text-[14px] font-semibold">Show Motion Limited</h5>
-            <p className="text-[14px]">
-              Level 8, Bashundhara City13/3 Ka, Panthapath, TejgaonDhaka 1215,
+    <footer className="bg-[#12071A] text-white">
+      <div className="max-w-[900px] mx-auto px-4 py-12">
+        {/* GRID */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
+          {/* Logo + Info */}
+          <div className="flex flex-col gap-4">
+            <img src={logo} className="h-8 w-fit" alt="logo" />
+
+            <h5 className="text-sm font-semibold">Show Motion Limited</h5>
+
+            <p className="text-sm text-gray-300 leading-relaxed">
+              Level 8, Bashundhara City 13/3 Ka, Panthapath, Tejgaon Dhaka 1215,
               Bangladesh.
             </p>
-            <p className="text-[14px]">
-              Copyright© 2023 Show Motion Limited. All Rights Reserved.
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-col gap-[10px] text-white">
-          <h5 className="text-[16px] font-semibold">Contact Us</h5>
-          <div className="flex flex-col gap-[10px]">
-            <p className="font-semibold text-[14px]">Phone Number</p>
-            <p className="text-[14px]">
-              (+88) 09617660660
-              <br />
-              01755665544
-            </p>
-          </div>
-          <div className="flex flex-col gap-[10px]">
-            <p className="font-semibold text-[14px]">Email Address</p>
-            <p className="xs:text-[14px] text-[12px]">info@cineplexbd.com</p>
-          </div>
-        </div>
-        <div className="flex flex-col gap-[10px] text-white">
-          <h5 className="text-[16px] font-semibold">Information</h5>
-          <ul className="flex flex-col gap-[10px]">
-            <li className="text-[14px]">
-              <Link to="/show-time">Showtime</Link>
-            </li>
-            <li className="text-[14px]">
-              <Link to="/ticket-price">Ticket Price</Link>
-            </li>
-            <li className="text-[14px]">
-              <Link to="/about-us">About Us</Link>
-            </li>
-          </ul>
-        </div>
 
-        <div className="flex flex-col gap-[10px] text-white">
-          <h5 className="text-[16px] font-semibold">Download App</h5>
-          <div className=" w-full h-[35px]  rounded-[6px] flex">
-            <img src={logoApp} className="h-full " />
+            <p className="text-xs text-gray-400">
+              © 2023 Show Motion Limited. All Rights Reserved.
+            </p>
           </div>
-        </div>
-        <div className="flex flex-col gap-[10px] text-white">
-          <h5 className="text-[16px] font-semibold">Follow Us On</h5>
-          <div className="flex gap-[5px] items-center">
-            <img className="w-[30px]" src={iconYoutu} />
-            <p className="text-[14px]">Youtube</p>
+
+          {/* Contact */}
+          <div className="flex flex-col gap-4">
+            <h5 className="text-base font-semibold">Contact Us</h5>
+
+            <div>
+              <p className="text-sm font-semibold">Phone Number</p>
+              <p className="text-sm text-gray-300 leading-relaxed">
+                (+88) 09617660660
+                <br />
+                01755665544
+              </p>
+            </div>
+
+            <div>
+              <p className="text-sm font-semibold">Email Address</p>
+              <p className="text-sm text-gray-300">info@cineplexbd.com</p>
+            </div>
           </div>
-          <div className="flex gap-[10px] items-center">
-            <img className="w-[30px]" src={iconInsta} />
-            <p className="text-[14px]">Instagram</p>
+
+          {/* Information */}
+          <div className="flex flex-col gap-4">
+            <h5 className="text-base font-semibold">Information</h5>
+
+            <ul className="flex flex-col gap-3 text-sm text-gray-300">
+              <li>
+                <Link to="/show-time" className="hover:text-white transition">
+                  Showtime
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/ticket-price"
+                  className="hover:text-white transition"
+                >
+                  Ticket Price
+                </Link>
+              </li>
+              <li>
+                <Link to="/about-us" className="hover:text-white transition">
+                  About Us
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Download App */}
+          <div className="flex flex-col gap-4">
+            <h5 className="text-base font-semibold">Download App</h5>
+
+            <img
+              src={logoApp}
+              className="h-10 w-fit cursor-pointer hover:opacity-80 transition"
+              alt="download-app"
+            />
+          </div>
+
+          {/* Social */}
+          <div className="flex flex-col gap-4">
+            <h5 className="text-base font-semibold">Follow Us On</h5>
+
+            <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
+              <img src={iconYoutu} className="w-7" alt="youtube" />
+              <span className="text-sm text-gray-300">Youtube</span>
+            </div>
+
+            <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
+              <img src={iconInsta} className="w-7" alt="instagram" />
+              <span className="text-sm text-gray-300">Instagram</span>
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </footer>
   );
 };
 

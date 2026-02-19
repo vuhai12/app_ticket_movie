@@ -19,14 +19,13 @@ const BookingMovie = () => {
   const [price, setPrice] = useState<number>(0);
   const [showtimeId, setShowtimeId] = useState<null | string>(null);
   const [locationCinema, setLocationCinema] = useState<null | string>(() =>
-    localStorage.getItem("location")
+    localStorage.getItem("location"),
   );
   const [cinemaId, setcinemaId] = useState<null | string>(() =>
-    localStorage.getItem("cinemaId")
+    localStorage.getItem("cinemaId"),
   );
-  const [isPopupTheatreLocations, setIsPopupTheatreLocations] = useState(
-    !locationCinema
-  );
+  const [isPopupTheatreLocations, setIsPopupTheatreLocations] =
+    useState(!locationCinema);
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.moviesWithShowtimes);
 
@@ -76,7 +75,7 @@ const BookingMovie = () => {
 
   return (
     <MainLayout>
-      <div className="flex gap-[30px] py-[30px] lg:flex-row flex-col">
+      <div className="flex gap-[30px] py-[30px] lg:flex-row flex-col max-w-[900px] px-4 mx-auto">
         <div className="md:flex-[3] gap-[20px] flex-col flex">
           <h3 className="text-white text-[16px] font-semibold">
             Location:{" "}

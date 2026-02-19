@@ -22,16 +22,15 @@ const ShowTimeListMovies = () => {
   const dispatch = useAppDispatch();
 
   const [cinemaId, setcinemaId] = useState<null | string>(() =>
-    localStorage.getItem("cinemaId")
+    localStorage.getItem("cinemaId"),
   );
 
   const [locationCinema, setLocationCinema] = useState<null | string>(() =>
-    localStorage.getItem("location")
+    localStorage.getItem("location"),
   );
 
-  const [isPopupTheatreLocations, setIsPopupTheatreLocations] = useState(
-    !locationCinema
-  );
+  const [isPopupTheatreLocations, setIsPopupTheatreLocations] =
+    useState(!locationCinema);
 
   const { data } = useAppSelector((state) => state.moviesWithShowtimes);
 
@@ -66,84 +65,87 @@ const ShowTimeListMovies = () => {
 
   return (
     <MainLayout>
-      <div className="my-[30px] flex gap-[30px]">
-        <div className="w-[5px] bg-[#5f1a89]" />
-        <div className="flex flex-col gap-[20px]">
-          <div className="font-semibold text-white">
-            <h3 className="text-[23px]">Weekly Showtime</h3>
+      <div className="max-w-[900px] mx-auto px-4">
+        <div className="my-[30px] flex gap-[30px] ">
+          <div className="w-[5px] bg-[#5f1a89]" />
+          <div className="flex flex-col gap-[20px]">
+            <div className="font-semibold text-white">
+              <h3 className="text-[23px]">Weekly Showtime</h3>
+            </div>
           </div>
         </div>
-      </div>
-      <h3 className="text-white text-[16px] font-semibold my-[20px]">
-        Location:{" "}
-        <span
-          onClick={() => setIsPopupTheatreLocations(true)}
-          className="underline cursor-pointer"
-        >
-          {locationCinema}
-        </span>
-      </h3>
-      <div className="flex flex-col gap-[10px] text-white">
-        <div className="flex gap-[30px] border-b-[1px] border-[#5f1a89] font-semibold flex-wrap">
-          {dateInfo.map((item) => {
-            return (
-              <div
-                key={item.id}
-                className="flex cursor-pointer gap-[10px] items-center py-[10px] flex-col relative"
-                onClick={() => handleChangeDay(item.weekday)}
-              >
-                <div className="flex gap-[10px] items-center justify-center flex-col">
-                  <h3 className="text-[25px]">
-                    {item.day} <span className="text-[16px]">{item.month}</span>
-                  </h3>
-                  <p className="text-[12px] text-gray-400">{item.weekday}</p>
+        <h3 className="text-white text-[16px] font-semibold my-[20px]">
+          Location:{" "}
+          <span
+            onClick={() => setIsPopupTheatreLocations(true)}
+            className="underline cursor-pointer"
+          >
+            {locationCinema}
+          </span>
+        </h3>
+        <div className="flex flex-col gap-[10px] text-white">
+          <div className="flex gap-[30px] border-b-[1px] border-[#5f1a89] font-semibold flex-wrap">
+            {dateInfo.map((item) => {
+              return (
+                <div
+                  key={item.id}
+                  className="flex cursor-pointer gap-[10px] items-center py-[10px] flex-col relative"
+                  onClick={() => handleChangeDay(item.weekday)}
+                >
+                  <div className="flex gap-[10px] items-center justify-center flex-col">
+                    <h3 className="text-[25px]">
+                      {item.day}{" "}
+                      <span className="text-[16px]">{item.month}</span>
+                    </h3>
+                    <p className="text-[12px] text-gray-400">{item.weekday}</p>
+                  </div>
+                  {item.weekday == weekday && (
+                    <div className="h-[3px] w-[60px] bg-white absolute bottom-0" />
+                  )}
                 </div>
-                {item.weekday == weekday && (
-                  <div className="h-[3px] w-[60px] bg-white absolute bottom-0" />
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-[20px] mt-[30px]">
-        {showtimeWithDate.length > 0 ? (
-          showtimeWithDate.map((item) => {
-            return (
-              <ShowTimeItem
-                timeChecked={timeChecked}
-                setTimeChecked={setTimeChecked}
-                release_date={item.release_date}
-                movie_id={item.id}
-                image={item.poster_url}
-                title={item.title}
-                category={item.category}
-                actor={item.actor}
-                release={item.release_date}
-                language={"English"}
-                weekday={weekday}
-                trailer={item.trailer_url}
-                show_times={item.show_times}
-              />
-            );
-          })
-        ) : (
-          <div className="bg-[#262626] p-[20px]">
-            <h3 className="text-[16px] text-white font-medium">
-              No showtimes available yet
-            </h3>
+              );
+            })}
           </div>
+        </div>
+
+        <div className="flex flex-col gap-[20px] mt-[30px]">
+          {showtimeWithDate.length > 0 ? (
+            showtimeWithDate.map((item) => {
+              return (
+                <ShowTimeItem
+                  timeChecked={timeChecked}
+                  setTimeChecked={setTimeChecked}
+                  release_date={item.release_date}
+                  movie_id={item.id}
+                  image={item.poster_url}
+                  title={item.title}
+                  category={item.category}
+                  actor={item.actor}
+                  release={item.release_date}
+                  language={"English"}
+                  weekday={weekday}
+                  trailer={item.trailer_url}
+                  show_times={item.show_times}
+                />
+              );
+            })
+          ) : (
+            <div className="bg-[#262626] p-[20px]">
+              <h3 className="text-[16px] text-white font-medium">
+                No showtimes available yet
+              </h3>
+            </div>
+          )}
+        </div>
+        {isPopupTheatreLocations && (
+          <TheatreLocations
+            setLocationCinema={setLocationCinema}
+            setIsPopupTheatreLocations={setIsPopupTheatreLocations}
+            locationCinema={locationCinema}
+            setcinemaId={setcinemaId}
+          />
         )}
       </div>
-      {isPopupTheatreLocations && (
-        <TheatreLocations
-          setLocationCinema={setLocationCinema}
-          setIsPopupTheatreLocations={setIsPopupTheatreLocations}
-          locationCinema={locationCinema}
-          setcinemaId={setcinemaId}
-        />
-      )}
     </MainLayout>
   );
 };

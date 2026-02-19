@@ -21,7 +21,7 @@ const NewItem = () => {
 
   return (
     <MainLayout>
-      <div className="flex gap-[30px] mt-[50px] lg:flex-row flex-col">
+      <div className="flex gap-[30px] mt-[50px] lg:flex-row flex-col max-w-[900px] px-4 mx-auto">
         <div className="lg:flex-[3] flex flex-col gap-[20px] text-white">
           <div className="w-full h-[350px] rounded-[10px] overflow-hidden">
             <img

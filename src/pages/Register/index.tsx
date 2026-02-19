@@ -52,7 +52,7 @@ const Register = () => {
   };
   return (
     <MainLayout>
-      <div className="rounded-[20px] w-full sm:w-[500px] mx-auto my-[50px] bg-white overflow-hidden">
+      <div className="rounded-[20px] w-full sm:w-[500px]  mx-auto my-[50px] bg-white overflow-hidden">
         <h3 className="text-[20px] text-white bg-[#5f1a89] text-center py-[10px] ">
           Register to Cinetickets
         </h3>

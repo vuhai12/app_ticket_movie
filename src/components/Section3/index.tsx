@@ -94,7 +94,7 @@ const Section3 = () => {
             user_id: idUser,
             movie_id: "f4d9a6e6-08df-4f42-b198-dbb5895dec01",
             vote: rateVote,
-          })
+          }),
         ).unwrap();
         setSuccessRateVote("Vote submitted.");
       } catch (error) {}
@@ -127,7 +127,7 @@ const Section3 = () => {
   };
   return (
     <>
-      <div className="flex flex-col gap-[20px] mt-[20px] lg:flex-row">
+      <div className="flex flex-col gap-[20px] mt-[20px] lg:flex-row max-w-[900px] mx-auto px-4">
         <div className="flex flex-col gap-[20px] lg:flex-[3]">
           <div className=" bg-[#1E0D28]/100 p-[20px] flex flex-col gap-[20px] flex-1">
             <div className="flex justify-between flex-wrap gap-[20px]">
@@ -143,7 +143,7 @@ const Section3 = () => {
             </div>
             <div
               className={classNames(
-                `grid md:grid-cols-2 lg:grid-cols-3 gap-[30px] flex-1`
+                `grid md:grid-cols-2 lg:grid-cols-3 gap-[30px] flex-1`,
               )}
             >
               {data &&
@@ -155,7 +155,7 @@ const Section3 = () => {
                       style={{ backgroundImage: `url(${item.poster_url})` }}
                       className={classNames(
                         `bg-no-repeat rounded-[10px] group relative h-[300px] sm:h-[auto] bg-center bg-cover flex flex-col justify-end  p-[20px]`,
-                        index == 0 ? "md:row-span-2" : ""
+                        index == 0 ? "md:row-span-2" : "",
                       )}
                     >
                       <div className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-60" />

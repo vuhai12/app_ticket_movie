@@ -15,7 +15,7 @@ const AboutUs = () => {
   return (
     <MainLayout>
       <div
-        className=" text-white bg-no-repeat bg-cover  "
+        className=" text-white bg-no-repeat bg-cover "
         style={{
           backgroundImage: `url(${bgImage})`,
           width: `${clientWidth}px`,
@@ -23,7 +23,7 @@ const AboutUs = () => {
           backgroundPosition: "80% -500px",
         }}
       >
-        <div className="flex lg:flex-row flex-col gap-[50px] xl:max-w-[1200px] mx-auto lg:px-[100px] md:px-[50px] px-[10px] xl:px-0">
+        <div className="flex lg:flex-row flex-col gap-[50px] xl:max-w-[900px] mx-auto lg:px-[100px] md:px-[50px] px-[10px] xl:px-0">
           <div className="flex-[3] py-[50px]">
             <aside className="">
               <div className="details-page">

@@ -92,7 +92,7 @@ const Payment = () => {
 
   return (
     <MainLayout>
-      <div className="flex gap-[30px] md:flex-row flex-col mt-[30px]">
+      <div className="flex gap-[30px] md:flex-row flex-col mt-[30px] max-w-[900px] px-4 mx-auto">
         <div className="flex-[3] bg-[#1e0d28] p-[20px]">
           <h3 className="text-[18px] font-semibold text-white">
             Select Payment Methods

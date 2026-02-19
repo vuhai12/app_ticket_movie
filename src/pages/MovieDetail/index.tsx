@@ -22,7 +22,7 @@ const MovieDetail = () => {
 
   return (
     <MainLayout>
-      <div className="flex flex-col gap-[50px]">
+      <div className="flex flex-col gap-[50px] max-w-[900px] px-4 mx-auto">
         {movieData && movieData.length > 0 && (
           <MovieHero
             title={movieData[0].title}

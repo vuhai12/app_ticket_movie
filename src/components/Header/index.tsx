@@ -45,7 +45,7 @@ const Header = () => {
   return (
     <>
       <div>
-        <div className="flex justify-between h-[60px] lg:h-[80px] items-center ">
+        <div className="flex justify-between h-[60px] lg:h-[80px] items-center max-w-[900px] mx-auto px-4">
           <div className="h-[35px] w-[114px]">
             <Link to={"/"}>
               <img src={logo} className="w-full h-full object-contain" />
