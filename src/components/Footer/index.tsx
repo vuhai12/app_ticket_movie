@@ -20,10 +20,6 @@ const Footer = () => {
               Level 8, Bashundhara City 13/3 Ka, Panthapath, Tejgaon Dhaka 1215,
               Bangladesh.
             </p>
-
-            <p className="text-xs text-gray-400">
-              © 2023 Show Motion Limited. All Rights Reserved.
-            </p>
           </div>
 
           {/* Contact */}
@@ -97,6 +93,9 @@ const Footer = () => {
             </div>
           </div>
         </div>
+        <p className="text-xs text-gray-400 mt-[30px] text-center">
+          © 2023 Show Motion Limited. All Rights Reserved.
+        </p>
       </div>
     </footer>
   );

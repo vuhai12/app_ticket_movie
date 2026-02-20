@@ -15,7 +15,7 @@ const TicketPrice = () => {
   return (
     <MainLayout>
       <div
-        className=" text-white bg-no-repeat  bg-center max-w-[900px] px-4 mx-auto"
+        className=" text-white bg-no-repeat  bg-center  px-4"
         style={{
           backgroundImage: `url(${bgImage})`,
           width: `${clientWidth}px`,
@@ -23,7 +23,7 @@ const TicketPrice = () => {
           backgroundPosition: "80% -500px",
         }}
       >
-        <div className="flex lg:flex-row flex-col gap-[30px] xl:max-w-[1200px] mx-auto lg:px-[100px] md:px-[50px] px-[10px] xl:px-0">
+        <div className="flex lg:flex-row flex-col gap-[30px] container md:px-[50px] px-[10px]">
           <div className="flex-[3] py-[50px]">
             <div className="flex gap-[10px] flex-col break-all">
               <h2 className="text-[25px]">Ticket Price</h2>
