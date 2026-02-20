@@ -1,144 +1,115 @@
 import MainLayout from "Layout/MainLayout";
-
-import bgImage2 from "@assets/Section3/bg-image2.svg";
-import bgImage3 from "@assets/Section3/bg-image3.svg";
-import bgImage4 from "@assets/Section3/bg-image4.svg";
-import bgImage5 from "@assets/Section3/bg-image5.svg";
-import bgImage6 from "@assets/Section3/bg-image6.svg";
-
 import Pagination from "@components/Pagination";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "store/hook";
 import { fetchNews } from "store/slices/newsSlice";
 import { useNavigate } from "react-router-dom";
 
-const dataListNew = [
-  {
-    id: 1,
-    bgImage: bgImage2,
-    name: "Fast X: Family Rides Together Again",
-    time: "05 Jun 2023",
-    des: "The writers, and directors of the franchise are not pumping the brakes just yet.",
-  },
-  {
-    id: 2,
-    bgImage: bgImage3,
-    name: "Avatar",
-    time: "14 Aug 2023",
-    des: "The countdown has begun as Avatar: The Way of Water finally enters its release week,",
-  },
-  {
-    id: 3,
-    bgImage: bgImage4,
-    name: "Joker",
-    time: "14 Aug 2023",
-    des: "Joker: Folie à Deux: Joaquin Phoenix's intense FIRST LOOK teased as filming for the",
-  },
-  {
-    id: 4,
-    bgImage: bgImage5,
-    name: "Deadpool 3",
-    time: "21 Dec 2023",
-    des: "Deadpool 3, Avengers: Secret Wars and more MCU films get NEW release dates; Here's all we know",
-  },
-  {
-    id: 5,
-    bgImage: bgImage6,
-    name: "The Guardians Of The Galaxy",
-    time: "21 Dec 2023",
-    des: "The Guardians Of The Galaxy Holiday Special Trailer: Star-Lord's 'Perfect' Christmas Gift ",
-  },
-];
-
 const NewList = () => {
   const [pageCurrent, setPageCurrent] = useState(1);
 
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.news);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(fetchNews());
   }, [dispatch]);
 
-  const navigate = useNavigate();
+  const limit = 6;
+  const totalItems = data?.length || 0;
+  const from = (pageCurrent - 1) * limit;
+  const to = from + limit;
+  const newsToShow = data?.slice(from, to);
+
   return (
     <MainLayout>
-      <div className="flex gap-[30px] text-white mt-[50px] lg:flex-row flex-col max-w-[900px] px-4 mx-auto">
-        <div className="flex-[3] flex flex-col gap-[30px]">
-          <div className=" flex gap-[10px] flex-col">
-            <div className="flex flex-col gap-[20px]">
-              <div className="flex gap-[20px] items-center">
-                <div className="w-[3px] bg-[#5f1a89] h-[50px]"></div>
-                <h3 className="text-[18px]">News</h3>
+      <section className="bg-[#0f0516] text-white py-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+            {/* ===== LEFT MAIN NEWS ===== */}
+            <div className="lg:col-span-3 flex flex-col gap-10">
+              {/* Section Title */}
+              <div className="flex items-center gap-4">
+                <div className="w-1 h-12 bg-gradient-to-b from-purple-600 to-pink-600 rounded-full" />
+                <h2 className="text-2xl md:text-3xl font-bold">Latest News</h2>
               </div>
-              <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-[30px] ">
-                {data &&
-                  data.length > 0 &&
-                  data.map((item) => {
-                    return (
-                      <div
-                        onClick={() => navigate(`/news-item/${item.id}`)}
-                        className="flex lg:gap-[30px] cursor-pointer gap-[20px] flex-col lg:h-[300px] "
-                      >
-                        <div className="h-[200px]  ">
-                          <img
-                            src={item.poster_url}
-                            className="h-full object-cover w-full object-center"
-                          />
-                        </div>
 
-                        <div className="flex flex-col gap-[10px] ">
-                          <h3 className="text-[14px] hover:text-[#bd81e3] line-clamp-1">
-                            {item.title}
-                          </h3>
-                          <p className="text-[12px] line-clamp-2 text-gray-400">
-                            {item.desciption}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
-            </div>
-          </div>
-          <Pagination
-            limit={6}
-            totalItems={dataListNew.length}
-            setPageCurrent={setPageCurrent}
-            pageCurrent={pageCurrent}
-          />
-        </div>
-
-        <div className="flex-1 flex flex-col gap-[20px] ">
-          <div className="p-[10px] bg-[#5f1a89]">Recent News</div>
-          <div className="flex flex-col gap-[20px]">
-            {data &&
-              data.length > 0 &&
-              data.map((item) => {
-                return (
+              {/* News Grid */}
+              <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
+                {newsToShow?.map((item) => (
                   <div
-                    className="flex gap-[10px] cursor-pointer"
+                    key={item.id}
                     onClick={() => navigate(`/news-item/${item.id}`)}
+                    className="group cursor-pointer bg-[#1e0d28] rounded-2xl overflow-hidden shadow-lg hover:shadow-purple-600/20 transition duration-300"
                   >
-                    <div className="lg:h-[100px] flex-1 h-[200px]">
+                    {/* Image */}
+                    <div className="relative aspect-[4/3] overflow-hidden">
                       <img
                         src={item.poster_url}
-                        className="h-full object-cover w-full"
+                        className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                       />
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition" />
                     </div>
-                    <div className="flex flex-col gap-[10px] flex-1">
-                      <h5 className="text-[14px] cursor-pointer line-clamp-2 hover:text-[#bd81e3]">
+
+                    {/* Content */}
+                    <div className="p-5 flex flex-col gap-3">
+                      <h3 className="text-sm md:text-base font-semibold line-clamp-1 group-hover:text-purple-400 transition">
                         {item.title}
-                      </h5>
-                      <p className="text-[12px] line-clamp-2 text-gray-400">
+                      </h3>
+                      <p className="text-xs md:text-sm text-gray-400 line-clamp-3">
                         {item.desciption}
                       </p>
                     </div>
                   </div>
-                );
-              })}
+                ))}
+              </div>
+
+              {/* Pagination */}
+              <Pagination
+                limit={limit}
+                totalItems={totalItems}
+                setPageCurrent={setPageCurrent}
+                pageCurrent={pageCurrent}
+              />
+            </div>
+
+            {/* ===== RIGHT SIDEBAR ===== */}
+            <div className="flex flex-col gap-8">
+              <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-3 rounded-xl text-sm font-semibold">
+                Recent News
+              </div>
+
+              <div className="flex flex-col gap-6 lg:sticky lg:top-24">
+                {data?.slice(0, 5).map((item) => (
+                  <div
+                    key={item.id}
+                    onClick={() => navigate(`/news-item/${item.id}`)}
+                    className="flex gap-4 cursor-pointer group"
+                  >
+                    <div className="w-24 h-20 overflow-hidden rounded-lg flex-shrink-0">
+                      <img
+                        src={item.poster_url}
+                        className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                      <h4 className="text-sm font-semibold line-clamp-2 group-hover:text-purple-400 transition">
+                        {item.title}
+                      </h4>
+                      <p className="text-xs text-gray-400 line-clamp-2">
+                        {item.desciption}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </MainLayout>
   );
 };

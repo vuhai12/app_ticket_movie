@@ -92,91 +92,134 @@ const Payment = () => {
 
   return (
     <MainLayout>
-      <div className="flex gap-[30px] md:flex-row flex-col mt-[30px] max-w-[900px] px-4 mx-auto">
-        <div className="flex-[3] bg-[#1e0d28] p-[20px]">
-          <h3 className="text-[18px] font-semibold text-white">
-            Select Payment Methods
+      <div className="flex gap-8 lg:flex-row flex-col mt-10 max-w-6xl px-4 mx-auto">
+        {/* LEFT */}
+        <div className="lg:flex-[3] bg-[#1a0c25] p-6 rounded-2xl shadow-xl">
+          <h3 className="text-xl font-semibold text-white">
+            Select Payment Method
           </h3>
-          <div className="flex flex-col gap-[30px] mt-[30px]">
-            {dataMethodPayment.map((item) => {
-              return (
-                <div className=" border-[1px] border-[#38134E] rounded-[10px] flex flex-col overflow-hidden">
-                  <label className="flex justify-between bg-[#5f1a89] py-[10px] px-[20px] text-white">
-                    <Radio
-                      name="methodsPayment"
-                      label={item.method}
-                      setChecked={setChecked}
-                      checked={item.method == checked}
-                    />
-                    <div className="flex gap-[10px] items-center justify-center">
-                      {item.image.map((item) => {
-                        return (
-                          <div className="bg-white rounded-[5px] h-[30px] px-[5px] w-[50px] flex items-center justify-center">
-                            <img src={item} />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </label>
 
-                  {checked == "Mobile Banking" && checked == item.method && (
-                    <div className="md:grid-cols-6 grid-cols-4 gap-[30px] grid  p-[20px]">
-                      {dataMobileBanking.map((item) => {
-                        return (
-                          <div className="rounded-[10px] overflow-hidden">
-                            <img src={item.image} />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-                  {checked == "Net Banking" && checked == item.method && (
-                    <div className="md:grid-cols-6 grid-cols-4 gap-[30px] grid p-[20px]">
-                      {dataBanking.map((item) => {
-                        return (
-                          <div className="rounded-[10px] overflow-hidden">
-                            <img src={item.image} />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-                  {checked == "Card" && checked == item.method && (
-                    <div className="flex flex-col gap-[20px] text-white p-[20px]">
-                      <input
-                        placeholder="Card number"
-                        className="text-[12px] p-[10px] bg-[#1e0d28] rounded-[10px] border-[1px] border-[#38134E]"
-                      />
-                      <input
-                        placeholder="Name on card"
-                        className="text-[12px] p-[10px] bg-[#1e0d28] rounded-[10px] border-[1px] border-[#38134E]"
-                      />
-                      <div className="flex gap-[20px]">
-                        <input
-                          placeholder="Expiration date (mm/YY)"
-                          className="text-[12px] bg-[#1e0d28] flex-1 p-[10px] rounded-[10px] border-[1px] border-[#38134E]"
-                        />
-                        <input
-                          placeholder="CVV"
-                          className="text-[12px] bg-[#1e0d28] flex-1 p-[10px] rounded-[10px] border-[1px] border-[#38134E]"
+          <div className="flex flex-col gap-6 mt-8">
+            {dataMethodPayment.map((item) => (
+              <div
+                key={item.id}
+                className={`border rounded-2xl overflow-hidden transition-all duration-300 ${
+                  checked === item.method
+                    ? "border-purple-500 shadow-lg shadow-purple-900/30"
+                    : "border-[#38134E]"
+                }`}
+              >
+                <label
+                  className={`flex justify-between items-center px-5 py-4 cursor-pointer transition ${
+                    checked === item.method
+                      ? "bg-gradient-to-r from-purple-700 to-purple-900"
+                      : "bg-[#2a123b]"
+                  }`}
+                >
+                  <Radio
+                    name="methodsPayment"
+                    label={item.method}
+                    setChecked={setChecked}
+                    checked={item.method === checked}
+                  />
+
+                  <div className="flex gap-3 items-center">
+                    {item.image.map((img, index) => (
+                      <div
+                        key={index}
+                        className="bg-white rounded-md h-8 px-2 w-14 flex items-center justify-center hover:scale-105 transition"
+                      >
+                        <img src={img} className="max-h-full object-contain" />
+                      </div>
+                    ))}
+                  </div>
+                </label>
+
+                {/* Mobile Banking */}
+                {checked === "Mobile Banking" && checked === item.method && (
+                  <div className="grid lg:grid-cols-6 grid-cols-3 gap-6 p-6 bg-[#14091c]">
+                    {dataMobileBanking.map((bank) => (
+                      <div
+                        key={bank.id}
+                        className="rounded-xl overflow-hidden border border-transparent hover:border-purple-500 transition cursor-pointer hover:scale-105"
+                      >
+                        <img
+                          src={bank.image}
+                          className="w-full object-contain bg-white p-2"
                         />
                       </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Net Banking */}
+                {checked === "Net Banking" && checked === item.method && (
+                  <div className="grid lg:grid-cols-6 grid-cols-3 gap-6 p-6 bg-[#14091c]">
+                    {dataBanking.map((bank) => (
+                      <div
+                        key={bank.id}
+                        className="rounded-xl overflow-hidden border border-transparent hover:border-purple-500 transition cursor-pointer hover:scale-105"
+                      >
+                        <img
+                          src={bank.image}
+                          className="w-full object-contain bg-white p-2"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Card */}
+                {checked === "Card" && checked === item.method && (
+                  <div className="flex flex-col gap-5 text-white p-6 bg-[#14091c]">
+                    <input
+                      placeholder="Card number"
+                      className="p-3 bg-[#1e0d28] rounded-xl border border-[#38134E] focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-700 transition"
+                    />
+                    <input
+                      placeholder="Name on card"
+                      className="p-3 bg-[#1e0d28] rounded-xl border border-[#38134E] focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-700 transition"
+                    />
+                    <div className="flex gap-4 flex-col sm:flex-row">
+                      <input
+                        placeholder="Expiration date (MM/YY)"
+                        className="flex-1 p-3 bg-[#1e0d28] rounded-xl border border-[#38134E] focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-700 transition"
+                      />
+                      <input
+                        placeholder="CVV"
+                        className="flex-1 p-3 bg-[#1e0d28] rounded-xl border border-[#38134E] focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-700 transition"
+                      />
                     </div>
-                  )}
-                </div>
-              );
-            })}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
-        <div className="flex-1 ">
-          <div className="bg-[#5f1a89] py-[10px] px-[20px]">
-            <h3 className="text-[18px] font-semibold text-white">Summary</h3>
+
+        {/* RIGHT SUMMARY */}
+        <div className="lg:flex-1 rounded-2xl overflow-hidden shadow-xl">
+          <div className="bg-gradient-to-r from-purple-700 to-purple-900 py-4 px-6">
+            <h3 className="text-lg font-semibold text-white">Summary</h3>
           </div>
-          <div className="bg-[#1e0d28] p-[20px] text-white flex flex-col gap-[20px] text-[12px]">
-            <p>Subtotal</p>
-            <p>Convenience Charge</p>
-            <p className="text-[16px] font-semibold">Total amount</p>
-            <button className="py-[10px] px-[15px]  rounded-[10px] bg-[#5f1a89] text-white font-semibold">
+
+          <div className="bg-[#1a0c25] p-6 text-white flex flex-col gap-5 text-sm">
+            <div className="flex justify-between">
+              <span>Subtotal</span>
+              <span>$120</span>
+            </div>
+
+            <div className="flex justify-between">
+              <span>Convenience Charge</span>
+              <span>$5</span>
+            </div>
+
+            <div className="border-t border-[#38134E] pt-4 flex justify-between text-lg font-semibold">
+              <span>Total</span>
+              <span>$125</span>
+            </div>
+
+            <button className="mt-4 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-purple-800 hover:scale-105 transition font-semibold shadow-lg shadow-purple-900/40">
               Continue to Payment
             </button>
           </div>

@@ -8,14 +8,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginServices } from "@services/auth.services";
 import { useAppDispatch, useAppSelector } from "store/hook";
 import { fetchUsers } from "store/slices/usersSlice";
+
 const Login = () => {
   const [isVisibility, setIsVisibility] = useState(false);
-
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const handleTogglePassword = () => {
-    setIsVisibility(!isVisibility);
-  };
+
   const loginSchema = z.object({
     email: z.string().min(1, "Please enter email!").email("Email is invalid!"),
     password: z.string().min(6, "Password must be at least 6 characters long!"),
@@ -29,10 +27,9 @@ const Login = () => {
     if (data && data.length > 0) {
       localStorage.setItem("idUser", data[0].id);
       localStorage.setItem("access_token", `123`);
-
       navigate("/booking-movie");
     }
-  }, [data]);
+  }, [data, navigate]);
 
   const {
     register,
@@ -41,12 +38,14 @@ const Login = () => {
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
+
   const onSubmit = async (formData: LoginFormData) => {
     try {
       const data = await loginServices(formData);
       dispatch(fetchUsers({ type: "admin", auth_id: data.id }));
-      navigate("/booking-movie");
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleGuestLogin = () => {
@@ -55,82 +54,107 @@ const Login = () => {
 
   return (
     <MainLayout>
-      <div className="rounded-[20px] w-full sm:w-[500px] mx-auto my-[50px] bg-white overflow-hidden">
-        <h3 className="text-[20px] text-white bg-[#5f1a89] text-center py-[10px] ">
-          Login to Cinetickets
-        </h3>
-
-        <form
-          className="p-[20px] flex flex-col gap-[20px]"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div className="flex flex-col gap-[10px]">
-            <label>Email</label>
-            <input
-              {...register("email")}
-              placeholder="email"
-              className="py-[10px] px-[20px] border-gray-400 border-[1px] rounded-[10px]"
-            />
-            {errors.email && (
-              <div className="mt-2 rounded-md bg-red-50 px-3 py-2 text-sm text-red-600 border border-red-200">
-                {errors.email.message}
-              </div>
-            )}
+      <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
+        <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">
+          {/* Header */}
+          <div className="bg-[#5f1a89] py-5 text-center">
+            <h3 className="text-xl sm:text-2xl font-semibold text-white">
+              Login to Cinetickets
+            </h3>
           </div>
-          <div className="flex flex-col gap-[10px]">
-            <label>Password</label>
-            <div className="flex">
+
+          {/* Form */}
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="p-6 sm:p-8 flex flex-col gap-6"
+          >
+            {/* Email */}
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-medium text-gray-700">Email</label>
               <input
-                {...register("password")}
-                type={isVisibility ? "text" : "password"}
-                placeholder="Password"
-                className=" py-[10px] flex-1 w-full px-[20px] border-gray-400 border-[1px] rounded-tl-[10px] rounded-bl-[10px]"
+                {...register("email")}
+                placeholder="your@email.com"
+                className="px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
               />
-              <div
-                className="w-[50px] h-[50px] bg-gray-400 flex items-center justify-center"
-                onClick={handleTogglePassword}
-              >
-                {isVisibility ? (
-                  <Eye className="w-5 h-5 text-white" />
-                ) : (
-                  <EyeOff className="w-5 h-5 text-white" />
-                )}
-              </div>
+              {errors.email && (
+                <p className="text-sm text-red-500">{errors.email.message}</p>
+              )}
             </div>
-            {errors.password && (
-              <div className="mt-2 rounded-md bg-red-50 px-3 py-2 text-sm text-red-600 border border-red-200">
-                {errors.password.message}
-              </div>
-            )}
-          </div>
 
-          <button
-            disabled={isSubmitting}
-            type="submit"
-            className="py-[10px] bg-[#5f1a89] rounded-[10px] text-white"
-          >
-            {isSubmitting ? "..." : "LOGIN"}
-          </button>
-          <div className="flex justify-center relative items-center">
-            <div className="w-[35px] z-[99] h-[35px] rounded-[50%] text-[12px] bg-gray-300 flex items-center justify-center">
-              OR
+            {/* Password */}
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-medium text-gray-700">
+                Password
+              </label>
+
+              <div className="relative">
+                <input
+                  {...register("password")}
+                  type={isVisibility ? "text" : "password"}
+                  placeholder="Enter password"
+                  className="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setIsVisibility(!isVisibility)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#5f1a89]"
+                >
+                  {isVisibility ? (
+                    <Eye className="w-5 h-5" />
+                  ) : (
+                    <EyeOff className="w-5 h-5" />
+                  )}
+                </button>
+              </div>
+
+              {errors.password && (
+                <p className="text-sm text-red-500">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
-            <div className="w-full h-[1px] bg-gray-300 absolute top-1/2 -translate-y-1/2"></div>
-          </div>
-          <button
-            onClick={handleGuestLogin}
-            type="button"
-            className="py-[10px] border-[1px] text-[#5f1a89] border-[#5f1a89]  rounded-[10px] "
-          >
-            GUEST LOGIN
-          </button>
-          <p className="text-center text-[12px]">
-            Did you have an account yet?{" "}
-            <span className="text-[#5f1a89]">
-              <Link to="/register"> Register Now</Link>
-            </span>
-          </p>
-        </form>
+
+            {/* Login Button */}
+            <button
+              disabled={isSubmitting}
+              type="submit"
+              className="py-3 rounded-xl bg-[#5f1a89] text-white font-semibold 
+                         hover:bg-[#7a29b8] transition duration-300 shadow-md"
+            >
+              {isSubmitting ? "Logging in..." : "LOGIN"}
+            </button>
+
+            {/* Divider */}
+            <div className="flex items-center gap-3">
+              <div className="flex-1 h-px bg-gray-300"></div>
+              <span className="text-xs text-gray-500">OR</span>
+              <div className="flex-1 h-px bg-gray-300"></div>
+            </div>
+
+            {/* Guest Login */}
+            <button
+              onClick={handleGuestLogin}
+              type="button"
+              className="py-3 rounded-xl border-2 border-[#5f1a89] text-[#5f1a89] 
+                         font-semibold hover:bg-[#5f1a89] hover:text-white 
+                         transition duration-300"
+            >
+              Continue as Guest
+            </button>
+
+            {/* Register */}
+            <p className="text-center text-sm text-gray-600">
+              Don’t have an account?{" "}
+              <Link
+                to="/register"
+                className="text-[#5f1a89] font-semibold hover:underline"
+              >
+                Register Now
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
     </MainLayout>
   );

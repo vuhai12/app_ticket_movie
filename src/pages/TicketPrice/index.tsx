@@ -1,361 +1,133 @@
 import MainLayout from "Layout/MainLayout";
 import bgImage from "@assets/TicketPrice/bgImage.png";
-import { useEffect, useState } from "react";
 
 const TicketPrice = () => {
-  const [clientWidth, setClientWidth] = useState(0);
-  useEffect(() => {
-    const updateWidth = () => {
-      setClientWidth(document.documentElement.clientWidth);
-    };
-    updateWidth();
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  }, []);
+  const branches = [
+    {
+      name: "Bashundhara City, Dhaka",
+      prices: [
+        {
+          title: "Hall 1, 2 & 3",
+          weekday: ["Premium: 400", "Semi Recliner: 500"],
+          weekend: ["Premium: 500", "Semi Recliner: 600"],
+        },
+        {
+          title: "Hall 5 (VIP)",
+          weekday: ["VIP: 650"],
+          weekend: ["VIP: 850"],
+        },
+        {
+          title: "Hall 6 (Atmos)",
+          weekday: ["Premium: 500"],
+          weekend: ["Premium: 600"],
+        },
+      ],
+    },
+    {
+      name: "Shimanto Shambhar, Dhaka",
+      prices: [
+        {
+          title: "Hall 1 & 3",
+          weekday: ["Regular: 400", "Premium: 450"],
+          weekend: ["Regular: 450", "Premium: 500"],
+        },
+        {
+          title: "Hall 2 (Atmos)",
+          weekday: ["Premium: 500"],
+          weekend: ["Premium: 600"],
+        },
+      ],
+    },
+    {
+      name: "SKS Tower, Dhaka",
+      prices: [
+        {
+          title: "Regular Hall",
+          weekday: ["Regular: 400", "Semi Recliner: 500"],
+          weekend: ["Regular: 500", "Semi Recliner: 600"],
+        },
+        {
+          title: "VIP Hall",
+          weekday: ["VIP: 1200"],
+          weekend: ["VIP: 1500"],
+        },
+      ],
+    },
+  ];
+
   return (
     <MainLayout>
       <div
-        className=" text-white bg-no-repeat  bg-center  px-4"
-        style={{
-          backgroundImage: `url(${bgImage})`,
-          width: `${clientWidth}px`,
-          marginLeft: `calc(-${clientWidth / 2}px + 50%)`,
-          backgroundPosition: "80% -500px",
-        }}
+        className="min-h-screen bg-cover bg-center text-white"
+        style={{ backgroundImage: `url(${bgImage})` }}
       >
-        <div className="flex lg:flex-row flex-col gap-[30px] container md:px-[50px] px-[10px]">
-          <div className="flex-[3] py-[50px]">
-            <div className="flex gap-[10px] flex-col break-all">
-              <h2 className="text-[25px]">Ticket Price</h2>
-              <p>(All prices are in Taka)</p>
-              <p>
-                You can purchase tickets online and pick them up conveniently
-                right before the show from our online counter.
-              </p>
-              <p>&nbsp;</p>
-              <h2>Bashundhara City Shopping Mall, Dhaka</h2>
-              <p>&nbsp;</p>
-              <h3 className="text-[22px]">Hall 1, Hall 2 &amp; Hall 3</h3>
-              <p>
-                <br />
-                <i>
-                  Sunday through Thursday shows starting before 3 PM (except
-                  holidays)
-                </i>
-                <br />
-                <strong>Premium seat: 400.00</strong>
-                <br />
-                <strong>Semi Recliner seat: 500.00</strong>
-              </p>
-              <p>
-                <br />
-                <i>
-                  Friday &amp; Saturday (including holidays and weekday
-                  evenings)
-                </i>
-                <br />
-                <strong>Premium seat: 500.00</strong>
-                <br />
-                <strong>Semi Recliner seat: 600.00</strong>
-              </p>
-              <p>&nbsp;</p>
-              <h3 className="text-[22px]">Hall 5 (VIP)</h3>
-              <p>
-                <br />
-                <i>
-                  Sunday through Thursday shows starting before 3 PM (except
-                  holidays)
-                </i>
-                <br />
-                <strong>VIP Seat: 650.00</strong>
-              </p>
-              <p>
-                <i>
-                  Friday &amp; Saturday (including holidays and weekday
-                  evenings)
-                </i>
-                <br />
-                <strong>VIP Seat: 850.00</strong>
-                <br />
-                <br />
-                &nbsp;
-              </p>
-              <h3 className="text-[22px]">Hall 6 (Atmos)</h3>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Sunday through Thursday shows starting before 3 PM (except
-                  holidays)
-                </i>
-                <br />
-                <strong>Premium Seat: 500.00</strong>
-              </p>
-              <p>&nbsp;</p>
-              <p>
-                <i>Friday &amp; Saturday (holidays and weekday evenings)</i>
-                <br />
-                <strong>Premium Seat: 600.00</strong>
-              </p>
-              <div className="h-[2px] w-full bg-white" />
-              <p>&nbsp;</p>
-              <h2>Shimanto Shambhar, Dhaka</h2>
-              <p>&nbsp;</p>
-              <h3 className="text-[22px]">Hall 1 &amp; Hall 3</h3>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Sunday through Thursday (Shows starting before 3 PM except
-                  holidays)
-                </i>
-                <br />
-                <strong>Regular seat: 400.00</strong>
-                <br />
-                <strong>Premium seat: 450.00</strong>
-              </p>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Friday &amp; Saturday (including holidays and weekday
-                  evenings)
-                </i>
-                <br />
-                <strong>Regular seat: 450.00</strong>
-                <br />
-                <strong>Premium seat: 500.00</strong>
-                <br />
-                &nbsp;
-              </p>
-              <h3 className="text-[22px]">Hall 2 (Atmos):</h3>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Sunday through Thursday (Shows starting before 3 PM except
-                  holidays)
-                </i>
-                <br />
-                <strong>Premium Seat: 500.00</strong>
-              </p>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Friday &amp; Saturday (including holidays and weekday
-                  evenings)
-                </i>
-                <br />
-                <strong>Premium Seat: 600.00</strong>&nbsp;
-              </p>
-              <div className="h-[2px] w-full bg-white" />
-              <h2>SKS Tower, Dhaka</h2>
-              <p>&nbsp;</p>
-              <h3 className="text-[22px]">Hall 1&nbsp;</h3>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Sunday through Thursday (Shows starting before 3 PM except
-                  holidays)
-                </i>
-                <br />
-                <strong>Regular &amp; Lounger seat: 400.00</strong>
-                <br />
-                <strong>Semi Recliner seat: 500.00</strong>
-              </p>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Friday &amp; Saturday (including holidays and weekday
-                  evenings)
-                </i>
-                <br />
-                <strong>Regular &amp; Lounger seat: 500.00</strong>
-                <br />
-                <strong>Semi Recliner seat: 600.00</strong>
-              </p>
-              <h3 className="text-[22px]">
-                <br />
-                Hall 2 (Atmos)
-              </h3>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Sunday through Thursday (Shows starting before 3 PM except
-                  holidays)
-                </i>
-                <br />
-                <strong>Regular &amp; Lounger seat: 500.00</strong>
-                <br />
-                <strong>Semi Recliner seat: 600.00</strong>
-              </p>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Friday &amp; Saturday (including holidays and weekday
-                  evenings)
-                </i>
-                <br />
-                <strong>Regular &amp; Lounger seat: 600.00</strong>
-                <br />
-                <strong>Semi Recliner seat: 700.00</strong>
-              </p>
-              <h3 className="text-[22px]">
-                <br />
-                Hall 3 (VIP)
-              </h3>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Sunday through Thursday (Shows starting before 3 PM except
-                  holidays)
-                </i>
-                <br />
-                <strong>VIP seat: 1200.00</strong>
-              </p>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Friday &amp; Saturday (including holidays and weekday
-                  evenings)
-                </i>
-                <br />
-                <strong>VIP seat: 1500.00</strong>
-              </p>
-              <div className="h-[2px] w-full bg-white" />
-              <h2>Sony Square, Dhaka</h2>
-              <h3 className="text-[22px]">Hall 1 Through Hall 3</h3>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Sunday through Thursday (Shows starting before 3 PM except
-                  holidays)
-                </i>
-                <br />
-                <strong>Regular seat: 450.00</strong>
-              </p>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Friday &amp; Saturday (including holidays and weekday
-                  evenings)
-                </i>
-                <br />
-                <strong>Regular seat: 500.00</strong>
-                <br />
-                <br />
-                &nbsp;
-              </p>
-              <div className="h-[2px] w-full bg-white" />
-              <h2>Military Museum, Dhaka</h2>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Sunday through Thursday (Shows starting before 3 PM except
-                  holidays)
-                </i>
-                <br />
-                <strong>Seat: 350.00</strong>
-              </p>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Friday &amp; Saturday (including holidays and weekday
-                  evenings)
-                </i>
-                <br />
-                <strong>Seat: 400.00</strong>
-              </p>
-              <p>&nbsp;</p>
-              <div className="h-[2px] w-full bg-white" />
-              <h2>Bali Arcade, Chattogram</h2>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Sunday through Thursday (Shows starting before 3 PM except
-                  holidays)
-                </i>
-                <br />
-                <strong>Seat: 400.00</strong>
-              </p>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Friday &amp; Saturday (including holidays and weekday
-                  evenings)
-                </i>
-                <br />
-                <strong>Seat: 450.00</strong>
-              </p>
-              <div className="h-[2px] w-full bg-white" />
-              <h2>Centrepoint, Dhaka</h2>
-              <p>&nbsp;</p>
-              <h3 className="text-[22px]">Royal Hall</h3>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Sunday through Thursday (Shows starting before 3 PM except
-                  holidays)
-                </i>
-                <br />
-                <strong>Royal seat: 1400.00</strong>
-              </p>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Friday &amp; Saturday (including holidays and weekday
-                  evenings)
-                </i>
-                <br />
-                <strong>Royal seat: 1800.00</strong>
-                <br />
-                &nbsp;
-              </p>
-              <h3 className="text-[22px]">VIP Hall</h3>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Sunday through Thursday (Shows starting before 3 PM except
-                  holidays)
-                </i>
-                <br />
-                <strong>VIP seat: 900.00</strong>
-                <br />
-                <br />
-                &nbsp;
-              </p>
-              <p>
-                <i>
-                  Friday &amp; Saturday (including holidays and weekday
-                  evenings)
-                </i>
-                <br />
-                <strong>VIP seat: 1200.00</strong>
-                <br />
-                &nbsp;
-              </p>
-              <h3 className="text-[22px]">Premium Hall</h3>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Sunday through Thursday (Shows starting before 3 PM except
-                  holidays)
-                </i>
-                <br />
-                <strong>Premium seat: 450.00</strong>
-                <br />
-                <strong>Semi Recliner seat: 550.00</strong>
-              </p>
-              <p>&nbsp;</p>
-              <p>
-                <i>
-                  Friday &amp; Saturday (including holidays and weekday
-                  evenings)
-                </i>
-                <br />
-                <strong>Premium seat: 550.00</strong>
-                <br />
-                <strong>Semi Recliner seat: 650.00</strong>
+        <div className="bg-black/70 min-h-screen">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            {/* Header */}
+            <div className="text-center mb-14">
+              <h1 className="text-3xl sm:text-4xl font-bold mb-4">
+                Ticket Prices
+              </h1>
+              <p className="text-gray-300 text-sm sm:text-base">
+                All prices are in Taka. Weekend includes Friday, Saturday and
+                holidays.
               </p>
             </div>
+
+            {/* Branch Cards */}
+            <div className="space-y-10">
+              {branches.map((branch, index) => (
+                <div
+                  key={index}
+                  className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8"
+                >
+                  <h2 className="text-xl sm:text-2xl font-semibold text-yellow-400 mb-6">
+                    {branch.name}
+                  </h2>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {branch.prices.map((hall, i) => (
+                      <div
+                        key={i}
+                        className="bg-white/5 rounded-xl p-5 border border-white/10"
+                      >
+                        <h3 className="font-semibold mb-4 text-lg">
+                          {hall.title}
+                        </h3>
+
+                        <div className="space-y-3 text-sm text-gray-300">
+                          <div>
+                            <p className="font-medium text-white">
+                              Weekday (Before 3PM)
+                            </p>
+                            {hall.weekday.map((item, idx) => (
+                              <p key={idx}>{item}</p>
+                            ))}
+                          </div>
+
+                          <div>
+                            <p className="font-medium text-white">
+                              Weekend / Evening
+                            </p>
+                            {hall.weekend.map((item, idx) => (
+                              <p key={idx}>{item}</p>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="text-center mt-16">
+              <button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-full transition">
+                Book Tickets Now
+              </button>
+            </div>
           </div>
-          <div className="flex-[1]"></div>
         </div>
       </div>
     </MainLayout>

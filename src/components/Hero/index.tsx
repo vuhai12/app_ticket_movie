@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import bgSlide1 from "../../assets/Hero/bg-image1.svg";
 import bgSlide2 from "../../assets/Hero/bg-image2.jpg";
 import bgSlide3 from "../../assets/Hero/bg-image3.jpg";
@@ -33,118 +33,102 @@ const dataSlide = [
 ];
 
 const Hero = () => {
-  const [current, setCurrent] = useState<number>(0);
-  const [contentWidth, setContentWidth] = useState(0);
+  const [current, setCurrent] = useState(0);
   const [isShowTrailerMovie, setIsShowTrailerMovie] = useState(false);
   const [movieShowTrailer, setMovieShowTrailer] = useState<string | null>(null);
 
   useEffect(() => {
-    const interVal = setInterval(() => {
-      setCurrent((pre) => (pre + 1) % dataSlide.length);
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % dataSlide.length);
     }, 5000);
-    return () => {
-      clearInterval(interVal);
-    };
-  }, []);
 
-  useEffect(() => {
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
-    document.documentElement.style.setProperty(
-      "--scrollbar-width",
-      `${scrollbarWidth}px`,
-    );
-  }, []);
-
-  useEffect(() => {
-    const updateWidth = () =>
-      setContentWidth(document.documentElement.clientWidth);
-    updateWidth();
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
+    return () => clearInterval(interval);
   }, []);
 
   const handleChangeSlide = (index: number) => {
     setCurrent(index);
   };
+
   const handleShowTrailerMovie = (url: string | null) => {
     setIsShowTrailerMovie(true);
     setMovieShowTrailer(url);
   };
 
   return (
-    <div
-      className="min-h-[200px] xl:min-h-[500px] md:min-h-[450px] relative overflow-x-hidden text-white"
-      style={{
-        width: `${contentWidth}px`,
-        marginLeft: `calc(50% - ${contentWidth / 2}px)`,
-      }}
-    >
-      {dataSlide.map((item, index) => {
-        return (
-          <Fragment key={item.id}>
-            <div
-              style={{
-                left: `${(index - current) * 100}%`,
-              }}
-              className="absolute left-0 top-0 h-full w-full "
-            >
-              <div className="text-white  relative max-w-[900px] mx-auto   px-4 top-[20%] z-[99] flex gap-[10px] md:gap-[25px] flex-col">
-                <h3 className="lg:text-[40px] text-[14px] font-bold line-clamp-1">
-                  {item.title}
-                </h3>
-                <div className="flex gap-[20px] text-[12px] md:text-[15px] items-center flex-wrap">
-                  <p>{item.genre}</p>
-                  <div className="bg-white w-[2px] h-[20px]"></div>
-                  <p className="line-clamp-1">{item.time}</p>
-                  <div className="bg-white w-[2px] h-[20px]"></div>
-                  <div
-                    onClick={() => handleShowTrailerMovie(item.url_trailer)}
-                    className="cursor-pointer h-[25px] w-[25px] md:h-[45px] md:w-[45px] rounded-[50%]  border-[2px]  border-white flex items-center justify-center"
-                  >
-                    <img
-                      src={iconPlay}
-                      className="md:translate-x-[2px] w-[6px] md:w-auto"
-                    />
+    <section className="relative w-full h-[70vh] min-h-[400px] md:h-[85vh] overflow-hidden text-white">
+      {/* SLIDES WRAPPER */}
+      <div
+        className="flex h-full transition-transform duration-700 ease-in-out"
+        style={{
+          transform: `translateX(-${current * 100}%)`,
+        }}
+      >
+        {dataSlide.map((item) => (
+          <div
+            key={item.id}
+            className="w-full h-full flex-shrink-0 relative bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${item.bgImage})`,
+            }}
+          >
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-[#12041a]" />
+
+            {/* Content */}
+            <div className="relative z-10 h-full flex items-center">
+              <div className="max-w-6xl mx-auto px-6 lg:px-12 w-full">
+                <div className="max-w-2xl flex flex-col gap-4 md:gap-6">
+                  <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                    {item.title}
+                  </h1>
+
+                  <div className="flex items-center gap-4 text-sm md:text-base text-gray-200 flex-wrap">
+                    <span>{item.genre}</span>
+                    <span className="w-1 h-1 bg-white rounded-full" />
+                    <span>{item.time}</span>
+                  </div>
+
+                  <div className="flex items-center gap-6 mt-4">
+                    <button
+                      onClick={() => handleShowTrailerMovie(item.url_trailer)}
+                      className="flex items-center gap-3 bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-3 rounded-full hover:opacity-90 transition"
+                    >
+                      <img src={iconPlay} className="w-4" />
+                      <span className="text-sm md:text-base">
+                        Watch Trailer
+                      </span>
+                    </button>
                   </div>
                 </div>
               </div>
-
-              <div
-                style={{
-                  backgroundImage: `url(${item.bgImage})`,
-                }}
-                className="absolute z-1 top-0 left-0 h-full w-full bg-cover  bg-no-repeat"
-              />
-              <div className="absolute z-[2] top-0 left-0 w-full h-full bg-gradient-to-b from-[#000000]/50 to-[#15061E]/100" />
-              <div className="bottom-[0px] left-1/2 -translate-x-1/2  sm:px-[30px] md:gap-[20px] xl:max-w-[1200px] mx-auto flex flex-col lg:gap-[20px] absolute z-[3]">
-                <div className=" items-center justify-center h-[90px] flex gap-[20px] ">
-                  {dataSlide.map((_, index) => {
-                    return (
-                      <p
-                        key={index}
-                        onClick={() => handleChangeSlide(index)}
-                        className={`${
-                          current == index
-                            ? "md:w-[20px] w-[10px]"
-                            : "md:w-[10px] w-[5px]"
-                        }  md:h-[10px] h-[5px] rounded-[5px] md:rounded-[10px] bg-white cursor-pointer`}
-                      ></p>
-                    );
-                  })}
-                </div>
-              </div>
             </div>
-            {isShowTrailerMovie && movieShowTrailer == item.url_trailer && (
-              <TrailerMovie
-                setIsShowTrailerMovie={setIsShowTrailerMovie}
-                url_trailer={item.url_trailer}
-              />
-            )}
-          </Fragment>
-        );
-      })}
-    </div>
+          </div>
+        ))}
+      </div>
+
+      {/* DOT INDICATORS */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+        {dataSlide.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => handleChangeSlide(index)}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              current === index
+                ? "w-8 bg-white"
+                : "w-3 bg-white/50 hover:bg-white"
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* Trailer Modal */}
+      {isShowTrailerMovie && movieShowTrailer && (
+        <TrailerMovie
+          setIsShowTrailerMovie={setIsShowTrailerMovie}
+          url_trailer={movieShowTrailer}
+        />
+      )}
+    </section>
   );
 };
 

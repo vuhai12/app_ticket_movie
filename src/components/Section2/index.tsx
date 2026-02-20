@@ -11,65 +11,80 @@ const Section2 = () => {
 
   return (
     <section
-      className="relative w-full overflow-hidden py-12 lg:py-20 bg-cover bg-center "
+      className="relative w-full overflow-hidden py-16 lg:py-28 bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-black/40" />
+      {/* Cinematic Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/50" />
 
-      {/* Content giữ 1200px */}
-      <div className="relative z-10 max-w-[900px] mx-auto px-4  flex flex-col md:flex-row items-center gap-8">
-        {/* Left image desktop */}
-        <div className="hidden md:block flex-1">
-          <img src={imageCard1} alt="" className="w-full object-contain" />
-        </div>
+      <div className="relative z-10 max-w-[1200px] mx-auto px-4 lg:px-6">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+          {/* LEFT IMAGE */}
+          <div className="flex-1 w-full">
+            {/* Desktop */}
+            <img
+              src={imageCard1}
+              alt=""
+              className="hidden lg:block w-full object-contain hover:scale-105 transition duration-500"
+            />
 
-        {/* Left image mobile */}
-        <div className="md:hidden h-[200px] w-full">
-          <img
-            src={imageCard1Horizontal}
-            alt=""
-            className="h-full object-contain mx-auto"
-          />
-        </div>
-
-        {/* Center ticket */}
-        <div className="relative flex justify-center items-center">
-          <img src={border} alt="" className="w-[250px] md:w-[320px]" />
-
-          <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center gap-4">
-            <h5 className="text-white font-semibold text-sm md:text-xl">
-              Tickets
-            </h5>
-
-            <div className="w-full border-t border-dashed border-white" />
-
-            <p className="text-white text-xs md:text-sm">
-              You can Buy tickets online through Credit Card / Mobile Banking /
-              Internet Banking
-            </p>
-
-            <button
-              onClick={() => navigate("/booking-movie")}
-              className="text-white border-2 border-white px-5 py-2 rounded-lg text-sm hover:bg-white hover:text-black transition"
-            >
-              Buy Tickets
-            </button>
+            {/* Mobile */}
+            <img
+              src={imageCard1Horizontal}
+              alt=""
+              className="lg:hidden w-full max-h-[220px] object-contain mx-auto"
+            />
           </div>
-        </div>
 
-        {/* Right image desktop */}
-        <div className="hidden md:block flex-1">
-          <img src={imageCard2} alt="" className="w-full object-contain" />
-        </div>
+          {/* CENTER TICKET CARD */}
+          <div className="relative flex justify-center items-center w-full lg:w-auto">
+            {/* Border Image */}
+            <img
+              src={border}
+              alt=""
+              className="w-[260px] sm:w-[320px] lg:w-[380px] drop-shadow-2xl"
+            />
 
-        {/* Right image mobile */}
-        <div className="md:hidden h-[200px] w-full">
-          <img
-            src={imageCard2Horizontal}
-            alt=""
-            className="h-full object-contain mx-auto"
-          />
+            {/* Content */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center gap-5">
+              <h5 className="text-white font-semibold text-lg lg:text-2xl tracking-wide">
+                🎟 Tickets
+              </h5>
+
+              <div className="w-full border-t border-dashed border-white/70" />
+
+              <p className="text-gray-200 text-xs sm:text-sm lg:text-base leading-relaxed">
+                Buy tickets online via Credit Card, Mobile Banking or Internet
+                Banking with fast & secure payment.
+              </p>
+
+              <button
+                onClick={() => navigate("/booking-movie")}
+                className="mt-2 px-6 py-3 rounded-xl border-2 border-white text-white 
+                           hover:bg-white hover:text-black 
+                           transition duration-300 font-semibold shadow-lg"
+              >
+                Buy Tickets
+              </button>
+            </div>
+          </div>
+
+          {/* RIGHT IMAGE */}
+          <div className="flex-1 w-full">
+            {/* Desktop */}
+            <img
+              src={imageCard2}
+              alt=""
+              className="hidden lg:block w-full object-contain hover:scale-105 transition duration-500"
+            />
+
+            {/* Mobile */}
+            <img
+              src={imageCard2Horizontal}
+              alt=""
+              className="lg:hidden w-full max-h-[220px] object-contain mx-auto"
+            />
+          </div>
         </div>
       </div>
     </section>

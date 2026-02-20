@@ -9,20 +9,15 @@ import { AxiosError } from "axios";
 
 const Register = () => {
   const [isVisibility, setIsVisibility] = useState(false);
-
-  const handleTogglePassword = () => {
-    setIsVisibility(!isVisibility);
-  };
+  const navigate = useNavigate();
 
   const registerSchema = z.object({
+    name: z.string().min(3, "Name must be at least 3 characters!"),
     email: z.string().min(5, "Please enter email!").email("Email is invalid!"),
     password: z.string().min(6, "Password must be at least 6 characters!"),
-    name: z.string().min(3, "Name must be at least 3 characters!"),
   });
 
   type RegisterFormData = z.infer<typeof registerSchema>;
-
-  const navigate = useNavigate();
 
   const {
     register,
@@ -34,8 +29,11 @@ const Register = () => {
     resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: RegisterFormData) => {
     try {
+      // TODO: Call API register here
+      console.log(data);
+
       reset();
       navigate("/login");
     } catch (error) {
@@ -43,90 +41,113 @@ const Register = () => {
         if (error.response?.status === 409) {
           setError("email", {
             type: "server",
-            message: "Email is registered!",
+            message: "Email is already registered!",
           });
-          return;
         }
       }
     }
   };
+
   return (
     <MainLayout>
-      <div className="rounded-[20px] w-full sm:w-[500px]  mx-auto my-[50px] bg-white overflow-hidden">
-        <h3 className="text-[20px] text-white bg-[#5f1a89] text-center py-[10px] ">
-          Register to Cinetickets
-        </h3>
+      <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
+        <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden">
+          {/* Header */}
+          <div className="bg-[#5f1a89] py-5 text-center">
+            <h3 className="text-xl sm:text-2xl font-semibold text-white">
+              Register to Cinetickets
+            </h3>
+          </div>
 
-        <form
-          className="p-[20px] flex flex-col gap-[20px]"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div className="flex flex-col gap-[10px]">
-            <label>Name</label>
-            <input
-              {...register("name")}
-              placeholder="name"
-              className="py-[10px] px-[20px] border-gray-400 border-[1px] rounded-[10px]"
-            />
-            {errors.name && (
-              <div className="mt-2 rounded-md bg-red-50 px-3 py-2 text-sm text-red-600 border border-red-200">
-                {errors.name.message}
-              </div>
-            )}
-          </div>
-          <div className="flex flex-col gap-[10px]">
-            <label>Email</label>
-            <input
-              {...register("email")}
-              placeholder="email"
-              className="py-[10px] px-[20px] border-gray-400 border-[1px] rounded-[10px]"
-            />
-            {errors.email && (
-              <div className="mt-2 rounded-md bg-red-50 px-3 py-2 text-sm text-red-600 border border-red-200">
-                {errors.email.message}
-              </div>
-            )}
-          </div>
-          <div className="flex flex-col gap-[10px]">
-            <label>Password</label>
-            <div className="flex">
-              <input
-                {...register("password")}
-                type={isVisibility ? "text" : "password"}
-                placeholder="Password"
-                className=" py-[10px] flex-1 w-full px-[20px] border-gray-400 border-[1px] rounded-tl-[10px] rounded-bl-[10px]"
-              />
-              <div
-                className="w-[50px] h-[50px] bg-gray-400 flex items-center justify-center"
-                onClick={handleTogglePassword}
-              >
-                {isVisibility ? (
-                  <Eye className="w-5 h-5 text-white" />
-                ) : (
-                  <EyeOff className="w-5 h-5 text-white" />
-                )}
-              </div>
-            </div>
-            {errors.password && (
-              <div className="mt-2 rounded-md bg-red-50 px-3 py-2 text-sm text-red-600 border border-red-200">
-                {errors.password.message}
-              </div>
-            )}
-          </div>
-          <button
-            disabled={isSubmitting}
-            className="py-[10px] bg-[#5f1a89] rounded-[10px] text-white"
+          {/* Form */}
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="p-6 sm:p-8 flex flex-col gap-6"
           >
-            Register
-          </button>
+            {/* Name */}
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-medium text-gray-700">
+                Full Name
+              </label>
+              <input
+                {...register("name")}
+                placeholder="John Doe"
+                className="px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
+              />
+              {errors.name && (
+                <p className="text-sm text-red-500">{errors.name.message}</p>
+              )}
+            </div>
 
-          <p className="text-center text-[12px]">
-            Already have an account?
-            <span className="text-[#5f1a89]">
-              <Link to="/login"> Login Now</Link>
-            </span>
-          </p>
-        </form>
+            {/* Email */}
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-medium text-gray-700">Email</label>
+              <input
+                {...register("email")}
+                placeholder="your@email.com"
+                className="px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
+              />
+              {errors.email && (
+                <p className="text-sm text-red-500">{errors.email.message}</p>
+              )}
+            </div>
+
+            {/* Password */}
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-medium text-gray-700">
+                Password
+              </label>
+
+              <div className="relative">
+                <input
+                  {...register("password")}
+                  type={isVisibility ? "text" : "password"}
+                  placeholder="Create password"
+                  className="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setIsVisibility(!isVisibility)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#5f1a89]"
+                >
+                  {isVisibility ? (
+                    <Eye className="w-5 h-5" />
+                  ) : (
+                    <EyeOff className="w-5 h-5" />
+                  )}
+                </button>
+              </div>
+
+              {errors.password && (
+                <p className="text-sm text-red-500">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+
+            {/* Register Button */}
+            <button
+              disabled={isSubmitting}
+              type="submit"
+              className="py-3 rounded-xl bg-[#5f1a89] text-white font-semibold 
+                         hover:bg-[#7a29b8] transition duration-300 shadow-md"
+            >
+              {isSubmitting ? "Creating account..." : "REGISTER"}
+            </button>
+
+            {/* Login link */}
+            <p className="text-center text-sm text-gray-600">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="text-[#5f1a89] font-semibold hover:underline"
+              >
+                Login Now
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
     </MainLayout>
   );

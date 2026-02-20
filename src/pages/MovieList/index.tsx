@@ -1,7 +1,6 @@
 import MainLayout from "Layout/MainLayout";
 import { useEffect, useState } from "react";
 import iconPlay from "@assets/Section1/icon-play.svg";
-import classNames from "classnames";
 import Pagination from "@components/Pagination";
 import { useAppDispatch, useAppSelector } from "store/hook";
 import { fetchMovies } from "store/slices/movieSlice";
@@ -17,17 +16,16 @@ const dataSection1 = [
 
 const MovieList = () => {
   const [status, setStatus] = useState("now_showing");
-  const [searchString, setSearchString] = useState<undefined | string>(
-    undefined,
-  );
+  const [searchString, setSearchString] = useState<string | undefined>();
   const [isShowTrailerMovie, setIsShowTrailerMovie] = useState(false);
-  const [movieShowTrailer, setMovieShowTrailer] = useState("");
+  const [movieShowTrailer, setMovieShowTrailer] = useState<string | null>(null);
   const [pageCurrent, setPageCurrent] = useState(1);
 
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.movies);
+
   const searchStringDebond = useDebond(searchString);
-  const limit = 8;
+  const limit = 10;
   const from = (pageCurrent - 1) * limit;
   const to = from + limit - 1;
 
@@ -37,115 +35,115 @@ const MovieList = () => {
     dispatch(fetchMovies({ title: searchStringDebond, status, from, to }));
   }, [dispatch, status, pageCurrent, searchStringDebond]);
 
-  const handleTabChange = (newStatus: string) => setStatus(newStatus);
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchString(e.target.value);
-  };
-
-  const handleShowTrailerMovie = (id: string) => {
+  const handleShowTrailerMovie = (url: string) => {
     setIsShowTrailerMovie(true);
-    setMovieShowTrailer(id);
-  };
-
-  const renderMovieGrid = () => {
-    return data?.dataMovies.map((item) => (
-      <div
-        key={item.id}
-        className="rounded-[10px] flex flex-col gap-[8px] group overflow-hidden"
-      >
-        {/* Movie Poster */}
-        <div
-          onClick={() => handleShowTrailerMovie(item.id)}
-          className="md:h-[200px] h-[300px] group-hover:rounded-[10px] overflow-hidden relative cursor-pointer"
-        >
-          <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out" />
-          <img src={item.poster_url} className="object-cover h-full w-full" />
-          <div className="w-[50px] h-[50px] rounded-[50%] border-[2px] border-white absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 items-center justify-center hidden group-hover:flex">
-            <img src={iconPlay} alt="Play Icon" />
-          </div>
-        </div>
-
-        {/* Movie Info */}
-        <div className="flex-1 flex flex-col gap-[8px]">
-          <h3 className="text-[14px] text-white font-semibold line-clamp-1">
-            {item.title}
-          </h3>
-          <p className="text-gray-400 text-[12px]">{item.category}</p>
-          <div className="flex justify-between text-white font-semibold">
-            <button
-              onClick={() => navigate(`/booking-movie`)}
-              className="text-[12px] p-[10px] rounded-[5px] bg-[#5f1a89]"
-            >
-              Get Ticket
-            </button>
-            <button
-              onClick={() => navigate(`/movie/${item.id}`)}
-              className="text-[12px] p-[10px] rounded-[5px] bg-[#5f1a89]"
-            >
-              Detail
-            </button>
-          </div>
-          {/* Trailer Modal */}
-          {isShowTrailerMovie && movieShowTrailer === item.id && (
-            <TrailerMovie
-              setIsShowTrailerMovie={setIsShowTrailerMovie}
-              url_trailer={item.trailer_url}
-            />
-          )}
-        </div>
-      </div>
-    ));
+    setMovieShowTrailer(url);
   };
 
   return (
     <MainLayout>
-      <div className="flex flex-col gap-[30px] mt-[20px] max-w-[900px] mx-auto px-4">
-        {/* Tab Selection */}
-        <div className="flex justify-between items-center">
-          <div className="flex justify-start border-b-[1px] border-[#5f1a89] w-fit">
-            {dataSection1.map((item) => (
+      <section className="py-12 bg-[#0f0516] text-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col gap-10">
+          {/* ===== Header Section ===== */}
+          <div className="flex flex-col lg:flex-row justify-between gap-6 lg:items-center">
+            {/* Tabs */}
+            <div className="flex gap-8 border-b border-white/10">
+              {dataSection1.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setStatus(item.status)}
+                  className={`relative pb-4 text-sm md:text-base font-semibold transition ${
+                    status === item.status
+                      ? "text-white"
+                      : "text-gray-400 hover:text-white"
+                  }`}
+                >
+                  {item.name}
+                  {status === item.status && (
+                    <span className="absolute left-0 bottom-0 h-[3px] w-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-full" />
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Search */}
+            <div className="relative w-full lg:w-[280px]">
+              <input
+                value={searchString}
+                onChange={(e) => setSearchString(e.target.value)}
+                placeholder="Search movie..."
+                className="w-full bg-[#1e0d28] border border-white/10 rounded-full pl-12 pr-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 transition"
+              />
+              <MagnifyingGlassIcon className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+            </div>
+          </div>
+
+          {/* ===== Movie Grid ===== */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6">
+            {data?.dataMovies.map((item) => (
               <div
                 key={item.id}
-                onClick={() => handleTabChange(item.status)}
-                className="p-[15px] cursor-pointer text-[12px] text-white relative flex justify-center font-semibold"
+                className="group bg-[#1e0d28] rounded-2xl overflow-hidden shadow-lg hover:shadow-purple-700/20 transition duration-300"
               >
-                <p className="text-[14px]">{item.name}</p>
+                {/* Poster */}
                 <div
-                  className={classNames(
-                    "absolute bottom-0 h-[3px] bg-white w-[60%]",
-                    status === item.status ? "block" : "hidden",
-                  )}
-                />
+                  onClick={() => handleShowTrailerMovie(item.trailer_url)}
+                  className="relative cursor-pointer aspect-[2/3] overflow-hidden"
+                >
+                  <img
+                    src={item.poster_url}
+                    className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                    <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center">
+                      <img src={iconPlay} className="w-4" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Info */}
+                <div className="p-4 flex flex-col gap-3">
+                  <h3 className="text-sm font-semibold line-clamp-1">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs text-gray-400">{item.category}</p>
+
+                  <div className="flex gap-2 mt-2">
+                    <button
+                      onClick={() => navigate(`/booking-movie`)}
+                      className="flex-1 text-xs py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 transition"
+                    >
+                      Get Ticket
+                    </button>
+                    <button
+                      onClick={() => navigate(`/movie/${item.id}`)}
+                      className="flex-1 text-xs py-2 rounded-lg border border-white/20 hover:bg-white/10 transition"
+                    >
+                      Detail
+                    </button>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
 
-          {/* Search Input */}
-          <div className="md:flex gap-[40px] relative hidden">
-            <input
-              value={searchString}
-              onChange={handleSearchChange}
-              placeholder="Search"
-              className="text-white border-[#38134E] border-[1px] bg-[#1e0d28] text-[16px] pl-[50px] pr-[20px] py-[16px] md:py-[5px] md:h-[40px] w-[200px] h-[58px] rounded-[58px]"
-            />
-            <MagnifyingGlassIcon className="w-[20px] h-[20px] text-white absolute left-[20px] top-1/2 -translate-y-1/2" />
-          </div>
+          {/* ===== Pagination ===== */}
+          <Pagination
+            limit={limit}
+            setPageCurrent={setPageCurrent}
+            pageCurrent={pageCurrent}
+            totalItems={data?.total || 0}
+          />
         </div>
+      </section>
 
-        {/* Movie Grid */}
-        <div className="grid xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-[30px]">
-          {renderMovieGrid()}
-        </div>
-
-        {/* Pagination */}
-        <Pagination
-          limit={limit}
-          setPageCurrent={setPageCurrent}
-          pageCurrent={pageCurrent}
-          totalItems={data?.total || 0}
+      {/* Trailer Modal (render 1 lần duy nhất) */}
+      {isShowTrailerMovie && movieShowTrailer && (
+        <TrailerMovie
+          setIsShowTrailerMovie={setIsShowTrailerMovie}
+          url_trailer={movieShowTrailer}
         />
-      </div>
+      )}
     </MainLayout>
   );
 };

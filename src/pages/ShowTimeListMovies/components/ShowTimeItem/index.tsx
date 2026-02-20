@@ -43,67 +43,81 @@ const ShowTimeItem = ({
 }) => {
   const [isShowTrailerMovie, setIsShowTrailerMovie] = useState(false);
   const [movieShowTrailer, setMovieShowTrailer] = useState("");
+  const navigate = useNavigate();
 
   const handleShowTrailerMovie = (id: string) => {
     setIsShowTrailerMovie(true);
     setMovieShowTrailer(id);
   };
 
-  const navigate = useNavigate();
   return (
-    <div className="flex lg:flex-row flex-col bg-[#252629]">
-      <div className="lg:flex-[1] flex-[1] px-[20px] py-[10px] bg-no-repeat bg-cover bg-center">
-        <div
-          style={{ backgroundImage: `url(${image})` }}
-          className="w-full xl:h-full h-[300px] bg-no-repeat bg-cover bg-center rounded-[10px]"
-        />
-      </div>
-      <div className="w-[1px] bg-gray-700" />
-      <div className="lg:flex-[1]  md:flex-[1] flex-1 flex flex-col gap-[20px] text-white px-[20px] py-[10px]">
-        <h3 className="text-[25px] font-semibold">{title}</h3>
-        <div className="flex flex-col gap-[10px] text-[14px]">
-          <p className="flex flex-wrap gap-[10px] items-center">
-            <FaClock className="text-yellow-400" />
-            <span>{dayjs(release_date).format("DD-MM-YYYY")}</span>
-          </p>
-          <p>
-            Category: <span>{category}</span>
-          </p>
-          <p className="line-clamp-2">
-            Actor: <span>{actor}</span>
-          </p>
-          <p>
-            Release: <span>{release}</span>
-          </p>
-          <p>
-            Language: <span>{language}</span>
-          </p>
+    <div className="w-full bg-[#1f1f1f] rounded-2xl overflow-hidden border border-white/10 shadow-lg">
+      <div className="flex flex-col lg:flex-row">
+        {/* Poster */}
+        <div className="lg:w-[280px] w-full h-[350px] lg:h-auto">
+          <img src={image} alt={title} className="w-full h-full object-cover" />
         </div>
-        <div className="flex gap-[10px] text-[12px]">
-          <button
-            onClick={() => navigate(`/movie/${movie_id}`)}
-            className="py-[10px] px-[15px] bg-[#5f1a89] text-white rounded-[5px]"
-          >
-            Detail
-          </button>
-          <button
-            onClick={() => handleShowTrailerMovie(movie_id)}
-            className="py-[10px] px-[15px] border-[1px] border-white text-white rounded-[5px]"
-          >
-            Watch Trailer
-          </button>
+
+        {/* Movie Info */}
+        <div className="flex-1 p-6 text-white flex flex-col justify-between gap-4">
+          <div className="space-y-3">
+            <h3 className="text-xl lg:text-2xl font-semibold">{title}</h3>
+
+            <div className="space-y-2 text-sm text-gray-300">
+              <p className="flex items-center gap-2">
+                <FaClock className="text-yellow-400" />
+                {dayjs(release_date).format("DD-MM-YYYY")}
+              </p>
+
+              <p>
+                <span className="text-gray-400">Category:</span> {category}
+              </p>
+
+              <p className="line-clamp-2">
+                <span className="text-gray-400">Actor:</span> {actor}
+              </p>
+
+              <p>
+                <span className="text-gray-400">Release:</span> {release}
+              </p>
+
+              <p>
+                <span className="text-gray-400">Language:</span> {language}
+              </p>
+            </div>
+          </div>
+
+          {/* Buttons */}
+          <div className="flex flex-wrap gap-3 pt-2">
+            <button
+              onClick={() => navigate(`/movie/${movie_id}`)}
+              className="px-4 py-2 rounded-lg bg-[#5f1a89] hover:bg-purple-700 transition text-sm font-medium"
+            >
+              View Detail
+            </button>
+
+            <button
+              onClick={() => handleShowTrailerMovie(movie_id)}
+              className="px-4 py-2 rounded-lg border border-white/30 hover:bg-white/10 transition text-sm font-medium"
+            >
+              Watch Trailer
+            </button>
+          </div>
+        </div>
+
+        {/* Showtime Section */}
+        <div className="lg:w-[45%] w-full border-t lg:border-t-0 lg:border-l border-white/10 p-4 bg-[#242424]">
+          <ShowtimeList
+            weekday={weekday}
+            show_times={show_times}
+            timeChecked={timeChecked}
+            setTimeChecked={setTimeChecked}
+          />
         </div>
       </div>
-      <div className="w-[1px] bg-gray-700" />
-      <div className="lg:flex-[3] md:flex-[2] ">
-        <ShowtimeList
-          weekday={weekday}
-          show_times={show_times}
-          timeChecked={timeChecked}
-          setTimeChecked={setTimeChecked}
-        />
-      </div>
-      {isShowTrailerMovie && movieShowTrailer == movie_id && (
+
+      {/* Trailer Popup */}
+      {isShowTrailerMovie && movieShowTrailer === movie_id && (
         <TrailerMovie
           setIsShowTrailerMovie={setIsShowTrailerMovie}
           url_trailer={trailer}

@@ -32,179 +32,167 @@ const TicketSummary = ({
   selectMovie: null | string;
   time: string | null;
 }) => {
-  const formPurchaseSchema = z.object({
+  const formSchema = z.object({
     name: z.string().min(3, "Name must be at least 3 characters"),
-    phone: z.string().min(8, "Number phone must be at least 8 characters"),
+    phone: z.string().min(8, "Phone must be at least 8 characters"),
   });
 
-  type FormPurchaseSchema = z.infer<typeof formPurchaseSchema>;
+  type FormSchema = z.infer<typeof formSchema>;
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormPurchaseSchema>({
-    resolver: zodResolver(formPurchaseSchema),
+  } = useForm<FormSchema>({
+    resolver: zodResolver(formSchema),
   });
 
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.tickets);
+  const navigate = useNavigate();
 
   const user_id = localStorage.getItem("idUser");
-  const user = localStorage.getItem("user");
-  const navigate = useNavigate();
-  const onSubmit = async (formPurchaseSchema: FormPurchaseSchema) => {
-    try {
-      if (
-        locationCinema &&
-        showtime &&
-        quantity &&
-        seat &&
-        totalAmount &&
-        (user_id || user) &&
-        selectMovie
-      ) {
-        dispatch(
-          fetchTickets({
-            ...formPurchaseSchema,
-            show_time_id: showtime,
-            ticket_quantity: quantity,
-            total_price: totalAmount,
-            user_id,
-            movie_id: selectMovie,
-          })
-        );
-      }
-    } catch (error) {}
+
+  const isValidBooking =
+    locationCinema &&
+    showtime &&
+    quantity > 0 &&
+    seat &&
+    seat.length === quantity &&
+    totalAmount > 0 &&
+    selectMovie;
+
+  const onSubmit = async (formData: FormSchema) => {
+    if (!isValidBooking) return;
+
+    dispatch(
+      fetchTickets({
+        ...formData,
+        show_time_id: showtime,
+        ticket_quantity: quantity,
+        total_price: totalAmount,
+        user_id,
+        movie_id: selectMovie,
+      }),
+    );
   };
 
   useEffect(() => {
-    if (data.length > 0 && data[0].id && seat && showtime) {
-      const seatPayload = seat.map((s) => ({
-        ticket_id: data[0].id,
-        showtime_id: showtime,
-        row: s.row,
-        col: s.col,
-      }));
-      dispatch(createSeats(seatPayload));
-      navigate("/payment");
-    }
-  }, [data]);
+    if (!data || !data[0]?.id || !seat || !showtime) return;
+
+    const seatPayload = seat.map((s) => ({
+      ticket_id: data[0].id,
+      showtime_id: showtime,
+      row: s.row,
+      col: s.col,
+    }));
+
+    dispatch(createSeats(seatPayload));
+    navigate("/payment");
+  }, [data, seat, showtime, dispatch, navigate]);
 
   return (
-    <div className="flex  flex-col">
-      <div className="bg-[#5f1a89] p-[15px]">
-        <h3 className="text-[18px] font-semibold text-white">Ticket Summary</h3>
+    <div className="flex flex-col rounded-xl overflow-hidden border border-white/10 bg-[#1e0d28] text-white">
+      {/* Header */}
+      <div className="bg-[#5f1a89] p-4">
+        <h3 className="text-lg font-semibold">Ticket Summary</h3>
       </div>
 
-      <div className="flex flex-col gap-[10px] p-[15px] bg-[#1e0d28] rounded-[8px] text-white">
+      <div className="p-4 flex flex-col gap-4">
+        {/* Movie Info */}
         {selectMovie ? (
-          <div className="flex gap-[10px] justify-between">
-            <div className=" h-[120px] w-[100px] rounded-[5px] overflow-hidden">
-              <img src={image} className="w-full object-cover h-full " />
+          <div className="flex gap-3">
+            <div className="h-28 w-20 rounded-md overflow-hidden">
+              <img
+                src={image}
+                alt={title}
+                className="w-full h-full object-cover"
+              />
             </div>
-            <div className="flex flex-col flex-1 gap-[10px]">
-              <h3 className="text-[12px] font-semibold">{title}</h3>
-              <p className="text-[10px] text-gray-400">{duration}</p>
+            <div className="flex flex-col gap-1">
+              <h3 className="text-sm font-semibold">{title}</h3>
+              <p className="text-xs text-gray-400">{duration}</p>
             </div>
           </div>
         ) : (
           <Loading />
         )}
 
-        <div className="flex gap-[10px] flex-col text-[14px] text-gray-300 mt-[10px]">
-          <div className="flex justify-between">
-            <p className="">Location</p>
-            {locationCinema == null ? (
-              <p>_ _</p>
-            ) : (
-              <p className="font-semibold text-gray-400 text-right">
-                {locationCinema}
-              </p>
-            )}
-          </div>
-          <div className="flex  justify-between">
-            <p className="flex gap-[20px]">Show Time </p>
-            {showtime == null ? (
-              <p>_ _</p>
-            ) : (
-              <p className="text-gray-400">{time}</p>
-            )}
-          </div>
-          <div className="flex  justify-between">
-            <p className="flex gap-[20px]">Ticket Quantity </p>
-            {showtime == null ? (
-              <p>_ _</p>
-            ) : (
-              <p className="text-gray-400">{quantity}</p>
-            )}
-          </div>
-          <div className="flex  justify-between">
-            <p className="flex gap-[20px]">Selected Seat </p>
-            {seat == null ? (
-              <p>_ _</p>
-            ) : (
-              <p className="text-right text-gray-400">
-                {seat.map((item, index) => {
-                  if (index == seat.length - 1) return `${item.col}${item.row}`;
-                  return `${item.col}${item.row}, `;
-                })}
-              </p>
-            )}
-          </div>
-          <div className="flex  justify-between">
-            <p className="flex gap-[20px]">Total Amount </p>
-            <p className="text-gray-400">{totalAmount} USD</p>
-          </div>
+        {/* Info */}
+        <div className="text-sm text-gray-300 space-y-2">
+          <InfoRow label="Location" value={locationCinema} />
+          <InfoRow label="Show Time" value={time} />
+          <InfoRow label="Ticket Quantity" value={quantity?.toString()} />
+          <InfoRow
+            label="Selected Seat"
+            value={
+              seat && seat.length > 0
+                ? seat.map((s) => `${s.col}${s.row}`).join(", ")
+                : null
+            }
+          />
+          <InfoRow
+            label="Total Amount"
+            value={`${totalAmount.toLocaleString()} USD`}
+          />
         </div>
-        <div className="flex flex-col gap-[10px]">
-          <h3 className="text-[16px] font-semibold">Ticket For</h3>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex gap-[20px] flex-col"
-          >
-            <div>
-              <input
-                {...register("name")}
-                className="text-[14px] w-full text-black py-[8px] px-[15px] rounded-[5px] border-[1px] border-gray-400"
-                placeholder="Full Name"
-              />
-              {errors.name && (
-                <div className="mt-2 flex items-start gap-2 rounded-md bg-red-500/10 px-3 py-2 text-[11px] text-red-400 border border-red-500/30">
-                  <AlertCircle className="w-4 h-4 mt-[1px]" />
-                  <span>{errors.name.message} </span>
-                </div>
-              )}
-            </div>
-            <div>
-              <input
-                {...register("phone")}
-                className="text-[14px] w-full text-black py-[8px] rounded-[5px] px-[15px] border-[1px] border-gray-400"
-                placeholder="Mobie Number"
-              />
 
-              {errors.phone && (
-                <div className="mt-2 flex items-start gap-2 rounded-md bg-red-500/10 px-3 py-2 text-[11px] text-red-400 border border-red-500/30">
-                  <AlertCircle className="w-4 h-4 mt-[1px]" />
-                  <span>{errors.phone.message} </span>
-                </div>
-              )}
-            </div>
-            <button
-              type="submit"
-              className="text-[12px] rounded-[5px] p-[8px] bg-[#5f1a89] text-white font-semibold"
-            >
-              PURCHASE TICKET
-            </button>
-          </form>
-        </div>
-        <p className="text-[10px]">
-          By clicking the Purchase Tickets you are accepting Terms & Conditions
-          of Star Cineplex.
+        {/* Form */}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+          <InputField
+            placeholder="Full Name"
+            register={register("name")}
+            error={errors.name?.message}
+          />
+
+          <InputField
+            placeholder="Mobile Number"
+            register={register("phone")}
+            error={errors.phone?.message}
+          />
+
+          <button
+            type="submit"
+            disabled={!isValidBooking}
+            className={`w-full py-2 rounded-md font-semibold transition ${
+              isValidBooking
+                ? "bg-purple-700 hover:bg-purple-800"
+                : "bg-gray-600 cursor-not-allowed"
+            }`}
+          >
+            PURCHASE TICKET
+          </button>
+        </form>
+
+        <p className="text-xs text-gray-400">
+          By clicking Purchase Ticket you accept Terms & Conditions.
         </p>
       </div>
     </div>
   );
 };
+
+const InfoRow = ({ label, value }: { label: string; value: any }) => (
+  <div className="flex justify-between">
+    <p>{label}</p>
+    <p className="text-gray-400 text-right">{value ?? "_ _"}</p>
+  </div>
+);
+
+const InputField = ({ placeholder, register, error }: any) => (
+  <div>
+    <input
+      {...register}
+      placeholder={placeholder}
+      className="w-full text-black px-3 py-2 rounded-md border border-gray-400 text-sm"
+    />
+    {error && (
+      <div className="mt-2 flex items-center gap-2 text-xs text-red-400 bg-red-500/10 border border-red-500/30 px-3 py-2 rounded-md">
+        <AlertCircle className="w-4 h-4" />
+        {error}
+      </div>
+    )}
+  </div>
+);
 
 export default TicketSummary;

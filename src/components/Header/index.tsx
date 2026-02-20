@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import logo from "../../assets/Header/logo.svg";
-import { UserIcon } from "@heroicons/react/24/solid";
-import { Bars3Icon } from "@heroicons/react/24/solid";
+import { UserIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import HambugerMenu from "@components/HambugerMenu";
 import { clearUsers } from "store/slices/usersSlice";
@@ -16,19 +15,6 @@ const menuItems = [
 
 const Header = () => {
   const [isShowHambugerMenu, setIsShowHambugerMenu] = useState(false);
-  const [_, setContentWidth] = useState(0);
-
-  const handleShowHambugerMenu = () => {
-    setIsShowHambugerMenu(true);
-  };
-
-  useEffect(() => {
-    const updateWidth = () =>
-      setContentWidth(document.documentElement.clientWidth);
-    updateWidth();
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  }, []);
 
   const idUser = localStorage.getItem("idUser");
   const access_token = localStorage.getItem("access_token");
@@ -42,102 +28,84 @@ const Header = () => {
     dispatch(clearUsers());
     navigate("/login");
   };
+
   return (
     <>
-      <div>
-        <div className="flex justify-between h-[60px] lg:h-[80px] items-center max-w-[900px] mx-auto px-4">
-          <div className="h-[35px] w-[114px]">
-            <Link to={"/"}>
-              <img src={logo} className="w-full h-full object-contain" />
-            </Link>
-          </div>
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-black/60 border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-[70px] flex items-center justify-between">
+          {/* LOGO */}
+          <Link to="/" className="flex items-center">
+            <img src={logo} className="h-8 lg:h-10 object-contain" alt="logo" />
+          </Link>
 
-          <nav className="hidden md:block">
-            <ul className="flex gap-[50px] cursor-pointer md:gap-[30px] justify-start text-[#E3E3E3] text-[16px] leading-6 tracking-[-1px]">
-              {menuItems.map((item) => {
-                return (
-                  <li className="relative" key={item.id}>
-                    <NavLink to={item.path} key={item.id}>
-                      {({ isActive }) => {
-                        return (
-                          <div className="relative flex justify-center items-center py-[10px]">
-                            <p>{item.name}</p>
-                            {isActive && (
-                              <div className="w-[50px] h-[2px] bg-white absolute bottom-0"></div>
-                            )}
-                          </div>
-                        );
-                      }}
-                    </NavLink>
-                  </li>
-                );
-              })}
-            </ul>
+          {/* DESKTOP NAV */}
+          <nav className="hidden md:flex items-center gap-10 text-gray-300 text-[15px]">
+            {menuItems.map((item) => (
+              <NavLink key={item.id} to={item.path}>
+                {({ isActive }) => (
+                  <div className="relative group">
+                    <span
+                      className={`transition ${
+                        isActive ? "text-white" : "group-hover:text-white"
+                      }`}
+                    >
+                      {item.name}
+                    </span>
+
+                    <span
+                      className={`absolute left-0 -bottom-2 h-[2px] bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 ${
+                        isActive ? "w-full" : "w-0 group-hover:w-full"
+                      }`}
+                    />
+                  </div>
+                )}
+              </NavLink>
+            ))}
           </nav>
 
-          <div className="md:flex gap-[20px] items-center hidden">
+          {/* RIGHT SIDE */}
+          <div className="hidden md:flex items-center gap-6">
             {idUser || (access_token && user) ? (
-              <div className="group relative px-[20px] py-[10px] ">
-                <p className="text-white cursor-pointer">{`Hi, ${
-                  user ?? idUser?.slice(0, 8)
-                }`}</p>
-                <div
-                  className="flex absolute right-0 z-[99] w-[120px] opacity-0 bg-[#5f1a89] rounded-[5px] group-hover:opacity-100 gap-[8px] py-[8px] items-center justify-center cursor-pointer "
-                  onClick={handleLogout}
-                >
-                  <UserIcon className="w-5 h-5 cursor-pointer text-white" />
-                  <p className="text-white">Sign Out</p>
+              <div className="relative group">
+                <button className="text-white text-sm px-4 py-2 rounded-lg hover:bg-white/10 transition">
+                  Hi, {user ?? idUser?.slice(0, 8)}
+                </button>
+
+                <div className="absolute right-0 mt-2 w-36 bg-[#1E0D28] rounded-xl shadow-xl opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-200">
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-2 px-4 py-3 text-sm text-white hover:bg-purple-600 w-full rounded-xl transition"
+                  >
+                    <UserIcon className="w-4 h-4" />
+                    Sign Out
+                  </button>
                 </div>
               </div>
             ) : (
-              <Link to={"/login"} className="flex gap-[8px] items-end">
-                <UserIcon className="w-5 h-5 cursor-pointer text-white" />
-                <p className="text-white">Sign In</p>
+              <Link
+                to="/login"
+                className="flex items-center gap-2 text-sm bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-2 rounded-full hover:opacity-90 transition"
+              >
+                <UserIcon className="w-4 h-4" />
+                Sign In
               </Link>
             )}
           </div>
 
-          <div className="md:hidden sm:block" onClick={handleShowHambugerMenu}>
+          {/* MOBILE MENU ICON */}
+          <button
+            className="md:hidden"
+            onClick={() => setIsShowHambugerMenu(true)}
+          >
             <Bars3Icon className="w-6 h-6 text-white" />
-          </div>
-
-          {isShowHambugerMenu && (
-            <HambugerMenu setIsShowHambugerMenu={setIsShowHambugerMenu} />
-          )}
+          </button>
         </div>
-        {/* <div
-          style={{
-            width: `${contentWidth}px`,
-            marginLeft: `calc(50% - ${contentWidth / 2}px)`,
-          }}
-          className=" bg-[#5f1a89] py-[10px]"
-        >
-          <div className="xl:max-w-[1200px] mx-auto lg:px-[100px] md:px-[50px] px-[10px] xl:px-0 items-center flex justify-between">
-            <nav className="hidden md:block">
-              <ul className="flex gap-[50px] cursor-pointer md:gap-[30px] justify-start text-[#E3E3E3] text-[16px] leading-6 tracking-[-1px]">
-                {menuItems.map((item) => {
-                  return (
-                    <li className="relative">
-                      <NavLink to={item.path} key={item.id}>
-                        {({ isActive }) => {
-                          return (
-                            <div className="relative flex justify-center items-center py-[10px]">
-                              <p>{item.name}</p>
-                              {isActive && (
-                                <div className="w-[50px] h-[2px] bg-white absolute bottom-0"></div>
-                              )}
-                            </div>
-                          );
-                        }}
-                      </NavLink>
-                    </li>
-                  );
-                })}
-              </ul>
-            </nav>
-          </div>
-        </div> */}
-      </div>
+      </header>
+
+      {/* HAMBURGER MENU */}
+      {isShowHambugerMenu && (
+        <HambugerMenu setIsShowHambugerMenu={setIsShowHambugerMenu} />
+      )}
     </>
   );
 };

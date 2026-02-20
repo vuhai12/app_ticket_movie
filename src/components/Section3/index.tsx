@@ -126,273 +126,194 @@ const Section3 = () => {
     }
   };
   return (
-    <>
-      <div className="flex flex-col gap-[20px] mt-[20px] lg:flex-row max-w-[900px] mx-auto px-4">
-        <div className="flex flex-col gap-[20px] lg:flex-[3]">
-          <div className=" bg-[#1E0D28]/100 p-[20px] flex flex-col gap-[20px] flex-1">
-            <div className="flex justify-between flex-wrap gap-[20px]">
-              <h5 className="text-[18px] font-semibold text-white">
-                Latest News
-              </h5>
-              <Link
-                to="/news-list"
-                className="cursor-pointer text-[12px] font-semibold text-white px-[20px] py-[10px] border-[1px]  border-white p-[10px] rounded-[10px]"
-              >
-                View All
-              </Link>
-            </div>
-            <div
-              className={classNames(
-                `grid md:grid-cols-2 lg:grid-cols-3 gap-[30px] flex-1`,
-              )}
-            >
-              {data &&
-                data.length > 0 &&
-                data.map((item, index: number) => {
-                  return (
-                    <div
-                      key={index}
-                      style={{ backgroundImage: `url(${item.poster_url})` }}
-                      className={classNames(
-                        `bg-no-repeat rounded-[10px] group relative h-[300px] sm:h-[auto] bg-center bg-cover flex flex-col justify-end  p-[20px]`,
-                        index == 0 ? "md:row-span-2" : "",
-                      )}
-                    >
-                      <div className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-60" />
-                      <div className="w-full h-full absolute top-0 left-0 bg-gradient-to-b from-[#15061E]/0 to-[#15061E]/80"></div>
-                      <div className="relative z-9 flex-col gap-[10px] flex opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
-                        <h5 className="lg:text-[14px]  font-semibold text-white line-clamp-1">
-                          {item.title}
-                        </h5>
-                        <p className="text-[12px] text-gray-400 line-clamp-2">
-                          {item.desciption}
-                        </p>
-                        <button
-                          onClick={() => navigate(`/news-item/${item.id}`)}
-                          className="py-[10px] text-[12px] rounded-[10px] px-[15px] w-fit font-semibold bg-[#5f1a89] text-white"
-                        >
-                          Detail
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
-          <div className="bg-[#1E0D28]/100 p-[20px] flex-col gap-[20px] flex">
-            <div className="flex flex-col gap-[10px] max-w-[1216px]">
-              <h5 className="text-[16px] font-semibold text-white">
-                Student Reward
-              </h5>
-              <p className="text-[12px] text-white">
-                STAR Cineplex brings a whole new experience for the young
-                generation with the ‘Student Reward Program. This is a special
-                opportunity for students of educational institutions to get
-                a‘Buy 1 Get 1’ offer for movie tickets at all the branches of
-                STAR Cineplex. Details
-              </p>
-            </div>
-            <button
-              onClick={() => navigate("/register")}
-              className="text-white w-fit text-[12px] cursor-pointer border-[1px]  border-white p-[10px] rounded-[10px]"
-            >
-              Register Now
-            </button>
-          </div>
-        </div>
-        <div className="flex-col flex gap-[20px] lg:flex-[1]">
-          <div className="flex flex-col gap-[20px]">
-            <div className="flex gap-[10px] bg-[#5f1a89] px-[20px] py-[10px]">
-              <p className="text-white text-[14px] font-semibold">
-                How do you rate the movie?
-              </p>
-            </div>
-            <div className="bg-[#1E0D28]/100 flex gap-[20px] flex-col md:p-[20px] ">
-              <div className="flex flex-col gap-[10px]">
-                <div className="flex justify-between gap-[20px] md:flex-row flex-col md:items-center flex-wrap">
-                  <div className="w-full h-[107px] rounded-[10px] overflow-hidden">
+    <section className="py-20 bg-[#0f0516] text-white">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        {/* ================== MAIN GRID ================== */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
+          {/* ================== LEFT CONTENT ================== */}
+          <div className="lg:col-span-3 flex flex-col gap-10">
+            {/* ===== Latest News ===== */}
+            <div className="bg-[#1E0D28] p-6 rounded-2xl">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                <h5 className="text-lg font-semibold">Latest News</h5>
+
+                <Link
+                  to="/news-list"
+                  className="text-sm border border-purple-500 text-purple-400 px-5 py-2 rounded-lg hover:bg-purple-500 hover:text-white transition"
+                >
+                  View All
+                </Link>
+              </div>
+
+              <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                {data?.map((item, index) => (
+                  <div
+                    key={item.id}
+                    className={`relative group rounded-xl overflow-hidden ${
+                      index === 0 ? "sm:row-span-2" : ""
+                    }`}
+                  >
                     <img
-                      className="w-full h-full object-cover"
-                      src={bgImage1}
+                      src={item.poster_url}
+                      className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
                     />
-                  </div>
-                  <p className="text-[12px] font-semibold text-white">
-                    Avatar: The Way of Water (3D)
-                  </p>
-                </div>
-                {ratingData.map((item, _) => {
-                  return (
-                    <label
-                      key={item.id}
-                      className={`${
-                        active == item.id && "bg-[#451662]"
-                      } grid grid-cols-[auto_1fr_2fr_1fr] gap-[10px] p-[10px] items-center cursor-pointer rounded-[10px]`}
-                    >
-                      <div className="flex items-center">
-                        <input
-                          type="radio"
-                          className=" hidden"
-                          checked={item.id == active}
-                          onChange={() => handleChecked(item.id, item.lable)}
-                        />
-                        <span
-                          className={`${
-                            active == item.id && "border-[2px]"
-                          } w-[20px] h-[20px] rounded-full border-white border-[2px] relative`}
-                        >
-                          {active == item.id && (
-                            <span className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[10px] h-[10px]  rounded-full  bg-white " />
-                          )}
-                        </span>
-                      </div>
-                      <p className="text-white text-[12px]">{item.lable}</p>
-                      {active == item.id && (
-                        <div className="bg-white h-[3px] w-full" />
-                      )}
-                      {active == item.id && (
-                        <p className="text-white text-right text-[12px]">
-                          {item.value}%
-                        </p>
-                      )}
-                    </label>
-                  );
-                })}
-                {successRateVote && (
-                  <div className="mt-2 flex items-start gap-2 rounded-md border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-[12px] text-emerald-400">
-                    <svg
-                      className="mt-[1px] h-4 w-4 text-emerald-400"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>{successRateVote}</span>
-                  </div>
-                )}
-                {errorRateVote && (
-                  <div className="mt-2 flex items-start gap-2 rounded-md bg-red-500/10 px-3 py-2 text-[11px] text-red-400 border border-red-500/30">
-                    <AlertCircle className="w-4 h-4 mt-[1px]" />
-                    <span>
-                      {errorRateVote}{" "}
-                      <Link
-                        to="/login"
-                        className="underline font-semibold hover:text-red-300"
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+
+                    <div className="absolute bottom-0 p-5 flex flex-col gap-2">
+                      <h5 className="text-sm font-semibold line-clamp-1">
+                        {item.title}
+                      </h5>
+                      <p className="text-xs text-gray-300 line-clamp-2">
+                        {item.desciption}
+                      </p>
+                      <button
+                        onClick={() => navigate(`/news-item/${item.id}`)}
+                        className="mt-2 text-xs bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2 rounded-lg hover:opacity-90 transition"
                       >
-                        Login
-                      </Link>
-                    </span>
+                        Detail
+                      </button>
+                    </div>
                   </div>
-                )}
+                ))}
+              </div>
+            </div>
+
+            {/* ===== Student Reward ===== */}
+            <div className="bg-[#1E0D28] p-6 rounded-2xl flex flex-col gap-4">
+              <h5 className="text-lg font-semibold">Student Reward</h5>
+
+              <p className="text-sm text-gray-300 leading-relaxed">
+                STAR Cineplex brings a whole new experience for the young
+                generation with the ‘Student Reward Program’. Buy 1 Get 1 offer
+                available for students across all branches.
+              </p>
+
+              <button
+                onClick={() => navigate("/register")}
+                className="w-fit text-sm border border-purple-500 px-5 py-2 rounded-lg hover:bg-purple-500 hover:text-white transition"
+              >
+                Register Now
+              </button>
+            </div>
+          </div>
+
+          {/* ================== RIGHT SIDEBAR ================== */}
+          <div className="flex flex-col gap-10">
+            {/* ===== Rate Movie ===== */}
+            <div className="bg-[#1E0D28] rounded-2xl overflow-hidden">
+              <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-3 text-sm font-semibold">
+                How do you rate the movie?
+              </div>
+
+              <div className="p-6 flex flex-col gap-4">
+                <img
+                  src={bgImage1}
+                  className="w-full h-40 object-cover rounded-lg"
+                />
+
+                <p className="text-sm font-semibold">
+                  Avatar: The Way of Water (3D)
+                </p>
+
+                {ratingData.map((item) => (
+                  <label
+                    key={item.id}
+                    className={`flex justify-between items-center p-3 rounded-lg cursor-pointer transition ${
+                      active === item.id
+                        ? "bg-purple-700/40"
+                        : "hover:bg-purple-700/20"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        className="hidden"
+                        checked={item.id === active}
+                        onChange={() => handleChecked(item.id, item.lable)}
+                      />
+
+                      <div
+                        className={`w-5 h-5 rounded-full border-2 border-white flex items-center justify-center ${
+                          active === item.id && "bg-white"
+                        }`}
+                      />
+
+                      <span className="text-sm">{item.lable}</span>
+                    </div>
+
+                    {active === item.id && (
+                      <span className="text-xs text-gray-300">
+                        {item.value}%
+                      </span>
+                    )}
+                  </label>
+                ))}
+
                 <button
                   onClick={handleSubmitRateVote}
-                  className="bg-[#5f1a89] mt-[10px] px-[20px] w-fit text-white rounded-[5px] py-[5px] text-[12px]"
+                  className="mt-3 bg-gradient-to-r from-purple-600 to-pink-600 py-2 rounded-lg text-sm hover:opacity-90 transition"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+
+            {/* ===== Notice ===== */}
+            <div className="bg-[#1E0D28] rounded-2xl overflow-hidden">
+              <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-3 text-sm font-semibold">
+                Notice
+              </div>
+              <div className="p-6 text-sm text-gray-300">
+                We are open seven days a week.
+              </div>
+            </div>
+
+            {/* ===== Multi Vote ===== */}
+            <div className="bg-[#1E0D28] rounded-2xl overflow-hidden">
+              <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-3 text-sm font-semibold">
+                Vote For Movie
+              </div>
+
+              <div className="p-6 flex flex-col gap-4">
+                {voteMovieData.map((item) => (
+                  <label
+                    key={item.movie_id}
+                    className={`flex items-center gap-3 cursor-pointer p-2 rounded-lg transition ${
+                      checked.includes(item.movie_id)
+                        ? "bg-purple-700/40"
+                        : "hover:bg-purple-700/20"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      className="hidden"
+                      checked={checked.includes(item.movie_id)}
+                      onChange={() => handleCheckedVote(item.movie_id)}
+                    />
+
+                    <div className="w-5 h-5 border-2 border-white rounded flex items-center justify-center">
+                      {checked.includes(item.movie_id) && (
+                        <CheckIcon className="w-4 h-4 text-white" />
+                      )}
+                    </div>
+
+                    <span className="text-sm">{item.lable}</span>
+                  </label>
+                ))}
+
+                <button
+                  onClick={handleSubmitMultiVote}
+                  className="mt-3 bg-gradient-to-r from-purple-600 to-pink-600 py-2 rounded-lg text-sm hover:opacity-90 transition"
                 >
                   Submit
                 </button>
               </div>
             </div>
           </div>
-
-          <div className="flex flex-col">
-            <div className="flex gap-[10px] bg-[#5f1a89] px-[20px] py-[10px] text-white">
-              <h5 className="text-[14px] font-semibold">Notice</h5>
-            </div>
-            <div className="bg-[#1E0D28] p-[20px]  gap-[10px] flex flex-col text-white">
-              <p className="text-white text-[12px]">
-                We are open seven days a week.
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <div className="flex gap-[10px] bg-[#5f1a89] px-[20px] py-[10px]">
-              <h5 className="text-[14px] font-semibold text-white">
-                Vote For Movie
-              </h5>
-            </div>
-            <div className="bg-[#1E0D28]/100 p-[20px] gap-[20px] flex flex-col text-white">
-              <div className="flex flex-col gap-[10px]">
-                {voteMovieData.map((item, _) => {
-                  return (
-                    <label key={item.movie_id} className="cursor-pointer">
-                      <div className="grid grid-cols-[1fr_5fr]">
-                        <input
-                          type="checkbox"
-                          className="hidden"
-                          checked={checked.includes(item.movie_id)}
-                          onChange={() => handleCheckedVote(item.movie_id)}
-                        />
-                        <div
-                          className={` ${
-                            checked.includes(item.movie_id) && "bg-[#451662]"
-                          }  rounded-[5px] flex-1 relative w-[20px] flex flex-wrap justify-center items-center h-[20px] border-white border-[2px]`}
-                        >
-                          {checked.includes(item.movie_id) && (
-                            <CheckIcon className="w-full h-full text-white" />
-                          )}
-                        </div>
-                        <p className="text-white flex-8 text-[12px] break-all ">
-                          {item.lable}
-                        </p>
-                      </div>
-                    </label>
-                  );
-                })}
-              </div>
-              {successMultiVote && (
-                <div className="mt-2 flex items-start gap-2 rounded-md border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-[12px] text-emerald-400">
-                  <svg
-                    className="mt-[1px] h-4 w-4 text-emerald-400"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span>{successMultiVote}</span>
-                </div>
-              )}
-              {errorMultiVoteChecked && (
-                <div className="mt-2 flex items-start gap-2 rounded-md bg-red-500/10 px-3 py-2 text-[11px] text-red-400 border border-red-500/30">
-                  <AlertCircle className="w-4 h-4 mt-[1px]" />
-                  <span>{errorMultiVoteChecked} </span>
-                </div>
-              )}
-              {errorMultiVote && (
-                <div className="mt-2 flex items-start gap-2 rounded-md bg-red-500/10 px-3 py-2 text-[11px] text-red-400 border border-red-500/30">
-                  <AlertCircle className="w-4 h-4 mt-[1px]" />
-                  <span>
-                    {errorMultiVote}{" "}
-                    <Link
-                      to="/login"
-                      className="underline font-semibold hover:text-red-300"
-                    >
-                      Login
-                    </Link>
-                  </span>
-                </div>
-              )}
-              <button
-                onClick={handleSubmitMultiVote}
-                className="bg-[#5f1a89] px-[20px] w-fit text-white rounded-[5px] py-[5px] text-[12px]"
-              >
-                Submit
-              </button>
-            </div>
-          </div>
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

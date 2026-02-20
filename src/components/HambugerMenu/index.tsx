@@ -1,14 +1,11 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/Header/logo.svg";
-import { UserIcon, X } from "lucide-react";
+import { UserIcon, X, Home, Clock, Ticket, User } from "lucide-react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { Home } from "lucide-react";
-import { Clock } from "lucide-react";
-import { Ticket } from "lucide-react";
 import { RiTeamLine } from "react-icons/ri";
-import { User } from "lucide-react";
 import { clearUsers } from "store/slices/usersSlice";
 import { useAppDispatch } from "store/hook";
+import { useEffect } from "react";
 
 const menuItems = [
   { id: 1, name: "Home", path: "/", icon: Home },
@@ -33,69 +30,100 @@ const HambugerMenu = ({
     dispatch(clearUsers());
     navigate("/login");
   };
+
+  // disable body scroll when open
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
-    <div className="z-[999] fixed inset-0">
+    <div className="fixed inset-0 z-[999]">
+      {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black opacity-50 "
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
         onClick={() => setIsShowHambugerMenu(false)}
-      ></div>
-      <div className="w-[75%] absolute inset-0 bg-[#431d5a] py-[20px] flex px-[20px] gap-[20px] flex-col">
-        <div className="flex justify-between items-center">
-          <Link to={"/"} className="h-[30px]">
-            <img src={logo} className="w-full h-full object-cover" />
+      />
+
+      {/* Slide Menu */}
+      <div className="absolute left-0 top-0 h-full w-[80%] sm:w-[350px] bg-gradient-to-b from-[#2a0e3f] to-[#431d5a] p-6 flex flex-col shadow-2xl animate-slideIn">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <Link to="/" onClick={() => setIsShowHambugerMenu(false)}>
+            <img src={logo} className="h-8 object-contain" />
           </Link>
 
           <X
-            className="w-5 h-5 text-white cursor-pointer"
+            className="w-6 h-6 text-white cursor-pointer hover:rotate-90 transition"
             onClick={() => setIsShowHambugerMenu(false)}
           />
         </div>
-        <div className="flex gap-[40px] relative">
+
+        {/* Search */}
+        <div className="relative mb-6">
           <input
-            placeholder="Search"
-            className="text-white border-[#38134E] border-[1px] bg-white text-[14px] pl-[50px] pr-[20px] py-[10px] w-full rounded-[10px]"
+            placeholder="Search movie..."
+            className="w-full bg-white/10 text-white placeholder-gray-300 border border-white/20 rounded-xl py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
-          <MagnifyingGlassIcon className="w-[20px] h-[20px] text-gray-400 absolute left-[20px] top-1/2 -translate-y-1/2" />
+          <MagnifyingGlassIcon className="w-5 h-5 text-gray-300 absolute left-3 top-1/2 -translate-y-1/2" />
         </div>
-        {menuItems.map((item) => {
-          const Icon = item.icon;
-          return (
-            <div className="text-white">
+
+        {/* Menu Items */}
+        <div className="flex flex-col gap-2 flex-1">
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            return (
               <NavLink
+                key={item.id}
                 to={item.path}
-                className="py-[10px] flex gap-[10px] items-center"
+                onClick={() => setIsShowHambugerMenu(false)}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                    isActive
+                      ? "bg-white/20 text-white"
+                      : "text-gray-200 hover:bg-white/10 hover:text-white"
+                  }`
+                }
               >
                 <Icon className="w-5 h-5" />
-                {item.name}
+                <span className="text-sm font-medium">{item.name}</span>
               </NavLink>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
 
-        {idUser || (access_token && user) ? (
-          <div className="">
-            <p className="text-white cursor-pointer">{`Hi, ${
-              user ?? idUser?.slice(0, 8)
-            }`}</p>
-            <div
-              className="flex gap-[8px]  py-[8px] items-center mt-[20px] cursor-pointer "
-              onClick={handleLogout}
-            >
-              <UserIcon className="w-5 h-5 cursor-pointer text-white" />
-              <p className="text-white">Sign Out</p>
-            </div>
-          </div>
-        ) : (
-          <div className="text-white">
+        {/* User Section */}
+        <div className="border-t border-white/20 pt-4 mt-4">
+          {idUser || (access_token && user) ? (
+            <>
+              <p className="text-sm text-gray-300 mb-3">
+                Hi,{" "}
+                <span className="font-semibold text-white">
+                  {user ?? idUser?.slice(0, 8)}
+                </span>
+              </p>
+
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-3 w-full px-4 py-3 rounded-xl bg-white/10 hover:bg-red-500/80 transition text-white text-sm"
+              >
+                <UserIcon className="w-5 h-5" />
+                Sign Out
+              </button>
+            </>
+          ) : (
             <NavLink
-              to={"/login"}
-              className="py-[10px] flex gap-[10px] items-center"
+              to="/login"
+              onClick={() => setIsShowHambugerMenu(false)}
+              className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 transition text-white text-sm"
             >
               <User className="w-5 h-5" />
-              <p>Sign In</p>
+              Sign In
             </NavLink>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
