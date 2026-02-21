@@ -3,7 +3,6 @@ import bgImage1 from "@assets/Section3/bg-image1.svg";
 
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
-import classNames from "classnames";
 import { useAppDispatch, useAppSelector } from "store/hook";
 import { fetchNews } from "store/slices/newsSlice";
 import { AlertCircle } from "lucide-react";
@@ -36,7 +35,7 @@ const voteMovieData = [
   },
   {
     movie_id: "8c1f4349-f8fc-49d2-8824-fcb96221d0e0",
-    lable: "Now You See Me: Now You Don't (2025)",
+    lable: "Now You See Me (2025)",
     value: 40,
   },
   {
@@ -50,93 +49,107 @@ const Section3 = () => {
   const [active, setActive] = useState(1);
   const [rateVote, setRateVote] = useState("good");
   const [checked, setChecked] = useState<string[]>([]);
-  const [errorRateVote, setErrorRateVote] = useState<null | string>(null);
-  const [successRateVote, setSuccessRateVote] = useState<null | string>(null);
-  const [successMultiVote, setSuccessMultiVote] = useState<null | string>(null);
-  const [errorMultiVote, setErrorMultiVote] = useState<null | string>(null);
+
+  const [errorRateVote, setErrorRateVote] = useState<string | null>(null);
+  const [successRateVote, setSuccessRateVote] = useState<string | null>(null);
+
+  const [successMultiVote, setSuccessMultiVote] = useState<string | null>(null);
+  const [errorMultiVote, setErrorMultiVote] = useState<string | null>(null);
   const [errorMultiVoteChecked, setErrorMultiVoteChecked] = useState<
-    null | string
+    string | null
   >(null);
 
   const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.news);
-
   const idUser = localStorage.getItem("idUser");
 
   useEffect(() => {
     dispatch(fetchNews());
-  }, []);
+  }, [dispatch]);
 
   const handleChecked = (id: number, name: string) => {
     setActive(id);
     setRateVote(name.toLowerCase());
     setSuccessRateVote(null);
+    setErrorRateVote(null);
   };
 
   const handleCheckedVote = (id: string) => {
     setSuccessMultiVote(null);
+    setErrorMultiVote(null);
     setErrorMultiVoteChecked(null);
+
     if (checked.includes(id)) {
       setChecked(checked.filter((item) => item !== id));
     } else {
       setChecked([...checked, id]);
     }
   };
+
   const handleSubmitRateVote = async () => {
+    setErrorRateVote(null);
+    setSuccessRateVote(null);
+
     if (!idUser) {
       setErrorRateVote("You need to log in to vote.");
-    } else {
-      try {
-        await dispatch(
-          createVotesMovie({
-            user_id: idUser,
-            movie_id: "f4d9a6e6-08df-4f42-b198-dbb5895dec01",
-            vote: rateVote,
-          }),
-        ).unwrap();
-        setSuccessRateVote("Vote submitted.");
-      } catch (error) {}
+      return;
+    }
+
+    try {
+      await dispatch(
+        createVotesMovie({
+          user_id: idUser,
+          movie_id: "f4d9a6e6-08df-4f42-b198-dbb5895dec01",
+          vote: rateVote,
+        }),
+      ).unwrap();
+
+      setSuccessRateVote("Vote submitted successfully.");
+    } catch (error) {
+      setErrorRateVote("Something went wrong. Please try again.");
     }
   };
 
   const handleSubmitMultiVote = async () => {
+    setErrorMultiVote(null);
+    setErrorMultiVoteChecked(null);
+    setSuccessMultiVote(null);
+
     if (!idUser) {
       setErrorMultiVote("You need to log in to vote.");
-    } else {
-      if (checked.length > 0) {
-        const payload = checked.map((movieId: string) => ({
-          user_id: idUser,
-          movie_id: movieId,
-          vote: "good",
-        }));
+      return;
+    }
 
-        try {
-          await dispatch(createVotesMovieBulk(payload)).unwrap();
-          setSuccessMultiVote("Vote submitted.");
-          setErrorMultiVoteChecked(null);
-          setErrorMultiVote(null);
-          setChecked([]);
-        } catch (error) {}
-      } else {
-        setSuccessMultiVote(null);
-        setErrorMultiVoteChecked("No movie selected.");
-      }
+    if (checked.length === 0) {
+      setErrorMultiVoteChecked("No movie selected.");
+      return;
+    }
+
+    const payload = checked.map((movieId) => ({
+      user_id: idUser,
+      movie_id: movieId,
+      vote: "good",
+    }));
+
+    try {
+      await dispatch(createVotesMovieBulk(payload)).unwrap();
+      setSuccessMultiVote("Vote submitted successfully.");
+      setChecked([]);
+    } catch (error) {
+      setErrorMultiVote("Something went wrong. Please try again.");
     }
   };
+
   return (
     <section className="py-20 bg-[#0f0516] text-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        {/* ================== MAIN GRID ================== */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
-          {/* ================== LEFT CONTENT ================== */}
+          {/* LEFT CONTENT giữ nguyên */}
           <div className="lg:col-span-3 flex flex-col gap-10">
-            {/* ===== Latest News ===== */}
             <div className="bg-[#1E0D28] p-6 rounded-2xl">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                 <h5 className="text-lg font-semibold">Latest News</h5>
-
                 <Link
                   to="/news-list"
                   className="text-sm border border-purple-500 text-purple-400 px-5 py-2 rounded-lg hover:bg-purple-500 hover:text-white transition"
@@ -157,9 +170,7 @@ const Section3 = () => {
                       src={item.poster_url}
                       className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
                     />
-
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-
                     <div className="absolute bottom-0 p-5 flex flex-col gap-2">
                       <h5 className="text-sm font-semibold line-clamp-1">
                         {item.title}
@@ -178,29 +189,11 @@ const Section3 = () => {
                 ))}
               </div>
             </div>
-
-            {/* ===== Student Reward ===== */}
-            <div className="bg-[#1E0D28] p-6 rounded-2xl flex flex-col gap-4">
-              <h5 className="text-lg font-semibold">Student Reward</h5>
-
-              <p className="text-sm text-gray-300 leading-relaxed">
-                STAR Cineplex brings a whole new experience for the young
-                generation with the ‘Student Reward Program’. Buy 1 Get 1 offer
-                available for students across all branches.
-              </p>
-
-              <button
-                onClick={() => navigate("/register")}
-                className="w-fit text-sm border border-purple-500 px-5 py-2 rounded-lg hover:bg-purple-500 hover:text-white transition"
-              >
-                Register Now
-              </button>
-            </div>
           </div>
 
-          {/* ================== RIGHT SIDEBAR ================== */}
+          {/* RIGHT SIDEBAR */}
           <div className="flex flex-col gap-10">
-            {/* ===== Rate Movie ===== */}
+            {/* RATE MOVIE */}
             <div className="bg-[#1E0D28] rounded-2xl overflow-hidden">
               <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-3 text-sm font-semibold">
                 How do you rate the movie?
@@ -211,10 +204,6 @@ const Section3 = () => {
                   src={bgImage1}
                   className="w-full h-40 object-cover rounded-lg"
                 />
-
-                <p className="text-sm font-semibold">
-                  Avatar: The Way of Water (3D)
-                </p>
 
                 {ratingData.map((item) => (
                   <label
@@ -232,21 +221,13 @@ const Section3 = () => {
                         checked={item.id === active}
                         onChange={() => handleChecked(item.id, item.lable)}
                       />
-
                       <div
-                        className={`w-5 h-5 rounded-full border-2 border-white flex items-center justify-center ${
+                        className={`w-5 h-5 rounded-full border-2 border-white ${
                           active === item.id && "bg-white"
                         }`}
                       />
-
                       <span className="text-sm">{item.lable}</span>
                     </div>
-
-                    {active === item.id && (
-                      <span className="text-xs text-gray-300">
-                        {item.value}%
-                      </span>
-                    )}
                   </label>
                 ))}
 
@@ -256,20 +237,23 @@ const Section3 = () => {
                 >
                   Submit
                 </button>
+
+                {errorRateVote && (
+                  <div className="flex items-center gap-2 text-red-400 text-xs mt-2">
+                    <AlertCircle size={16} />
+                    {errorRateVote}
+                  </div>
+                )}
+
+                {successRateVote && (
+                  <div className="text-green-400 text-xs mt-2">
+                    {successRateVote}
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* ===== Notice ===== */}
-            <div className="bg-[#1E0D28] rounded-2xl overflow-hidden">
-              <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-3 text-sm font-semibold">
-                Notice
-              </div>
-              <div className="p-6 text-sm text-gray-300">
-                We are open seven days a week.
-              </div>
-            </div>
-
-            {/* ===== Multi Vote ===== */}
+            {/* MULTI VOTE */}
             <div className="bg-[#1E0D28] rounded-2xl overflow-hidden">
               <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-3 text-sm font-semibold">
                 Vote For Movie
@@ -291,13 +275,11 @@ const Section3 = () => {
                       checked={checked.includes(item.movie_id)}
                       onChange={() => handleCheckedVote(item.movie_id)}
                     />
-
                     <div className="w-5 h-5 border-2 border-white rounded flex items-center justify-center">
                       {checked.includes(item.movie_id) && (
                         <CheckIcon className="w-4 h-4 text-white" />
                       )}
                     </div>
-
                     <span className="text-sm">{item.lable}</span>
                   </label>
                 ))}
@@ -308,6 +290,26 @@ const Section3 = () => {
                 >
                   Submit
                 </button>
+
+                {errorMultiVote && (
+                  <div className="flex items-center gap-2 text-red-400 text-xs mt-2">
+                    <AlertCircle size={16} />
+                    {errorMultiVote}
+                  </div>
+                )}
+
+                {errorMultiVoteChecked && (
+                  <div className="flex items-center gap-2 text-red-400 text-xs mt-2">
+                    <AlertCircle size={16} />
+                    {errorMultiVoteChecked}
+                  </div>
+                )}
+
+                {successMultiVote && (
+                  <div className="text-green-400 text-xs mt-2">
+                    {successMultiVote}
+                  </div>
+                )}
               </div>
             </div>
           </div>
