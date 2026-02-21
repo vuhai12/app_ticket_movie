@@ -1,5 +1,6 @@
 import MainLayout from "Layout/MainLayout";
 import bgImage from "@assets/TicketPrice/bgImage.png";
+import { Link } from "react-router-dom";
 
 const TicketPrice = () => {
   const branches = [
@@ -123,9 +124,12 @@ const TicketPrice = () => {
 
             {/* CTA */}
             <div className="text-center mt-16">
-              <button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-full transition">
+              <Link
+                to={"/booking-movie"}
+                className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-full transition"
+              >
                 Book Tickets Now
-              </button>
+              </Link>
             </div>
           </div>
         </div>

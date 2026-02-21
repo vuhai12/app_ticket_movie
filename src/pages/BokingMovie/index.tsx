@@ -79,7 +79,7 @@ const BookingMovie = () => {
 
   return (
     <MainLayout>
-      <div className="max-w-7xl mx-auto px-4 py-10">
+      <div className="container px-4 py-10">
         <div className="flex flex-col lg:flex-row gap-10">
           {/* LEFT CONTENT */}
           <div className="flex-1 flex flex-col gap-6">

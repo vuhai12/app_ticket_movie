@@ -1,5 +1,6 @@
 import MainLayout from "Layout/MainLayout";
 import bgImage from "@assets/TicketPrice/bgImage.png";
+import { Link } from "react-router-dom";
 
 const AboutUs = () => {
   return (
@@ -84,9 +85,12 @@ const AboutUs = () => {
               <h2 className="text-2xl sm:text-3xl font-bold mb-6">
                 Ready for the Ultimate Movie Experience?
               </h2>
-              <button className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-full transition">
+              <Link
+                to={"/booking-movie"}
+                className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-full transition"
+              >
                 Book Your Ticket Now
-              </button>
+              </Link>
             </div>
           </div>
         </div>
