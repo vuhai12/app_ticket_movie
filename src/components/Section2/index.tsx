@@ -69,27 +69,46 @@ const Section2 = () => {
             />
 
             {/* Content */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center gap-5">
-              <h5 className="text-white font-semibold text-lg lg:text-2xl tracking-wide">
-                🎟 Tickets
-              </h5>
-
-              <div className="w-full border-t border-dashed border-white/70" />
-
-              <p className="text-gray-200 text-xs sm:text-sm lg:text-base leading-relaxed">
-                Buy tickets online via Credit Card, Mobile Banking or Internet
-                Banking with fast & secure payment.
-              </p>
-
-              <motion.button
-                whileTap={{ scale: 0.95 }}
-                whileHover={{ scale: 1.05 }}
-                onClick={() => navigate("/booking-movie")}
-                className="mt-2 px-6 py-3 rounded-xl border-2 border-white text-white 
-                           hover:bg-white hover:text-black 
-                           transition duration-300 font-semibold shadow-lg"
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center gap-6 px-6">
+              {/* Icon */}
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+                className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md 
+               border border-white/20 flex items-center justify-center 
+               text-2xl shadow-lg"
               >
-                Buy Tickets
+                🎟
+              </motion.div>
+
+              {/* Title */}
+              <motion.h5
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                viewport={{ once: true }}
+                className="text-white font-semibold text-lg lg:text-2xl tracking-wide"
+              >
+                Buy Movie Tickets
+              </motion.h5>
+
+              {/* Button */}
+              <motion.button
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => navigate("/booking-movie")}
+                className="px-8 py-3 rounded-full 
+               bg-gradient-to-r from-purple-600 to-pink-600 
+               text-white font-semibold shadow-xl
+               hover:shadow-pink-500/40 transition duration-300"
+              >
+                Get Ticket
               </motion.button>
             </div>
           </motion.div>
