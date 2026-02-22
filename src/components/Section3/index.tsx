@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import bgImage1 from "@assets/Section3/bg-image1.svg";
-
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "store/hook";
@@ -142,10 +142,16 @@ const Section3 = () => {
   };
 
   return (
-    <section className="py-20 bg-[#0f0516] text-white">
+    <motion.section
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="py-20 bg-[#0f0516] text-white"
+    >
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
-          {/* LEFT CONTENT giữ nguyên */}
+          {/* LEFT */}
           <div className="lg:col-span-3 flex flex-col gap-10">
             <div className="bg-[#1E0D28] p-6 rounded-2xl">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
@@ -160,8 +166,12 @@ const Section3 = () => {
 
               <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 {data?.map((item, index) => (
-                  <div
+                  <motion.div
                     key={item.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05, duration: 0.4 }}
+                    viewport={{ once: true }}
                     className={`relative group rounded-xl overflow-hidden ${
                       index === 0 ? "sm:row-span-2" : ""
                     }`}
@@ -178,22 +188,29 @@ const Section3 = () => {
                       <p className="text-xs text-gray-300 line-clamp-2">
                         {item.desciption}
                       </p>
-                      <button
+                      <motion.button
+                        whileTap={{ scale: 0.95 }}
                         onClick={() => navigate(`/news-item/${item.id}`)}
                         className="mt-2 text-xs bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2 rounded-lg hover:opacity-90 transition"
                       >
                         Detail
-                      </button>
+                      </motion.button>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* RIGHT SIDEBAR */}
-          <div className="flex flex-col gap-10">
-            {/* RATE MOVIE */}
+          {/* RIGHT */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="flex flex-col gap-10"
+          >
+            {/* RATE */}
             <div className="bg-[#1E0D28] rounded-2xl overflow-hidden">
               <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-3 text-sm font-semibold">
                 How do you rate the movie?
@@ -231,12 +248,13 @@ const Section3 = () => {
                   </label>
                 ))}
 
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
                   onClick={handleSubmitRateVote}
                   className="mt-3 bg-gradient-to-r from-purple-600 to-pink-600 py-2 rounded-lg text-sm hover:opacity-90 transition"
                 >
                   Submit
-                </button>
+                </motion.button>
 
                 {errorRateVote && (
                   <div className="flex items-center gap-2 text-red-400 text-xs mt-2">
@@ -277,19 +295,26 @@ const Section3 = () => {
                     />
                     <div className="w-5 h-5 border-2 border-white rounded flex items-center justify-center">
                       {checked.includes(item.movie_id) && (
-                        <CheckIcon className="w-4 h-4 text-white" />
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <CheckIcon className="w-4 h-4 text-white" />
+                        </motion.div>
                       )}
                     </div>
                     <span className="text-sm">{item.lable}</span>
                   </label>
                 ))}
 
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
                   onClick={handleSubmitMultiVote}
                   className="mt-3 bg-gradient-to-r from-purple-600 to-pink-600 py-2 rounded-lg text-sm hover:opacity-90 transition"
                 >
                   Submit
-                </button>
+                </motion.button>
 
                 {errorMultiVote && (
                   <div className="flex items-center gap-2 text-red-400 text-xs mt-2">
@@ -312,10 +337,10 @@ const Section3 = () => {
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

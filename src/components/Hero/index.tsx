@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import bgSlide1 from "../../assets/Hero/bg-image1.svg";
 import bgSlide2 from "../../assets/Hero/bg-image2.jpg";
 import bgSlide3 from "../../assets/Hero/bg-image3.jpg";
@@ -57,11 +58,10 @@ const Hero = () => {
   return (
     <section className="relative w-full h-[70vh] min-h-[400px] md:h-[85vh] overflow-hidden text-white">
       {/* SLIDES WRAPPER */}
-      <div
-        className="flex h-full transition-transform duration-700 ease-in-out"
-        style={{
-          transform: `translateX(-${current * 100}%)`,
-        }}
+      <motion.div
+        className="flex h-full"
+        animate={{ x: `-${current * 100}%` }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
       >
         {dataSlide.map((item) => (
           <div
@@ -78,17 +78,35 @@ const Hero = () => {
             <div className="relative z-10 h-full flex items-center">
               <div className="max-w-6xl mx-auto px-6 lg:px-12 w-full">
                 <div className="max-w-2xl flex flex-col gap-4 md:gap-6">
-                  <h1 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                  <motion.h1
+                    key={`title-${current}`}
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-tight"
+                  >
                     {item.title}
-                  </h1>
+                  </motion.h1>
 
-                  <div className="flex items-center gap-4 text-sm md:text-base text-gray-200 flex-wrap">
+                  <motion.div
+                    key={`info-${current}`}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 0.6 }}
+                    className="flex items-center gap-4 text-sm md:text-base text-gray-200 flex-wrap"
+                  >
                     <span>{item.genre}</span>
                     <span className="w-1 h-1 bg-white rounded-full" />
                     <span>{item.time}</span>
-                  </div>
+                  </motion.div>
 
-                  <div className="flex items-center gap-6 mt-4">
+                  <motion.div
+                    key={`btn-${current}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 0.6 }}
+                    className="flex items-center gap-6 mt-4"
+                  >
                     <button
                       onClick={() => handleShowTrailerMovie(item.url_trailer)}
                       className="flex items-center gap-3 bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-3 rounded-full hover:opacity-90 transition"
@@ -98,13 +116,13 @@ const Hero = () => {
                         Watch Trailer
                       </span>
                     </button>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </div>
           </div>
         ))}
-      </div>
+      </motion.div>
 
       {/* DOT INDICATORS */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">

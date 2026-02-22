@@ -8,11 +8,30 @@ import { useNavigate } from "react-router-dom";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { useDebond } from "hook/useDebond";
 import TrailerMovie from "@components/TrailerMovie";
+import { motion, AnimatePresence } from "framer-motion";
 
 const dataSection1 = [
   { id: 1, status: "now_showing", name: "Now Showing" },
   { id: 2, status: "coming_soon", name: "Coming Soon" },
 ];
+
+/* =========================
+   Animation Variants
+========================= */
+
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 40 },
+  show: { opacity: 1, y: 0 },
+};
 
 const MovieList = () => {
   const [status, setStatus] = useState("now_showing");
@@ -51,7 +70,10 @@ const MovieList = () => {
               {dataSection1.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => setStatus(item.status)}
+                  onClick={() => {
+                    setStatus(item.status);
+                    setPageCurrent(1);
+                  }}
                   className={`relative pb-4 text-sm md:text-base font-semibold transition ${
                     status === item.status
                       ? "text-white"
@@ -59,8 +81,12 @@ const MovieList = () => {
                   }`}
                 >
                   {item.name}
+
                   {status === item.status && (
-                    <span className="absolute left-0 bottom-0 h-[3px] w-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-full" />
+                    <motion.span
+                      layoutId="activeTab"
+                      className="absolute left-0 bottom-0 h-[3px] w-full bg-gradient-to-r from-purple-600 to-pink-600 rounded-full"
+                    />
                   )}
                 </button>
               ))}
@@ -79,53 +105,66 @@ const MovieList = () => {
           </div>
 
           {/* ===== Movie Grid ===== */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6">
-            {data?.dataMovies.map((item) => (
-              <div
-                key={item.id}
-                className="group bg-[#1e0d28] rounded-2xl overflow-hidden shadow-lg hover:shadow-purple-700/20 transition duration-300"
-              >
-                {/* Poster */}
-                <div
-                  onClick={() => handleShowTrailerMovie(item.trailer_url)}
-                  className="relative cursor-pointer aspect-[2/3] overflow-hidden"
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={status + pageCurrent + searchStringDebond}
+              variants={containerVariants}
+              initial="hidden"
+              animate="show"
+              exit="hidden"
+              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6"
+            >
+              {data?.dataMovies.map((item) => (
+                <motion.div
+                  key={item.id}
+                  variants={itemVariants}
+                  transition={{ duration: 0.4 }}
+                  className="group bg-[#1e0d28] rounded-2xl overflow-hidden shadow-lg hover:shadow-purple-700/20 transition duration-300"
                 >
-                  <img
-                    src={item.poster_url}
-                    className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                  />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                    <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center">
-                      <img src={iconPlay} className="w-4" />
+                  {/* Poster */}
+                  <div
+                    onClick={() => handleShowTrailerMovie(item.trailer_url)}
+                    className="relative cursor-pointer aspect-[2/3] overflow-hidden"
+                  >
+                    <motion.img
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.4 }}
+                      src={item.poster_url}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                      <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center">
+                        <img src={iconPlay} className="w-4" />
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Info */}
-                <div className="p-4 flex flex-col gap-3">
-                  <h3 className="text-sm font-semibold line-clamp-1">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs text-gray-400">{item.category}</p>
+                  {/* Info */}
+                  <div className="p-4 flex flex-col gap-3">
+                    <h3 className="text-sm font-semibold line-clamp-1">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-gray-400">{item.category}</p>
 
-                  <div className="flex gap-2 mt-2">
-                    <button
-                      onClick={() => navigate(`/booking-movie`)}
-                      className="flex-1 text-xs py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 transition"
-                    >
-                      Get Ticket
-                    </button>
-                    <button
-                      onClick={() => navigate(`/movie/${item.id}`)}
-                      className="flex-1 text-xs py-2 rounded-lg border border-white/20 hover:bg-white/10 transition"
-                    >
-                      Detail
-                    </button>
+                    <div className="flex gap-2 mt-2">
+                      <button
+                        onClick={() => navigate(`/booking-movie`)}
+                        className="flex-1 text-xs py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 transition"
+                      >
+                        Get Ticket
+                      </button>
+                      <button
+                        onClick={() => navigate(`/movie/${item.id}`)}
+                        className="flex-1 text-xs py-2 rounded-lg border border-white/20 hover:bg-white/10 transition"
+                      >
+                        Detail
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
 
           {/* ===== Pagination ===== */}
           <Pagination
@@ -137,13 +176,22 @@ const MovieList = () => {
         </div>
       </section>
 
-      {/* Trailer Modal (render 1 lần duy nhất) */}
-      {isShowTrailerMovie && movieShowTrailer && (
-        <TrailerMovie
-          setIsShowTrailerMovie={setIsShowTrailerMovie}
-          url_trailer={movieShowTrailer}
-        />
-      )}
+      {/* Trailer Modal */}
+      <AnimatePresence>
+        {isShowTrailerMovie && movieShowTrailer && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <TrailerMovie
+              setIsShowTrailerMovie={setIsShowTrailerMovie}
+              url_trailer={movieShowTrailer}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </MainLayout>
   );
 };

@@ -5,12 +5,17 @@ import imageCard2Horizontal from "@assets/Section2/card1-horizoltal.png";
 import bgImage from "@assets/Section2/bg-image.svg";
 import border from "@assets/Section2/border.svg";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Section2 = () => {
   const navigate = useNavigate();
 
   return (
-    <section
+    <motion.section
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.7 }}
+      viewport={{ once: true }}
       className="relative w-full overflow-hidden py-16 lg:py-28 bg-cover bg-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
@@ -20,12 +25,20 @@ const Section2 = () => {
       <div className="relative z-10 max-w-[1200px] mx-auto px-4 lg:px-6">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           {/* LEFT IMAGE */}
-          <div className="flex-1 w-full">
+          <motion.div
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="flex-1 w-full"
+          >
             {/* Desktop */}
-            <img
+            <motion.img
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.4 }}
               src={imageCard1}
               alt=""
-              className="hidden lg:block w-full object-contain hover:scale-105 transition duration-500"
+              className="hidden lg:block w-full object-contain"
             />
 
             {/* Mobile */}
@@ -34,12 +47,22 @@ const Section2 = () => {
               alt=""
               className="lg:hidden w-full max-h-[220px] object-contain mx-auto"
             />
-          </div>
+          </motion.div>
 
           {/* CENTER TICKET CARD */}
-          <div className="relative flex justify-center items-center w-full lg:w-auto">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="relative flex justify-center items-center w-full lg:w-auto"
+          >
             {/* Border Image */}
-            <img
+            <motion.img
+              initial={{ rotate: -2 }}
+              whileInView={{ rotate: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
               src={border}
               alt=""
               className="w-[260px] sm:w-[320px] lg:w-[380px] drop-shadow-2xl"
@@ -58,24 +81,34 @@ const Section2 = () => {
                 Banking with fast & secure payment.
               </p>
 
-              <button
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.05 }}
                 onClick={() => navigate("/booking-movie")}
                 className="mt-2 px-6 py-3 rounded-xl border-2 border-white text-white 
                            hover:bg-white hover:text-black 
                            transition duration-300 font-semibold shadow-lg"
               >
                 Buy Tickets
-              </button>
+              </motion.button>
             </div>
-          </div>
+          </motion.div>
 
           {/* RIGHT IMAGE */}
-          <div className="flex-1 w-full">
+          <motion.div
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="flex-1 w-full"
+          >
             {/* Desktop */}
-            <img
+            <motion.img
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.4 }}
               src={imageCard2}
               alt=""
-              className="hidden lg:block w-full object-contain hover:scale-105 transition duration-500"
+              className="hidden lg:block w-full object-contain"
             />
 
             {/* Mobile */}
@@ -84,10 +117,10 @@ const Section2 = () => {
               alt=""
               className="lg:hidden w-full max-h-[220px] object-contain mx-auto"
             />
-          </div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

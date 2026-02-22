@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import iconPlay from "@assets/Section1/icon-play.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "store/hook";
@@ -29,7 +30,13 @@ const Section1 = () => {
   };
 
   return (
-    <section className="py-20 bg-[#0f0516]">
+    <motion.section
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="py-20 bg-[#0f0516]"
+    >
       <div className="container px-6 lg:px-12 text-white">
         {/* ================= HEADER ================= */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-b border-[#451662] pb-6">
@@ -46,8 +53,12 @@ const Section1 = () => {
                 }`}
               >
                 {item.name}
+
                 {status === item.status && (
-                  <span className="absolute left-0 -bottom-3 w-full h-[3px] bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></span>
+                  <motion.span
+                    layoutId="tab-underline"
+                    className="absolute left-0 -bottom-3 w-full h-[3px] bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
+                  />
                 )}
               </button>
             ))}
@@ -64,9 +75,13 @@ const Section1 = () => {
 
         {/* ================= MOVIE GRID ================= */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-8 pt-10">
-          {data?.dataMovies?.map((item) => (
-            <div
+          {data?.dataMovies?.map((item, index) => (
+            <motion.div
               key={item.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05, duration: 0.4 }}
+              viewport={{ once: true }}
               className="group relative rounded-xl overflow-hidden transition duration-300 hover:-translate-y-2"
             >
               {/* Poster */}
@@ -74,17 +89,22 @@ const Section1 = () => {
                 onClick={() => handleShowTrailerMovie(item.trailer_url)}
                 className="relative cursor-pointer"
               >
-                <img
+                <motion.img
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.4 }}
                   src={item.poster_url}
                   alt={item.title}
-                  className="w-full aspect-[2/3] object-cover rounded-xl transition duration-500 group-hover:scale-105"
+                  className="w-full aspect-[2/3] object-cover rounded-xl"
                 />
 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-                  <div className="w-16 h-16 border-2 border-white rounded-full flex items-center justify-center backdrop-blur-sm">
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    className="w-16 h-16 border-2 border-white rounded-full flex items-center justify-center backdrop-blur-sm"
+                  >
                     <img src={iconPlay} className="w-5" alt="play" />
-                  </div>
+                  </motion.div>
                 </div>
               </div>
 
@@ -100,20 +120,23 @@ const Section1 = () => {
 
               {/* Buttons */}
               <div className="mt-4 flex gap-2 opacity-0 group-hover:opacity-100 transition duration-300">
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => navigate("/booking-movie")}
                   className="flex-1 text-xs bg-gradient-to-r from-purple-600 to-pink-600 py-2 rounded-lg hover:opacity-90 transition"
                 >
                   Get Tickets
-                </button>
-                <button
+                </motion.button>
+
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => navigate(`/movie/${item.id}`)}
                   className="flex-1 text-xs border border-purple-500 py-2 rounded-lg hover:bg-purple-500 transition"
                 >
                   Detail
-                </button>
+                </motion.button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
@@ -135,7 +158,7 @@ const Section1 = () => {
           url_trailer={trailerUrl}
         />
       )}
-    </section>
+    </motion.section>
   );
 };
 
