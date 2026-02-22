@@ -19,10 +19,12 @@ import AdminUser from "@pages/AdminUser";
 import AdminDashboard from "@pages/AdminDashboard";
 import PublicRoute from "@routes/PublicRoute";
 import PrivateRoutes from "@routes/PrivateRoutes";
+import ScrollToTop from "@components/ScrollToTop";
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Toaster position="top-right" />
       <Routes>
         <Route path="/" element={<HomePage />} />
