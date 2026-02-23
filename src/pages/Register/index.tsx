@@ -72,7 +72,7 @@ const Register = () => {
               <input
                 {...register("name")}
                 placeholder="John Doe"
-                className="px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
+                className="px-4 py-3 border text-black rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
               />
               {errors.name && (
                 <p className="text-sm text-red-500">{errors.name.message}</p>
@@ -85,7 +85,7 @@ const Register = () => {
               <input
                 {...register("email")}
                 placeholder="your@email.com"
-                className="px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
+                className="px-4 py-3 border rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
               />
               {errors.email && (
                 <p className="text-sm text-red-500">{errors.email.message}</p>
@@ -103,7 +103,7 @@ const Register = () => {
                   {...register("password")}
                   type={isVisibility ? "text" : "password"}
                   placeholder="Create password"
-                  className="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
+                  className="w-full px-4 py-3 border text-black rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
                 />
 
                 <button

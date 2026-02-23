@@ -74,7 +74,7 @@ const Login = () => {
               <input
                 {...register("email")}
                 placeholder="your@email.com"
-                className="px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
+                className="px-4 py-3 border text-black rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
               />
               {errors.email && (
                 <p className="text-sm text-red-500">{errors.email.message}</p>
@@ -92,7 +92,7 @@ const Login = () => {
                   {...register("password")}
                   type={isVisibility ? "text" : "password"}
                   placeholder="Enter password"
-                  className="w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
+                  className="w-full px-4 py-3 border text-black rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
                 />
 
                 <button
