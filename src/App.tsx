@@ -19,11 +19,13 @@ import AdminDashboard from "@pages/AdminDashboard";
 import PublicRoute from "@routes/PublicRoute";
 import PrivateRoutes from "@routes/PrivateRoutes";
 import ChatBox from "@components/ChatBox";
+import ScrollHandler from "@components/ScrollHandler";
 
 function App() {
   return (
     <>
       <ChatBox />
+      <ScrollHandler />
       <Toaster position="top-right" />
       <Routes>
         <Route path="/" element={<HomePage />} />
