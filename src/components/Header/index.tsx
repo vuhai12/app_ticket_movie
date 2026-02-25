@@ -31,7 +31,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-black/60 border-b border-white/10">
+      <header className="sticky top-0 z-[100] backdrop-blur-md bg-black/60 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-[70px] flex items-center justify-between">
           {/* LOGO */}
           <Link to="/" className="flex items-center">
