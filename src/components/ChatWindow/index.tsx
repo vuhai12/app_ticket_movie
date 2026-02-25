@@ -35,19 +35,19 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           exit={{ opacity: 0, y: 30 }}
           transition={{ duration: 0.2 }}
           className="
-            fixed bottom-[85px] left-[10px] right-[10px] top-[60px] z-[99]
-            sm:inset-auto
-            sm:bottom-20 sm:right-6
-            sm:w-[340px]
-            sm:h-[500px]
-            bg-[#140B1C]
-            rounded-2xl
-            border border-purple-500/20
-            shadow-xl
-            flex flex-col
-            overflow-hidden
-            
-          "
+    fixed inset-0 z-[999999]
+    w-full h-[100dvh]
+    sm:inset-auto
+    sm:bottom-6 sm:right-6
+    sm:w-[360px]
+    sm:max-h-[85vh]
+    bg-[#140B1C]
+    rounded-none sm:rounded-2xl
+    border border-purple-500/20
+    shadow-xl
+    flex flex-col
+    overflow-hidden
+  "
         >
           {/* HEADER */}
           <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
