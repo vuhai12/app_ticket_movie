@@ -14,17 +14,16 @@ import NewItem from "@pages/NewItem";
 import Login from "@pages/Login";
 import Register from "@pages/Register";
 import { Toaster } from "react-hot-toast";
-
 import AdminUser from "@pages/AdminUser";
 import AdminDashboard from "@pages/AdminDashboard";
 import PublicRoute from "@routes/PublicRoute";
 import PrivateRoutes from "@routes/PrivateRoutes";
-import ScrollHandler from "@components/ScrollHandler";
+import ChatBox from "@components/ChatBox";
 
 function App() {
   return (
     <>
-      <ScrollHandler />
+      <ChatBox />
       <Toaster position="top-right" />
       <Routes>
         <Route path="/" element={<HomePage />} />
