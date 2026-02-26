@@ -177,6 +177,7 @@ const Section3 = () => {
                     }`}
                   >
                     <img
+                      loading="lazy"
                       src={item.poster_url}
                       className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
                     />
@@ -218,6 +219,7 @@ const Section3 = () => {
 
               <div className="p-6 flex flex-col gap-4">
                 <img
+                  loading="lazy"
                   src={bgImage1}
                   className="w-full h-40 object-cover rounded-lg"
                 />

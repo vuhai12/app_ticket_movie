@@ -67,15 +67,21 @@ const Hero = () => {
           <div
             key={item.id}
             className="w-full h-full flex-shrink-0 relative bg-cover bg-center"
-            style={{
-              backgroundImage: `url(${item.bgImage})`,
-            }}
+            // style={{
+            //   backgroundImage: `url(${item.bgImage})`,
+            // }}
           >
+            <img
+              src={item.bgImage}
+              alt={item.title}
+              loading={item.id === 1 ? "eager" : "lazy"}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
             {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-[#12041a]" />
 
             {/* Content */}
-            <div className="relative z-10 h-full flex items-center">
+            <div className="relative z-[50] h-full flex items-center">
               <div className="max-w-6xl mx-auto px-6 lg:px-12 w-full">
                 <div className="max-w-2xl flex flex-col gap-4 md:gap-6">
                   <motion.h1
@@ -111,7 +117,7 @@ const Hero = () => {
                       onClick={() => handleShowTrailerMovie(item.url_trailer)}
                       className="flex items-center gap-3 bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-3 rounded-full hover:opacity-90 transition"
                     >
-                      <img src={iconPlay} className="w-4" />
+                      <img src={iconPlay} className="w-4" loading="lazy" />
                       <span className="text-sm md:text-base">
                         Watch Trailer
                       </span>

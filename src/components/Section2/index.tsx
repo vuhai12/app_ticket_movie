@@ -34,6 +34,7 @@ const Section2 = () => {
           >
             {/* Desktop */}
             <motion.img
+              loading="lazy"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.4 }}
               src={imageCard1}
@@ -43,6 +44,7 @@ const Section2 = () => {
 
             {/* Mobile */}
             <img
+              loading="lazy"
               src={imageCard1Horizontal}
               alt=""
               className="lg:hidden w-full max-h-[220px] object-contain mx-auto"
@@ -59,6 +61,7 @@ const Section2 = () => {
           >
             {/* Border Image */}
             <motion.img
+              loading="lazy"
               initial={{ rotate: -2 }}
               whileInView={{ rotate: 0 }}
               transition={{ duration: 0.6 }}
@@ -132,6 +135,7 @@ const Section2 = () => {
 
             {/* Mobile */}
             <img
+              loading="lazy"
               src={imageCard2Horizontal}
               alt=""
               className="lg:hidden w-full max-h-[220px] object-contain mx-auto"

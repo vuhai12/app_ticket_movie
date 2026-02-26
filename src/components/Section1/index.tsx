@@ -103,7 +103,12 @@ const Section1 = () => {
                     whileHover={{ scale: 1.1 }}
                     className="w-16 h-16 border-2 border-white rounded-full flex items-center justify-center backdrop-blur-sm"
                   >
-                    <img src={iconPlay} className="w-5" alt="play" />
+                    <img
+                      src={iconPlay}
+                      className="w-5"
+                      alt="play"
+                      loading="lazy"
+                    />
                   </motion.div>
                 </div>
               </div>

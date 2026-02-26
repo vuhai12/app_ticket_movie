@@ -47,6 +47,7 @@ const NewList = () => {
                     {/* Image */}
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <img
+                        loading="lazy"
                         src={item.poster_url}
                         className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                       />
@@ -90,6 +91,7 @@ const NewList = () => {
                   >
                     <div className="w-24 h-20 overflow-hidden rounded-lg flex-shrink-0">
                       <img
+                        loading="lazy"
                         src={item.poster_url}
                         className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                       />
