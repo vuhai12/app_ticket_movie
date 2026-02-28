@@ -89,7 +89,7 @@ const Hero = () => {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-tight"
+                    className="font-normal text-2xl sm:text-4xl md:text-5xl lg:text-[60px] lg:leading-[80px] leading-[1.5] tracking-normal"
                   >
                     {item.title}
                   </motion.h1>
