@@ -12,7 +12,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Logo + Info */}
           <div className="flex flex-col gap-5 text-center sm:text-left">
-            <img src={logo} className="h-9 w-fit mx-auto sm:mx-0" alt="logo" />
+            <img
+              src={logo}
+              className="h-9 w-fit mx-auto sm:mx-0"
+              alt="logo"
+              loading="lazy"
+            />
 
             <h5 className="text-base font-semibold tracking-wide">
               Show Motion Limited

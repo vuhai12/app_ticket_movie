@@ -27,8 +27,9 @@ export default {
         14.86: "14.86px",
       },
       fontFamily: {
-        primary: ['"SF Pro Display"', "sans-serif"],
+        sans: ["Poppins", "sans-serif"],
       },
+
       screens: {
         xs: "250px",
         sm: "640px",

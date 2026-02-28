@@ -15,39 +15,60 @@ const dataMenu = [
     path: "/admin-dashboard/movie",
     icon: Film,
   },
-  { id: 2, name: "User", path: "/admin-dashboard/user", icon: User },
+  {
+    id: 3, // ✅ fix trùng id
+    name: "User",
+    path: "/admin-dashboard/user",
+    icon: User,
+  },
 ];
 
 const SidebarAdmin = () => {
   return (
-    <div className="min-h-screen bg-[#1e0d28] px-[20px] text-white">
-      <div className="flex items-center justify-center h-[100px]">
-        <Link to={"/"} className="h-[45px]">
-          <img src={logo} className="w-full h-full object-contain" />
+    <aside className="min-h-screen w-[260px] bg-gradient-to-b from-[#1e0d28] to-[#14091c] text-white border-r border-white/10 shadow-xl">
+      {/* Logo */}
+      <div className="flex items-center justify-center h-[90px] border-b border-white/10">
+        <Link to="/" className="h-[45px]">
+          <img
+            src={logo}
+            alt="Logo"
+            className="h-full object-contain opacity-90 hover:opacity-100 transition"
+          />
         </Link>
       </div>
-      <h3 className="mb-[20px] text-[18px]">Main Menu</h3>
-      <div className="flex flex-col gap-[10px]">
-        {dataMenu.map((item) => {
-          const Icon = item.icon;
-          return (
-            <NavLink
-              to={item.path}
-              key={item.id}
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-[#5f1a89] py-[10px] px-[20px] rounded-[10px] items-center flex gap-[10px]"
-                  : "cursor-pointer py-[10px] px-[20px] hover:bg-[#5f1a89] rounded-[10px] items-center flex gap-[10px]"
-              }
-              // className="cursor-pointer hover:bg-[#5f1a89] py-[10px] px-[20px] rounded-[10px]"
-            >
-              <Icon className="w-5 h-5 text-white" />
-              <p>{item.name}</p>
-            </NavLink>
-          );
-        })}
+
+      {/* Menu */}
+      <div className="px-4 py-6">
+        <p className="text-xs uppercase tracking-wider text-gray-400 mb-4">
+          Main Menu
+        </p>
+
+        <div className="flex flex-col gap-2">
+          {dataMenu.map((item) => {
+            const Icon = item.icon;
+            return (
+              <NavLink
+                key={item.id}
+                to={item.path}
+                className={({ isActive }) =>
+                  `group flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+                  ${
+                    isActive
+                      ? "bg-[#5f1a89] shadow-md"
+                      : "hover:bg-[#2b1239] hover:translate-x-1"
+                  }`
+                }
+              >
+                <Icon className="w-5 h-5 text-gray-300 group-hover:text-white transition" />
+                <span className="text-sm font-medium tracking-wide">
+                  {item.name}
+                </span>
+              </NavLink>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </aside>
   );
 };
 
