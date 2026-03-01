@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 import classNames from "classnames";
 import { fetchCinemas } from "store/slices/cinemaSlice";
 import { useAppDispatch, useAppSelector } from "store/hook";
-import Loading from "@components/Loading";
+import LoadingSpinner from "@components/LoadingSpinner";
 
 interface Props {
   setIsPopupTheatreLocations: (value: boolean) => void;
@@ -67,7 +67,7 @@ const TheatreLocations = ({
         {/* Content */}
         {loading ? (
           <div className="flex justify-center py-10">
-            <Loading />
+            <LoadingSpinner />
           </div>
         ) : (
           <div className="flex flex-col gap-4 overflow-y-auto max-h-[60vh] pr-2">
