@@ -101,7 +101,7 @@ const Footer = () => {
           <div className="flex flex-col gap-5 text-center sm:text-left">
             <h5 className="text-base font-semibold tracking-wide">Follow Us</h5>
 
-            <div className="flex justify-center flex-col sm:justify-start gap-4">
+            <div className="flex justify-center items-center flex-col sm:items-start sm:justify-start gap-4">
               <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition duration-300">
                 <img src={iconYoutu} className="w-7" alt="youtube" />
                 <span className="text-sm text-gray-400 hover:text-white">
