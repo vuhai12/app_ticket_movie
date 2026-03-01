@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import bgSlide1 from "../../assets/Hero/bg-image1.svg";
 import bgSlide2 from "../../assets/Hero/bg-image2.jpg";
 import bgSlide3 from "../../assets/Hero/bg-image3.jpg";
 import iconPlay from "@assets/Section1/icon-play.svg";
@@ -9,7 +8,7 @@ import TrailerMovie from "@components/TrailerMovie";
 const dataSlide = [
   {
     id: 1,
-    bgImage: bgSlide1,
+    bgImage: "hero/bg-image1.svg",
     title: "Avatar: The Way of Water (3D)",
     genre: "Action, Adventure",
     time: "2hr 35mins",
