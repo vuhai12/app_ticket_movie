@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "store/hook";
 import { fetchMovies } from "store/slices/movieSlice";
 import TrailerMovie from "@components/TrailerMovie";
+import LoadingSpinner from "@components/LoadingSpinner";
 
 const dataSection1 = [
   { id: 1, status: "now_showing", name: "Now Showing" },
@@ -17,7 +18,7 @@ const Section1 = () => {
   const [trailerUrl, setTrailerUrl] = useState<string | null>(null);
 
   const dispatch = useAppDispatch();
-  const { data } = useAppSelector((state) => state.movies);
+  const { data, loading } = useAppSelector((state) => state.movies);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -74,75 +75,82 @@ const Section1 = () => {
         </div>
 
         {/* ================= MOVIE GRID ================= */}
+
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-8 pt-10">
-          {data?.dataMovies?.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05, duration: 0.4 }}
-              viewport={{ once: true }}
-              className="group relative rounded-xl overflow-hidden transition duration-300 hover:-translate-y-2"
-            >
-              {/* Poster */}
-              <div
-                onClick={() => handleShowTrailerMovie(item.trailer_url)}
-                className="relative cursor-pointer"
+          {loading ? (
+            <LoadingSpinner />
+          ) : data?.dataMovies?.length === 0 ? (
+            " No movies available"
+          ) : (
+            data?.dataMovies?.map((item, index) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05, duration: 0.4 }}
+                viewport={{ once: true }}
+                className="group relative rounded-xl overflow-hidden transition duration-300 hover:-translate-y-2"
               >
-                <motion.img
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.4 }}
-                  src={item.poster_url}
-                  alt={item.title}
-                  className="w-full aspect-[2/3] object-cover rounded-xl"
-                />
+                {/* Poster */}
+                <div
+                  onClick={() => handleShowTrailerMovie(item.trailer_url)}
+                  className="relative cursor-pointer"
+                >
+                  <motion.img
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.4 }}
+                    src={item.poster_url}
+                    alt={item.title}
+                    className="w-full aspect-[2/3] object-cover rounded-xl"
+                  />
 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-                  <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    className="w-16 h-16 border-2 border-white rounded-full flex items-center justify-center backdrop-blur-sm"
-                  >
-                    <img
-                      src={iconPlay}
-                      className="w-5"
-                      alt="play"
-                      loading="lazy"
-                    />
-                  </motion.div>
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      className="w-16 h-16 border-2 border-white rounded-full flex items-center justify-center backdrop-blur-sm"
+                    >
+                      <img
+                        src={iconPlay}
+                        className="w-5"
+                        alt="play"
+                        loading="lazy"
+                      />
+                    </motion.div>
+                  </div>
                 </div>
-              </div>
 
-              {/* Info */}
-              <div className="mt-4">
-                <h5 className="text-sm md:text-base font-semibold line-clamp-1">
-                  {item.title}
-                </h5>
-                <p className="text-xs text-gray-400 mt-1 line-clamp-1">
-                  {item.category}
-                </p>
-              </div>
+                {/* Info */}
+                <div className="mt-4">
+                  <h5 className="text-sm md:text-base font-semibold line-clamp-1">
+                    {item.title}
+                  </h5>
+                  <p className="text-xs text-gray-400 mt-1 line-clamp-1">
+                    {item.category}
+                  </p>
+                </div>
 
-              {/* Buttons */}
-              <div className="mt-4 flex gap-2 opacity-0 group-hover:opacity-100 transition duration-300">
-                <motion.button
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => navigate("/booking-movie")}
-                  className="flex-1 text-xs bg-gradient-to-r from-purple-600 to-pink-600 py-2 rounded-lg hover:opacity-90 transition"
-                >
-                  Get Tickets
-                </motion.button>
+                {/* Buttons */}
+                <div className="mt-4 flex gap-2 opacity-0 group-hover:opacity-100 transition duration-300">
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => navigate("/booking-movie")}
+                    className="flex-1 text-xs bg-gradient-to-r from-purple-600 to-pink-600 py-2 rounded-lg hover:opacity-90 transition"
+                  >
+                    Get Tickets
+                  </motion.button>
 
-                <motion.button
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => navigate(`/movie/${item.id}`)}
-                  className="flex-1 text-xs border border-purple-500 py-2 rounded-lg hover:bg-purple-500 transition"
-                >
-                  Detail
-                </motion.button>
-              </div>
-            </motion.div>
-          ))}
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => navigate(`/movie/${item.id}`)}
+                    className="flex-1 text-xs border border-purple-500 py-2 rounded-lg hover:bg-purple-500 transition"
+                  >
+                    Detail
+                  </motion.button>
+                </div>
+              </motion.div>
+            ))
+          )}
         </div>
 
         {/* View All Mobile */}
