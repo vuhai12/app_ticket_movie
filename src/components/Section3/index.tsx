@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import bgImage1 from "@assets/Section3/bg-image1.svg";
+import bgImage1 from "@assets/Section3/bg-image1.webp";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "store/hook";

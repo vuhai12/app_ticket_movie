@@ -1,9 +1,9 @@
 import imageCard1 from "@assets/Section2/image-card1.svg";
 import imageCard2 from "@assets/Section2/image-card2.svg";
-import imageCard1Horizontal from "@assets/Section2/card-horolzital.png";
-import imageCard2Horizontal from "@assets/Section2/card1-horizoltal.png";
-import bgImage from "@assets/Section2/bg-image.svg";
-import border from "@assets/Section2/border.svg";
+import imageCard1Horizontal from "@assets/Section2/card-horolzital.webp";
+import imageCard2Horizontal from "@assets/Section2/card1-horizoltal.webp";
+import bgImage from "@assets/Section2/bg-image.webp";
+import border from "@assets/Section2/border.webp";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
