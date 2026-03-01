@@ -4,7 +4,6 @@ import { X } from "lucide-react";
 import classNames from "classnames";
 import { fetchCinemas } from "store/slices/cinemaSlice";
 import { useAppDispatch, useAppSelector } from "store/hook";
-import LoadingSpinner from "@components/LoadingSpinner";
 
 interface Props {
   setIsPopupTheatreLocations: (value: boolean) => void;
@@ -50,7 +49,7 @@ const TheatreLocations = ({
       />
 
       {/* Modal */}
-      <div className="relative bg-white w-[95%] sm:w-[600px] max-h-[85vh] rounded-2xl shadow-2xl p-6 sm:p-8 animate-fadeIn">
+      <div className="relative bg-white w-[95%]  sm:w-[600px] max-h-[85vh] rounded-2xl shadow-2xl p-6 sm:p-8 animate-fadeIn">
         {/* Close button */}
         <div className="absolute top-4 right-4">
           <X
@@ -65,9 +64,18 @@ const TheatreLocations = ({
         </h3>
 
         {/* Content */}
+
         {loading ? (
-          <div className="flex justify-center py-10">
-            <LoadingSpinner />
+          <div className="flex flex-col gap-4">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className="animate-pulse rounded-xl p-4 border border-gray-200"
+              >
+                <div className="h-4 w-1/2 bg-gray-200 rounded mb-2" />
+                <div className="h-3 w-3/4 bg-gray-200 rounded" />
+              </div>
+            ))}
           </div>
         ) : (
           <div className="flex flex-col gap-4 overflow-y-auto max-h-[60vh] pr-2">

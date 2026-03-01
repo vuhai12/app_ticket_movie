@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "store/hook";
 import { fetchMovies } from "store/slices/movieSlice";
 import TrailerMovie from "@components/TrailerMovie";
-import LoadingSpinner from "@components/LoadingSpinner";
 
 const dataSection1 = [
   { id: 1, status: "now_showing", name: "Now Showing" },
@@ -76,13 +75,21 @@ const Section1 = () => {
 
         {/* ================= MOVIE GRID ================= */}
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-8 pt-10">
-          {loading ? (
-            <LoadingSpinner />
-          ) : data?.dataMovies?.length === 0 ? (
-            " No movies available"
-          ) : (
-            data?.dataMovies?.map((item, index) => (
+        {loading && !data?.dataMovies?.length ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-8 pt-10">
+            {[...Array(10)].map((_, i) => (
+              <div key={i} className="animate-pulse">
+                <div className="w-full aspect-[2/3] bg-gray-700 rounded-xl"></div>
+                <div className="mt-4 h-4 bg-gray-700 rounded w-3/4"></div>
+                <div className="mt-2 h-3 bg-gray-700 rounded w-1/2"></div>
+              </div>
+            ))}
+          </div>
+        ) : data?.dataMovies?.length === 0 ? (
+          "No movies available"
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-8 pt-10">
+            {data?.dataMovies?.map((item, index) => (
               <motion.div
                 key={item.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -149,9 +156,9 @@ const Section1 = () => {
                   </motion.button>
                 </div>
               </motion.div>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* View All Mobile */}
         <div className="flex justify-center md:hidden pt-10">
