@@ -37,7 +37,7 @@ const Section1 = () => {
       viewport={{ once: true }}
       className="py-20 bg-[#0f0516]"
     >
-      <div className="container px-6 lg:px-12 text-white">
+      <div className="container px-[20px] lg:px-12 text-white">
         {/* ================= HEADER ================= */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-b border-[#451662] pb-6">
           {/* Tabs */}
@@ -76,7 +76,7 @@ const Section1 = () => {
         {/* ================= MOVIE GRID ================= */}
 
         {loading && !data?.dataMovies?.length ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-8 pt-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6 sm:gap-8 pt-10">
             {[...Array(10)].map((_, i) => (
               <div key={i} className="animate-pulse">
                 <div className="w-full aspect-[2/3] bg-gray-700 rounded-xl"></div>
@@ -88,7 +88,7 @@ const Section1 = () => {
         ) : data?.dataMovies?.length === 0 ? (
           "No movies available"
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-8 pt-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6 sm:gap-8 pt-10">
             {data?.dataMovies?.map((item, index) => (
               <motion.div
                 key={item.id}

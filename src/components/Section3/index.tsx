@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import bgImage1 from "@assets/Section3/bg-image1.webp";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "store/hook";
@@ -10,6 +9,8 @@ import {
   createVotesMovie,
   createVotesMovieBulk,
 } from "store/slices/votesMovieSlice";
+
+import bgImage1 from "@assets/Section3/bg-image1.webp";
 
 const ratingData = [
   { id: 1, lable: "Good", value: 60 },
@@ -149,7 +150,7 @@ const Section3 = () => {
       viewport={{ once: true }}
       className="py-20 bg-[#0f0516] text-white"
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-[20px] lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
           {/* LEFT */}
           <div className="lg:col-span-3 flex flex-col gap-10">
