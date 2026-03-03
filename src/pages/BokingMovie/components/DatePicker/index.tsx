@@ -1,14 +1,4 @@
-import classNames from "classnames";
-
-const dataDate = [
-  { id: 1, day: 20, weekday: "Monday", month: "Oct" },
-  { id: 2, day: 21, weekday: "Tuesday", month: "Oct" },
-  { id: 3, day: 22, weekday: "Wednesday", month: "Oct" },
-  { id: 4, day: 23, weekday: "Thursday", month: "Oct" },
-  { id: 5, day: 24, weekday: "Friday", month: "Oct" },
-  { id: 6, day: 25, weekday: "Saturday", month: "Oct" },
-  { id: 7, day: 26, weekday: "Sunday", month: "Oct" },
-];
+import { dataDate } from "@constants/dataDate";
 
 const DatePicker = ({
   weekday,
@@ -17,7 +7,7 @@ const DatePicker = ({
   weekday: string | null;
   setWeekday: (weekday: string | null) => void;
 }) => {
-  const handlePickDate = (weekday: string) => {
+  const handleChangeDay = (weekday: string) => {
     setWeekday(weekday);
   };
 
@@ -26,30 +16,36 @@ const DatePicker = ({
       <h3 className="text-lg text-white font-semibold">Select Date</h3>
 
       {/* Scroll ngang trên mobile */}
-      <div className="flex gap-4 overflow-x-auto pb-2 hide-scrollbar">
-        {dataDate.map((item) => {
-          const isActive = weekday === item.weekday;
+      <div className="relative">
+        <div className="flex gap-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory pb-4 border-b border-purple-700">
+          {dataDate.map((item) => {
+            const active = item.weekday === weekday;
 
-          return (
-            <div
-              key={item.id}
-              onClick={() => handlePickDate(item.weekday)}
-              className={classNames(
-                "min-w-[100px] cursor-pointer flex flex-col gap-2 p-4 rounded-xl border transition-all duration-200",
-                isActive
-                  ? "bg-purple-700 border-purple-600 text-white scale-105 shadow-lg"
-                  : "bg-[#1f1f1f] border-white/10 text-gray-300 hover:bg-purple-800/40 hover:scale-105",
-              )}
-            >
-              <p className="text-xs">
-                <span className="text-lg font-bold">{item.day}</span>{" "}
-                {item.month}
-              </p>
+            return (
+              <div
+                key={item.id}
+                onClick={() => handleChangeDay(item.weekday)}
+                className={`
+            min-w-[95px] snap-start text-center cursor-pointer rounded-2xl p-4 transition-all duration-300
+            ${
+              active
+                ? "bg-gradient-to-br from-purple-600 to-pink-500 text-white scale-105 shadow-lg"
+                : "bg-[#1f1f1f] text-gray-300 hover:bg-[#2a2a2a]"
+            }
+          `}
+              >
+                <h3 className="text-lg font-semibold">
+                  {item.day}
+                  <span className="text-xs ml-1 opacity-80">{item.month}</span>
+                </h3>
+                <p className="text-xs mt-1">{item.weekday}</p>
+              </div>
+            );
+          })}
+        </div>
 
-              <p className="text-sm font-semibold">{item.weekday}</p>
-            </div>
-          );
-        })}
+        <div className="pointer-events-none absolute left-0 top-0 h-full w-6 bg-gradient-to-r from-[#15061e] to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-6 bg-gradient-to-l from-[#15061e] to-transparent" />
       </div>
     </div>
   );

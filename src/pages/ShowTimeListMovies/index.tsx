@@ -4,16 +4,7 @@ import ShowTimeItem from "./components/ShowTimeItem";
 import { useAppDispatch, useAppSelector } from "store/hook";
 import { fetchMoviesWithShowtimes } from "store/slices/moviesWithShowtimesSlice";
 import TheatreLocations from "@components/TheatreLocations";
-
-const dateInfo = [
-  { id: 1, day: 20, weekday: "Monday", month: "Oct" },
-  { id: 2, day: 21, weekday: "Tuesday", month: "Oct" },
-  { id: 3, day: 22, weekday: "Wednesday", month: "Oct" },
-  { id: 4, day: 23, weekday: "Thursday", month: "Oct" },
-  { id: 5, day: 24, weekday: "Friday", month: "Oct" },
-  { id: 6, day: 25, weekday: "Saturday", month: "Oct" },
-  { id: 7, day: 26, weekday: "Sunday", month: "Oct" },
-];
+import { dataDate } from "@constants/dataDate";
 
 const ShowTimeListMovies = () => {
   const dispatch = useAppDispatch();
@@ -90,10 +81,9 @@ const ShowTimeListMovies = () => {
         </div>
 
         {/* Date selector */}
-        {/* Date selector */}
         <div className="relative">
           <div className="flex gap-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory pb-4 border-b border-purple-700">
-            {dateInfo.map((item) => {
+            {dataDate.map((item) => {
               const active = item.weekday === weekday;
 
               return (

@@ -241,10 +241,15 @@ const Section3 = () => {
                         onChange={() => handleChecked(item.id, item.lable)}
                       />
                       <div
-                        className={`w-5 h-5 rounded-full border-2 border-white ${
-                          active === item.id && "bg-white"
-                        }`}
-                      />
+                        className={`w-5 h-5 rounded-full border-2 border-white flex items-center justify-center`}
+                      >
+                        <div
+                          className={`${
+                            active === item.id &&
+                            "bg-white w-2 h-2 rounded-full border-2 border-white "
+                          }`}
+                        />
+                      </div>
                       <span className="text-sm">{item.lable}</span>
                     </div>
                   </label>

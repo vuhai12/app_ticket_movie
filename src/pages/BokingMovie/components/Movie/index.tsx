@@ -32,8 +32,9 @@ const Movie = ({
               className="flex flex-col gap-[10px]"
               onClick={() => handlePickMovie(item.id)}
             >
-              <div className="rounded-[5px] overflow-hidden relative bg-red-400">
+              <div className="rounded-[5px] overflow-hidden relative">
                 <img
+                  loading="lazy"
                   src={item.poster_url}
                   className="h-full object-cover object-center w-full"
                 />
