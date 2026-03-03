@@ -82,7 +82,7 @@ const AboutUs = () => {
 
             {/* CTA Section */}
             <div className="text-center mt-20">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-6">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-10">
                 Ready for the Ultimate Movie Experience?
               </h2>
               <Link

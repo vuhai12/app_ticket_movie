@@ -4,6 +4,31 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "store/hook";
 import { fetchNews } from "store/slices/newsSlice";
 import { useNavigate } from "react-router-dom";
+import { motion, Variants } from "framer-motion";
+
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const cardVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
 
 const NewList = () => {
   const [pageCurrent, setPageCurrent] = useState(1);
@@ -31,16 +56,30 @@ const NewList = () => {
             {/* ===== LEFT MAIN NEWS ===== */}
             <div className="lg:col-span-3 flex flex-col gap-10">
               {/* Section Title */}
-              <div className="flex items-center gap-4">
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="flex items-center gap-4"
+              >
                 <div className="w-1 h-12 bg-gradient-to-b from-purple-600 to-pink-600 rounded-full" />
                 <h2 className="text-2xl md:text-3xl font-bold">Latest News</h2>
-              </div>
+              </motion.div>
 
               {/* News Grid */}
-              <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
+              <motion.div
+                key={pageCurrent}
+                variants={containerVariants}
+                initial="hidden"
+                animate="show"
+                className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8"
+              >
                 {newsToShow?.map((item) => (
-                  <div
+                  <motion.div
                     key={item.id}
+                    variants={cardVariants}
+                    whileHover={{ y: -6 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => navigate(`/news-item/${item.id}`)}
                     className="group cursor-pointer bg-[#1e0d28] rounded-2xl overflow-hidden shadow-lg hover:shadow-purple-600/20 transition duration-300"
                   >
@@ -49,6 +88,7 @@ const NewList = () => {
                       <img
                         loading="lazy"
                         src={item.poster_url}
+                        alt={item.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                       />
                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition" />
@@ -63,9 +103,9 @@ const NewList = () => {
                         {item.desciption}
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
 
               {/* Pagination */}
               <Pagination
@@ -77,15 +117,22 @@ const NewList = () => {
             </div>
 
             {/* ===== RIGHT SIDEBAR ===== */}
-            <div className="flex flex-col gap-8">
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="flex flex-col gap-8"
+            >
               <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-3 rounded-xl text-sm font-semibold">
                 Recent News
               </div>
 
               <div className="flex flex-col gap-6 lg:sticky lg:top-24">
                 {data?.slice(0, 5).map((item) => (
-                  <div
+                  <motion.div
                     key={item.id}
+                    whileHover={{ x: 5 }}
                     onClick={() => navigate(`/news-item/${item.id}`)}
                     className="flex gap-4 cursor-pointer group"
                   >
@@ -93,6 +140,7 @@ const NewList = () => {
                       <img
                         loading="lazy"
                         src={item.poster_url}
+                        alt={item.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                       />
                     </div>
@@ -105,10 +153,10 @@ const NewList = () => {
                         {item.desciption}
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
