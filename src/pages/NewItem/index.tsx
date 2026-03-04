@@ -25,15 +25,14 @@ const NewItem = () => {
   return (
     <MainLayout>
       <motion.div
-        key={id} // 👈 quan trọng để animate lại khi đổi bài
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
-        className="max-w-[1200px] mx-auto px-4 lg:px-6 mt-12 pb-16"
+        className="container lg:px-6 mt-12 pb-16"
       >
-        <div className="grid lg:grid-cols-4 gap-10">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-10 grid-cols-1">
           {/* ================= LEFT CONTENT ================= */}
-          <div className="lg:col-span-3 flex flex-col gap-8 text-white">
+          <div className="lg:col-span-3 flex flex-col gap-8 text-white ">
             {/* Image */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -79,13 +78,13 @@ const NewItem = () => {
               <form>
                 <div className="flex flex-col gap-6">
                   {/* Name & Email */}
-                  <div className="grid sm:grid-cols-2 gap-6">
-                    <div className="flex flex-col gap-2">
+                  <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
+                    <div className="flex flex-col gap-2 w-full ">
                       <label className="text-sm text-gray-400">Nick Name</label>
                       <input
                         type="text"
                         placeholder="Your name"
-                        className="px-4 py-3 rounded-xl bg-[#230c34] border border-[#2e1b47] focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
+                        className="px-4 py-3  w-full rounded-xl bg-[#230c34] border border-[#2e1b47] focus:outline-none focus:ring-2 focus:ring-[#5f1a89] transition"
                       />
                     </div>
 
