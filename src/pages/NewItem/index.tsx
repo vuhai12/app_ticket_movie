@@ -38,15 +38,19 @@ const NewItem = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="w-full h-[250px] sm:h-[350px] lg:h-[450px] rounded-2xl overflow-hidden shadow-lg"
+              className="relative w-full h-[250px] sm:h-[350px] lg:h-[450px] rounded-2xl overflow-hidden shadow-xl group"
             >
+              {/* Image */}
               <motion.img
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.4 }}
-                className="w-full h-full object-cover"
+                whileHover={{ scale: 1.08 }}
+                transition={{ duration: 0.5 }}
+                className="w-full h-full object-cover brightness-90 group-hover:brightness-75 transition duration-500"
                 src={item?.poster_url}
                 alt={item?.title}
               />
+
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
             </motion.div>
 
             {/* Title & Content */}
