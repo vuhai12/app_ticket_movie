@@ -5,9 +5,11 @@ import Footer from "../../components/Footer";
 const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <Header />
-      <div className="overflow-hidden">{children}</div>
-      <Footer />
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <div className="overflow-hidden flex-1">{children}</div>
+        <Footer />
+      </div>
     </>
   );
 };
