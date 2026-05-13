@@ -2,10 +2,10 @@ import { Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import PublicRoute from "@routes/PublicRoute";
 import PrivateRoutes from "@routes/PrivateRoutes";
-import ChatBox from "@components/ChatBox";
 import ScrollHandler from "@components/ScrollHandler";
 import { Suspense, lazy } from "react";
 import LoadingSpinner from "@components/LoadingSpinner";
+import ScrollToTop from "@components/ScrollToTop";
 
 const HomePage = lazy(() => import("@pages/HomePage"));
 const MovieDetail = lazy(() => import("@pages/MovieDetail"));
@@ -26,7 +26,8 @@ const AdminDashboard = lazy(() => import("@pages/AdminDashboard"));
 function App() {
   return (
     <>
-      <ChatBox />
+      {/* <ChatBox /> */}
+      <ScrollToTop />
       <ScrollHandler />
       <Toaster position="top-right" />
       <Suspense fallback={<LoadingSpinner />}>
